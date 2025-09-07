@@ -19,7 +19,11 @@ export const metadata: Metadata = {
   description: "Kismet Çelik Kapı - Güvenlik kapıları, çelik kapılar, apartman kapıları ve özel tasarım kapılar. Kaliteli üretim, uygun fiyat, hızlı teslimat.",
   keywords: "çelik kapı, güvenlik kapısı, apartman kapısı, kapı üretimi, İstanbul çelik kapı",
   authors: [{ name: "Kismet Çelik Kapı" }],
-  viewport: "width=device-width, initial-scale=1",
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({
