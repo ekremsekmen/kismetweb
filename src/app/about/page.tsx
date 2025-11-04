@@ -69,13 +69,13 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-900 to-gray-900 text-white py-20">
+      <section className="bg-gradient-to-r from-[#1a1a1a] via-[#2a2a2a] to-[#1a1a1a] text-white py-20 mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6">
-              <span className="text-blue-400">Kismet Çelik Kapı</span> Hakkında
+            <h1 className="font-montserrat text-4xl lg:text-5xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-[#d4af37] via-[#f4d03f] to-[#b8941f] bg-clip-text text-transparent">Kismet Çelik Kapı</span> Hakkında
             </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <p className="font-roboto text-xl text-gray-300 max-w-3xl mx-auto">
               1995'ten beri güvenlik ve kalitede öncü. 25 yıllık deneyimimiz ile sizlere en iyi hizmeti sunuyoruz.
             </p>
           </div>
@@ -86,9 +86,9 @@ export default function AboutPage() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Hikayemiz</h2>
-              <div className="space-y-4 text-gray-600 text-lg">
+            <div className="animate-fade-in-up">
+              <h2 className="font-montserrat text-3xl font-bold text-gray-900 mb-6 luxury-text">Hikayemiz</h2>
+              <div className="space-y-4 text-gray-600 text-lg font-roboto">
                 <p>
                   1995 yılında İstanbul'da küçük bir atölyede başlayan yolculuğumuz, bugün binlerce mutlu müşteriye hizmet veren 
                   güçlü bir firmaya dönüştü. Kurucumuz Ahmet Yılmaz'ın vizyonu ile başlayan bu macera, kalite ve güven üzerine kurulu 
@@ -105,23 +105,27 @@ export default function AboutPage() {
               </div>
             </div>
             
-            <div className="bg-gradient-to-br from-blue-50 to-gray-50 rounded-2xl p-8">
+            <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 shadow-xl animate-fade-in-up border-2 border-[#d4af37]/20" style={{animationDelay: '0.2s'}}>
               <div className="grid grid-cols-2 gap-8">
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-blue-600 mb-2">25+</div>
-                  <div className="text-gray-600">Yıllık Deneyim</div>
+                <div className="text-center modern-card p-4 bg-white rounded-xl">
+                  <div className="text-4xl font-bold gradient-text mb-2 font-montserrat">25+</div>
+                  <div className="text-gray-600 font-roboto">Yıllık Deneyim</div>
+                  <div className="w-8 h-1 bg-gradient-to-r from-[#d4af37] to-[#b8941f] mx-auto mt-2 rounded-full"></div>
                 </div>
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-blue-600 mb-2">5000+</div>
-                  <div className="text-gray-600">Mutlu Müşteri</div>
+                <div className="text-center modern-card p-4 bg-white rounded-xl">
+                  <div className="text-4xl font-bold gradient-text mb-2 font-montserrat">5000+</div>
+                  <div className="text-gray-600 font-roboto">Mutlu Müşteri</div>
+                  <div className="w-8 h-1 bg-gradient-to-r from-[#d4af37] to-[#b8941f] mx-auto mt-2 rounded-full"></div>
                 </div>
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-blue-600 mb-2">50+</div>
-                  <div className="text-gray-600">Uzman Personel</div>
+                <div className="text-center modern-card p-4 bg-white rounded-xl">
+                  <div className="text-4xl font-bold gradient-text mb-2 font-montserrat">50+</div>
+                  <div className="text-gray-600 font-roboto">Uzman Personel</div>
+                  <div className="w-8 h-1 bg-gradient-to-r from-[#d4af37] to-[#b8941f] mx-auto mt-2 rounded-full"></div>
                 </div>
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-blue-600 mb-2">24/7</div>
-                  <div className="text-gray-600">Destek Hizmet</div>
+                <div className="text-center modern-card p-4 bg-white rounded-xl">
+                  <div className="text-4xl font-bold gradient-text mb-2 font-montserrat">24/7</div>
+                  <div className="text-gray-600 font-roboto">Destek Hizmet</div>
+                  <div className="w-8 h-1 bg-gradient-to-r from-[#d4af37] to-[#b8941f] mx-auto mt-2 rounded-full"></div>
                 </div>
               </div>
             </div>
@@ -130,27 +134,30 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Yolculuğumuz</h2>
-            <p className="text-lg text-gray-600">25 yıllık serüvenimizin önemli dönüm noktaları</p>
+          <div className="text-center mb-16 animate-fade-in-up">
+            <h2 className="font-montserrat text-3xl font-bold text-gray-900 mb-4 luxury-text">Yolculuğumuz</h2>
+            <p className="font-roboto text-lg text-gray-600">25 yıllık serüvenimizin önemli dönüm noktaları</p>
+            <div className="mt-6 flex justify-center">
+              <div className="w-24 h-1 bg-gradient-to-r from-[#d4af37] to-[#b8941f] rounded-full"></div>
+            </div>
           </div>
 
           <div className="relative">
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-blue-200"></div>
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-[#d4af37] to-[#b8941f] opacity-30"></div>
             
             {milestones.map((milestone, index) => (
-              <div key={index} className={`relative flex items-center mb-8 ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
+              <div key={index} className={`relative flex items-center mb-8 animate-fade-in-up ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`} style={{animationDelay: `${index * 0.1}s`}}>
                 <div className={`w-full lg:w-5/12 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
-                  <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
-                    <div className="text-2xl font-bold text-blue-600 mb-2">{milestone.year}</div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{milestone.title}</h3>
-                    <p className="text-gray-600">{milestone.description}</p>
+                  <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-2xl transition-all duration-300 border-l-4 border-[#d4af37] modern-card">
+                    <div className="text-2xl font-bold gradient-text mb-2 font-montserrat">{milestone.year}</div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2 font-montserrat">{milestone.title}</h3>
+                    <p className="text-gray-600 font-roboto">{milestone.description}</p>
                   </div>
                 </div>
                 
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow-lg"></div>
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gradient-to-br from-[#d4af37] to-[#b8941f] rounded-full border-4 border-white shadow-lg golden-glow"></div>
               </div>
             ))}
           </div>
@@ -160,17 +167,21 @@ export default function AboutPage() {
       {/* Values Section */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Değerlerimiz</h2>
-            <p className="text-lg text-gray-600">Bizi biz yapan temel değerler</p>
+          <div className="text-center mb-16 animate-fade-in-up">
+            <h2 className="font-montserrat text-3xl font-bold text-gray-900 mb-4 luxury-text">Değerlerimiz</h2>
+            <p className="font-roboto text-lg text-gray-600">Bizi biz yapan temel değerler</p>
+            <div className="mt-6 flex justify-center">
+              <div className="w-24 h-1 bg-gradient-to-r from-[#d4af37] to-[#b8941f] rounded-full"></div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
-              <div key={index} className="text-center group">
+              <div key={index} className="text-center group animate-fade-in-up bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-[#d4af37]/50 modern-card" style={{animationDelay: `${index * 0.1}s`}}>
                 <div className="text-6xl mb-4 group-hover:scale-110 transition-transform">{value.icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{value.title}</h3>
-                <p className="text-gray-600">{value.description}</p>
+                <h3 className="font-montserrat text-xl font-semibold text-gray-900 mb-3 group-hover:text-[#b8941f] transition-colors">{value.title}</h3>
+                <p className="font-roboto text-gray-600">{value.description}</p>
+                <div className="mt-4 w-12 h-1 bg-gradient-to-r from-[#d4af37] to-[#b8941f] mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
             ))}
           </div>
@@ -178,23 +189,26 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Ekibimiz</h2>
-            <p className="text-lg text-gray-600">Deneyimli ve uzman kadromuz</p>
+          <div className="text-center mb-16 animate-fade-in-up">
+            <h2 className="font-montserrat text-3xl font-bold text-gray-900 mb-4 luxury-text">Ekibimiz</h2>
+            <p className="font-roboto text-lg text-gray-600">Deneyimli ve uzman kadromuz</p>
+            <div className="mt-6 flex justify-center">
+              <div className="w-24 h-1 bg-gradient-to-r from-[#d4af37] to-[#b8941f] rounded-full"></div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {team.map((member, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow">
-                <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-blue-800 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold">
+              <div key={index} className="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-2xl transition-all duration-300 modern-card border border-gray-100 hover:border-[#d4af37]/50 animate-fade-in-up" style={{animationDelay: `${index * 0.1}s`}}>
+                <div className="w-20 h-20 bg-gradient-to-br from-[#d4af37] to-[#b8941f] rounded-full mx-auto mb-4 flex items-center justify-center text-[#1a1a1a] text-2xl font-bold shadow-lg golden-glow font-montserrat">
                   {member.name.split(' ').map(n => n[0]).join('')}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{member.name}</h3>
-                <div className="text-blue-600 font-medium mb-2">{member.position}</div>
-                <div className="text-sm text-gray-500 mb-3">{member.experience}</div>
-                <p className="text-gray-600 text-sm">{member.description}</p>
+                <h3 className="font-montserrat text-xl font-semibold text-gray-900 mb-2">{member.name}</h3>
+                <div className="text-[#d4af37] font-medium mb-2 font-roboto">{member.position}</div>
+                <div className="text-sm text-gray-500 mb-3 font-roboto">{member.experience}</div>
+                <p className="text-gray-600 text-sm font-roboto">{member.description}</p>
               </div>
             ))}
           </div>
@@ -202,24 +216,24 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-blue-600 py-16">
+      <section className="bg-gradient-to-r from-[#1a1a1a] via-[#2a2a2a] to-[#1a1a1a] py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
+          <h2 className="font-montserrat text-3xl font-bold text-white mb-4">
             Bizimle Çalışmaya Hazır mısınız?
           </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+          <p className="font-roboto text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
             25 yıllık deneyimimiz ve kaliteli hizmet anlayışımız ile projelerinizde yanınızdayız.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
               href="/contact" 
-              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
+              className="font-montserrat bg-gradient-to-r from-[#d4af37] to-[#b8941f] hover:from-[#b8941f] hover:to-[#d4af37] text-[#1a1a1a] px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-[0_0_30px_rgba(212,175,55,0.5)]"
             >
               İletişime Geç
             </a>
             <a 
               href="/products" 
-              className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
+              className="font-montserrat border-2 border-[#d4af37] text-[#d4af37] hover:bg-[#d4af37] hover:text-[#1a1a1a] px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300"
             >
               Ürünlerimizi İncele
             </a>

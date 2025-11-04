@@ -14,8 +14,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-roboto);
+  --font-heading: var(--font-montserrat);
   
   /* Custom colors */
   --color-gold: var(--gold);
@@ -52,8 +52,22 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-roboto), system-ui, -apple-system, sans-serif;
   line-height: 1.6;
+}
+
+/* Font families */
+.font-montserrat {
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.font-roboto {
+  font-family: var(--font-roboto), sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-montserrat), sans-serif;
+  font-weight: 700;
 }
 
 /* Focus styles for accessibility */
