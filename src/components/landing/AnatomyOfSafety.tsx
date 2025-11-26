@@ -60,8 +60,8 @@ export default function AnatomyOfSafety() {
                 </div>
             </div>
 
-            {/* eslint-disable-next-line @next/next/no-page-custom-font, @next/next/google-font-display */}
-            <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+            {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+            <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=optional" rel="stylesheet" />
         </section>
     );
 }

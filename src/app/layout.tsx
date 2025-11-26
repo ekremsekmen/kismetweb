@@ -3,7 +3,9 @@ import { Space_Grotesk, Syne, Oswald } from "next/font/google";
 import "./globals.css";
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-// import Chatbot from '@/components/Chatbot'; // Temporarily disabled or needs update
+import SmoothScroll from '@/components/providers/SmoothScroll';
+import CustomCursor from '@/components/ui/CustomCursor';
+import Preloader from '@/components/ui/Preloader';
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -25,8 +27,8 @@ const oswald = Oswald({
 
 export const metadata: Metadata = {
   title: "Öz Kısmet - Forged in Steel",
-  description: "Engineering Secure Entrances. Security, Technology, Durability, Design.",
-  keywords: "steel doors, security, engineering, design, Öz Kısmet",
+  description: "Engineering Secure Entrances since 1995. Security, Technology, Durability, Design.",
+  keywords: "steel doors, security, engineering, design, Öz Kısmet, çelik kapı",
 };
 
 export const viewport = {
@@ -44,12 +46,15 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} ${syne.variable} ${oswald.variable} antialiased bg-background-dark text-steel font-display`}
       >
-        <Header />
-        <main>
-          {children}
-        </main>
-        <Footer />
-        {/* <Chatbot /> */}
+        <SmoothScroll>
+          <Preloader />
+          <CustomCursor />
+          <Header />
+          <main>
+            {children}
+          </main>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );
