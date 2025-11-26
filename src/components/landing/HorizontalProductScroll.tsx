@@ -8,41 +8,41 @@ const products = [
   {
     id: 1,
     name: 'TITANIUM',
-    series: 'Maximum Security',
-    description: 'Military-grade protection for high-risk environments',
-    features: ['RC6', 'Bulletproof', 'Fire Resistant'],
+    series: 'Maksimum Güvenlik',
+    description: 'Yüksek riskli ortamlar için askeri sınıf koruma',
+    features: ['RC6', 'Kurşun Geçirmez', 'Yangın Dayanıklı'],
     href: '/products/yuksek-guvenlik'
   },
   {
     id: 2,
     name: 'AURA',
-    series: 'Modern Series',
-    description: 'Minimalist design meets maximum security',
-    features: ['RC3', 'Smart Lock Ready', 'Sound Insulated'],
+    series: 'Modern Seri',
+    description: 'Minimalist tasarım, maksimum güvenlik',
+    features: ['RC3', 'Akıllı Kilit', 'Ses Yalıtımlı'],
     href: '/products/tek-kanatli'
   },
   {
     id: 3,
     name: 'VILLA-01',
-    series: 'Villa Collection',
-    description: 'Grand entrances for prestigious properties',
-    features: ['RC4', 'Double Leaf', 'Custom Design'],
+    series: 'Villa Koleksiyonu',
+    description: 'Prestijli mülkler için görkemli girişler',
+    features: ['RC4', 'Çift Kanat', 'Özel Tasarım'],
     href: '/products/villa-kapilari'
   },
   {
     id: 4,
     name: 'PHOENIX',
-    series: 'Fire Series',
-    description: 'EI120 rated fire protection',
-    features: ['EI120', 'Smoke Seal', 'Auto Close'],
+    series: 'Yangın Serisi',
+    description: 'EI120 sınıfı yangın koruması',
+    features: ['EI120', 'Duman Sızdırmaz', 'Otomatik Kapanış'],
     href: '/products/yangin-kapilari'
   },
   {
     id: 5,
     name: 'SMART',
-    series: 'Technology Series',
-    description: 'Biometric access for the future',
-    features: ['Biometric', 'App Control', 'Face ID'],
+    series: 'Teknoloji Serisi',
+    description: 'Geleceğin biyometrik erişimi',
+    features: ['Biyometrik', 'Uygulama', 'Yüz Tanıma'],
     href: '/products/akilli-kilitli'
   }
 ]
@@ -58,14 +58,14 @@ export default function HorizontalProductScroll() {
   return (
     <section ref={targetRef} className="relative h-[300vh]">
       {/* Sticky container */}
-      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden bg-background-dark">
         {/* Section header */}
         <div className="px-6 sm:px-10 lg:px-20 mb-10">
           <p className="text-primary text-sm font-medium tracking-[0.3em] uppercase mb-3 font-display">
-            THE COLLECTION
+            KOLEKSİYON
           </p>
           <h2 className="text-steel text-3xl sm:text-4xl md:text-5xl font-bold font-syne tracking-tight">
-            ENGINEERED FOR <span className="text-primary">EXCELLENCE</span>
+            MÜKEMMELLİK İÇİN <span className="text-gradient">MÜHENDİSLİK</span>
           </h2>
         </div>
 
@@ -78,22 +78,25 @@ export default function HorizontalProductScroll() {
             <Link
               key={product.id}
               href={product.href}
-              className="flex-shrink-0 w-[300px] sm:w-[350px] glass-panel rounded-xl overflow-hidden group hover:border-primary/30 transition-colors"
+              className="flex-shrink-0 w-[300px] sm:w-[350px] glass-panel rounded-xl overflow-hidden group hover:border-primary/30 transition-all duration-300"
             >
               {/* Product image placeholder */}
-              <div className="relative h-[200px] sm:h-[250px] bg-gradient-to-br from-steel/10 to-background-dark overflow-hidden">
+              <div className="relative h-[200px] sm:h-[250px] bg-gradient-to-br from-background-tertiary to-background-dark overflow-hidden">
                 {/* Product number */}
-                <span className="absolute top-4 left-4 text-primary/20 text-6xl font-syne font-bold">
+                <span className="absolute top-4 left-4 text-primary/10 text-6xl font-syne font-bold">
                   0{index + 1}
                 </span>
 
                 {/* Simple door illustration */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-24 h-40 bg-gradient-to-b from-steel/20 to-steel/5 rounded-lg border border-white/10 relative group-hover:scale-105 transition-transform">
-                    <div className="absolute right-2 top-1/2 -translate-y-1/2 w-2 h-6 bg-primary rounded-full" />
-                    <div className="absolute inset-2 border border-white/5 rounded" />
+                  <div className="w-24 h-40 bg-gradient-to-b from-steel-dark/30 to-steel-dark/10 rounded-lg border border-border relative group-hover:scale-105 group-hover:border-primary/30 transition-all duration-500">
+                    <div className="absolute right-2 top-1/2 -translate-y-1/2 w-2 h-6 bg-primary rounded-full shadow-[0_0_10px_rgba(201,165,92,0.5)]" />
+                    <div className="absolute inset-2 border border-border/50 rounded" />
                   </div>
                 </div>
+
+                {/* Hover gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
 
               {/* Product info */}
@@ -103,13 +106,13 @@ export default function HorizontalProductScroll() {
                     <p className="text-primary text-xs tracking-widest uppercase mb-1 font-display">
                       {product.series}
                     </p>
-                    <h3 className="text-steel text-xl font-bold font-syne group-hover:text-primary transition-colors">
+                    <h3 className="text-steel text-xl font-bold font-syne group-hover:text-primary transition-colors duration-300">
                       {product.name}
                     </h3>
                   </div>
-                  <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:border-primary group-hover:bg-primary transition-all">
+                  <div className="w-8 h-8 rounded-lg bg-background-tertiary border border-border flex items-center justify-center group-hover:border-primary group-hover:bg-primary/10 transition-all duration-300">
                     <svg 
-                      className="w-3 h-3 text-steel group-hover:text-background-dark transition-colors" 
+                      className="w-3 h-3 text-steel-muted group-hover:text-primary transition-colors duration-300" 
                       fill="none" 
                       stroke="currentColor" 
                       viewBox="0 0 24 24"
@@ -119,7 +122,7 @@ export default function HorizontalProductScroll() {
                   </div>
                 </div>
 
-                <p className="text-steel/50 text-sm mb-4 font-display line-clamp-2">
+                <p className="text-steel-muted text-sm mb-4 font-display line-clamp-2">
                   {product.description}
                 </p>
 
@@ -128,7 +131,7 @@ export default function HorizontalProductScroll() {
                   {product.features.map((feature, i) => (
                     <span
                       key={i}
-                      className="px-2 py-1 text-xs font-medium bg-white/5 border border-white/10 rounded text-steel/60 font-display"
+                      className="px-2 py-1 text-xs font-medium bg-background-tertiary border border-border rounded text-steel-muted font-display"
                     >
                       {feature}
                     </span>
@@ -141,26 +144,26 @@ export default function HorizontalProductScroll() {
           {/* View all card */}
           <Link 
             href="/products"
-            className="flex-shrink-0 w-[250px] glass-panel rounded-xl flex flex-col items-center justify-center group hover:border-primary/30 transition-colors"
+            className="flex-shrink-0 w-[250px] glass-panel rounded-xl flex flex-col items-center justify-center group hover:border-primary/30 transition-all duration-300"
           >
-            <div className="w-14 h-14 rounded-full border-2 border-steel/30 flex items-center justify-center mb-4 group-hover:border-primary group-hover:scale-110 transition-all">
-              <svg className="w-6 h-6 text-steel group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-14 h-14 rounded-xl bg-background-tertiary border border-border flex items-center justify-center mb-4 group-hover:border-primary group-hover:scale-110 transition-all duration-300">
+              <svg className="w-6 h-6 text-steel-muted group-hover:text-primary transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
               </svg>
             </div>
-            <p className="text-steel text-lg font-bold font-syne group-hover:text-primary transition-colors">
-              View All
+            <p className="text-steel text-lg font-bold font-syne group-hover:text-primary transition-colors duration-300">
+              Tümünü Gör
             </p>
-            <p className="text-steel/40 text-sm font-display">
-              50+ Models
+            <p className="text-steel-muted text-sm font-display">
+              50+ Model
             </p>
           </Link>
         </motion.div>
 
-        {/* Simple progress bar */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/10 rounded-full overflow-hidden">
+        {/* Progress bar */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-32 h-1 bg-background-tertiary rounded-full overflow-hidden">
           <motion.div
-            className="h-full bg-primary rounded-full origin-left"
+            className="h-full bg-gradient-to-r from-primary-dark to-primary rounded-full origin-left"
             style={{ scaleX: scrollYProgress }}
           />
         </div>

@@ -75,7 +75,7 @@ export default function CustomCursor() {
       {/* Main cursor dot */}
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-4 h-4 bg-primary rounded-full pointer-events-none z-[9999] mix-blend-difference will-change-transform"
+        className="fixed top-0 left-0 w-3 h-3 bg-primary rounded-full pointer-events-none z-[9999] mix-blend-difference will-change-transform"
         style={{
           opacity: isVisible ? 1 : 0,
           transition: 'opacity 0.2s',
@@ -85,11 +85,11 @@ export default function CustomCursor() {
       {/* Outer ring */}
       <div
         ref={cursorOuterRef}
-        className="fixed top-0 left-0 w-10 h-10 rounded-full pointer-events-none z-[9998] border-2 border-primary/40 will-change-transform"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9998] border border-primary/50 will-change-transform"
         style={{
-          opacity: isVisible ? 0.6 : 0,
+          opacity: isVisible ? 0.5 : 0,
           transition: 'opacity 0.2s, border-color 0.2s',
-          borderColor: isHovering ? 'rgba(242, 208, 13, 0.8)' : 'rgba(242, 208, 13, 0.4)',
+          borderColor: isHovering ? 'rgba(201, 165, 92, 0.8)' : 'rgba(201, 165, 92, 0.4)',
         }}
       />
     </>
