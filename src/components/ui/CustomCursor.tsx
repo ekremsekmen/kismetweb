@@ -1,18 +1,41 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
 
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null)
   const cursorOuterRef = useRef<HTMLDivElement>(null)
-  const [isHovering, setIsHovering] = useState(false)
-  const [isVisible, setIsVisible] = useState(false)
   const posRef = useRef({ x: 0, y: 0 })
   const targetRef = useRef({ x: 0, y: 0 })
+  const isHoveringRef = useRef(false)
+  const isVisibleRef = useRef(false)
+  const isTouchDevice = useRef(false)
+
+  const updateCursorVisibility = useCallback((visible: boolean) => {
+    if (isVisibleRef.current === visible) return
+    isVisibleRef.current = visible
+    if (cursorRef.current) {
+      cursorRef.current.style.opacity = visible ? '1' : '0'
+    }
+    if (cursorOuterRef.current) {
+      cursorOuterRef.current.style.opacity = visible ? '0.5' : '0'
+    }
+  }, [])
+
+  const updateHoverState = useCallback((hovering: boolean) => {
+    if (isHoveringRef.current === hovering) return
+    isHoveringRef.current = hovering
+    if (cursorOuterRef.current) {
+      cursorOuterRef.current.style.borderColor = hovering 
+        ? 'rgba(201, 165, 92, 0.8)' 
+        : 'rgba(201, 165, 92, 0.4)'
+    }
+  }, [])
 
   useEffect(() => {
-    // Check for touch device
-    if (window.matchMedia('(pointer: coarse)').matches) {
+    // Check for touch device once
+    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
+      isTouchDevice.current = true
       return
     }
 
@@ -20,53 +43,59 @@ export default function CustomCursor() {
 
     const moveCursor = (e: MouseEvent) => {
       targetRef.current = { x: e.clientX, y: e.clientY }
-      if (!isVisible) setIsVisible(true)
+      if (!isVisibleRef.current) updateCursorVisibility(true)
     }
 
-    // Simple lerp animation - much more performant than spring
+    // Optimized animation loop - no state updates, direct DOM manipulation
     const animate = () => {
       const lerp = 0.15
       posRef.current.x += (targetRef.current.x - posRef.current.x) * lerp
       posRef.current.y += (targetRef.current.y - posRef.current.y) * lerp
 
       if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate(${posRef.current.x - 8}px, ${posRef.current.y - 8}px)`
+        cursorRef.current.style.transform = `translate3d(${posRef.current.x - 6}px, ${posRef.current.y - 6}px, 0)`
       }
       if (cursorOuterRef.current) {
-        cursorOuterRef.current.style.transform = `translate(${posRef.current.x - 20}px, ${posRef.current.y - 20}px) scale(${isHovering ? 1.5 : 1})`
+        const scale = isHoveringRef.current ? 1.5 : 1
+        cursorOuterRef.current.style.transform = `translate3d(${posRef.current.x - 16}px, ${posRef.current.y - 16}px, 0) scale(${scale})`
       }
 
       animationId = requestAnimationFrame(animate)
     }
 
-    const handleMouseEnter = () => setIsVisible(true)
-    const handleMouseLeave = () => setIsVisible(false)
+    // Use event delegation instead of adding listeners to each element
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      if (target.closest('a, button, [data-cursor="pointer"]')) {
+        updateHoverState(true)
+      }
+    }
 
-    // Hover detection
-    const addHoverListeners = () => {
-      document.querySelectorAll('a, button, [data-cursor="pointer"]').forEach(el => {
-        el.addEventListener('mouseenter', () => setIsHovering(true))
-        el.addEventListener('mouseleave', () => setIsHovering(false))
-      })
+    const handleMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      if (target.closest('a, button, [data-cursor="pointer"]')) {
+        updateHoverState(false)
+      }
     }
 
     window.addEventListener('mousemove', moveCursor, { passive: true })
-    document.body.addEventListener('mouseenter', handleMouseEnter)
-    document.body.addEventListener('mouseleave', handleMouseLeave)
+    document.addEventListener('mouseover', handleMouseOver, { passive: true })
+    document.addEventListener('mouseout', handleMouseOut, { passive: true })
+    document.body.addEventListener('mouseleave', () => updateCursorVisibility(false))
+    document.body.addEventListener('mouseenter', () => updateCursorVisibility(true))
     
     animationId = requestAnimationFrame(animate)
-    setTimeout(addHoverListeners, 500)
 
     return () => {
       window.removeEventListener('mousemove', moveCursor)
-      document.body.removeEventListener('mouseenter', handleMouseEnter)
-      document.body.removeEventListener('mouseleave', handleMouseLeave)
+      document.removeEventListener('mouseover', handleMouseOver)
+      document.removeEventListener('mouseout', handleMouseOut)
       cancelAnimationFrame(animationId)
     }
-  }, [isHovering, isVisible])
+  }, [updateCursorVisibility, updateHoverState])
 
-  // Don't render on touch devices
-  if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
+  // Don't render on touch devices - check in SSR-safe way
+  if (isTouchDevice.current) {
     return null
   }
 
@@ -75,21 +104,23 @@ export default function CustomCursor() {
       {/* Main cursor dot */}
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-3 h-3 bg-primary rounded-full pointer-events-none z-[9999] mix-blend-difference will-change-transform"
+        className="fixed top-0 left-0 w-3 h-3 bg-primary rounded-full pointer-events-none z-[9999] mix-blend-difference"
         style={{
-          opacity: isVisible ? 1 : 0,
-          transition: 'opacity 0.2s',
+          opacity: 0,
+          willChange: 'transform',
+          backfaceVisibility: 'hidden',
         }}
       />
 
       {/* Outer ring */}
       <div
         ref={cursorOuterRef}
-        className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9998] border border-primary/50 will-change-transform"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9998] border border-primary/40"
         style={{
-          opacity: isVisible ? 0.5 : 0,
-          transition: 'opacity 0.2s, border-color 0.2s',
-          borderColor: isHovering ? 'rgba(201, 165, 92, 0.8)' : 'rgba(201, 165, 92, 0.4)',
+          opacity: 0,
+          willChange: 'transform',
+          backfaceVisibility: 'hidden',
+          transition: 'border-color 0.15s',
         }}
       />
     </>

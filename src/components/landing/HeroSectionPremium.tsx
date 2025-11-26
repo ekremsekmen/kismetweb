@@ -39,10 +39,15 @@ export default function HeroSectionPremium() {
         />
       </div>
 
-      {/* Main content */}
+      {/* Main content - GPU accelerated */}
       <motion.div 
         className="relative z-10 w-full flex flex-col items-center justify-center text-center px-6 py-24"
-        style={{ opacity, y }}
+        style={{ 
+          opacity, 
+          y,
+          willChange: 'transform, opacity',
+          backfaceVisibility: 'hidden',
+        }}
       >
         {/* Pre-title badge */}
         <motion.div

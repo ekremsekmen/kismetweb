@@ -1,6 +1,7 @@
 'use client'
 
 import Link from "next/link"
+import Image from "next/image"
 
 const footerLinks = [
   {
@@ -60,11 +61,14 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           {/* Brand column */}
           <div>
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 48 48">
-                <path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" />
-              </svg>
-              <span className="text-steel text-base font-bold font-syne tracking-tighter">Öz Kısmet</span>
+            <Link href="/" className="inline-block mb-4">
+              <Image
+                src="/logo_kismet.png"
+                alt="Öz Kısmet Çelik Kapı"
+                width={120}
+                height={48}
+                className="h-10 w-auto object-contain"
+              />
             </Link>
             <p className="text-steel-muted text-sm font-display leading-relaxed mb-4">
               1995&apos;ten beri güvenli girişler mühendisliği.

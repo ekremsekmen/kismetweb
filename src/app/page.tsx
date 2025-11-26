@@ -1,7 +1,17 @@
+import dynamic from 'next/dynamic';
 import HeroSectionPremium from "@/components/landing/HeroSectionPremium";
 import MarqueePremium from "@/components/landing/MarqueePremium";
-import HorizontalProductScroll from "@/components/landing/HorizontalProductScroll";
-import AnatomyOfSafetyPremium from "@/components/landing/AnatomyOfSafetyPremium";
+
+// Lazy load below-the-fold components for better initial load
+const HorizontalProductScroll = dynamic(
+  () => import("@/components/landing/HorizontalProductScroll"),
+  { ssr: true }
+);
+
+const AnatomyOfSafetyPremium = dynamic(
+  () => import("@/components/landing/AnatomyOfSafetyPremium"),
+  { ssr: true }
+);
 
 export default function Home() {
   return (

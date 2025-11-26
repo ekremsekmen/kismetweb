@@ -53,7 +53,10 @@ export default function HorizontalProductScroll() {
     target: targetRef,
   })
 
-  const x = useTransform(scrollYProgress, [0, 1], ['0%', '-60%'])
+  // Use transform with GPU acceleration
+  const x = useTransform(scrollYProgress, [0, 1], ['0%', '-60%'], {
+    clamp: true, // Prevent overshoot
+  })
 
   return (
     <section ref={targetRef} className="relative h-[300vh]">
@@ -69,10 +72,14 @@ export default function HorizontalProductScroll() {
           </h2>
         </div>
 
-        {/* Horizontal scroll container */}
+        {/* Horizontal scroll container - GPU accelerated */}
         <motion.div 
-          className="flex gap-6 pl-6 sm:pl-10 lg:pl-20 will-change-transform"
-          style={{ x }}
+          className="flex gap-6 pl-6 sm:pl-10 lg:pl-20"
+          style={{ 
+            x,
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+          }}
         >
           {products.map((product, index) => (
             <Link
