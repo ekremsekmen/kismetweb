@@ -1,29 +1,32 @@
 import type { Metadata } from "next";
-import { Montserrat, Roboto } from "next/font/google";
+import { Space_Grotesk, Syne, Oswald } from "next/font/google";
 import "./globals.css";
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Chatbot from '@/components/Chatbot';
+// import Chatbot from '@/components/Chatbot'; // Temporarily disabled or needs update
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
-const roboto = Roboto({
-  variable: "--font-roboto",
+const syne = Syne({
+  variable: "--font-syne",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "700"],
+  display: "swap",
+});
+
+const oswald = Oswald({
+  variable: "--font-oswald",
+  subsets: ["latin"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Kismet Çelik Kapı | Güvenlik Sanatla Buluştu",
-  description: "20 yıllık tecrübe ile yaşam alanlarınızı koruyan estetik ve dayanıklı çelik kapı çözümleri. TSE Belgeli, ISO 9001 sertifikalı, 10 yıl garantili.",
-  keywords: "çelik kapı, güvenlik kapısı, villa kapısı, apartman kapısı, akıllı kapı, yangın kapısı, İstanbul çelik kapı",
-  authors: [{ name: "Kismet Çelik Kapı" }],
+  title: "Öz Kısmet - Forged in Steel",
+  description: "Engineering Secure Entrances. Security, Technology, Durability, Design.",
+  keywords: "steel doors, security, engineering, design, Öz Kısmet",
 };
 
 export const viewport = {
@@ -37,16 +40,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr">
+    <html lang="en" className="dark">
       <body
-        className={`${montserrat.variable} ${roboto.variable} antialiased`}
+        className={`${spaceGrotesk.variable} ${syne.variable} ${oswald.variable} antialiased bg-background-dark text-steel font-display`}
       >
         <Header />
         <main>
           {children}
         </main>
         <Footer />
-        <Chatbot />
+        {/* <Chatbot /> */}
       </body>
     </html>
   );

@@ -1,58 +1,58 @@
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Daire Kapıları | Öz Kısmet Çelik Kapı',
-  description: 'Apartman daire girişleri için özel tasarlanmış çelik kapı modelleri. Güvenlik ve estetik bir arada.',
+  title: 'Tek Kanatlı Kapılar | Öz Kısmet Çelik Kapı',
+  description: 'Standart girişler için tek kanatlı çelik kapı modelleri. Daire, ofis ve konut girişleri için ideal çözümler.',
 }
 
 const products = [
   {
     id: 1,
-    name: 'Klasik Daire Kapısı',
+    name: 'Standart Tek Kanat',
     price: '₺2.200',
-    features: ['4 Nokta Kilitleme', 'Standart Silindir', 'Çelik Çerçeve', 'Boyalı Yüzey'],
-    specs: { thickness: '1.5mm', width: '80cm', height: '200cm', security: 'RC2' },
-    description: 'Apartman dairelerinin standart girişleri için ideal çelik kapı modeli.'
+    features: ['4 Nokta Kilitleme', 'Çelik Çerçeve', 'Standart Panel', 'Ekonomik'],
+    specs: { thickness: '1.5mm', width: '90cm', height: '200cm', security: 'RC2' },
+    description: 'Standart girişler için ekonomik ve güvenli tek kanatlı kapı modeli.'
   },
   {
     id: 2,
-    name: 'Modern Daire Kapısı',
-    price: '₺2.800',
-    features: ['6 Nokta Kilitleme', 'Anti-Drill Silindir', 'Dekoratif Panel', 'Özel Boyama'],
-    specs: { thickness: '1.8mm', width: '80cm', height: '200cm', security: 'RC3' },
-    description: 'Modern tasarım anlayışı ile üretilmiş şık daire kapısı.'
+    name: 'Modern Tek Kanat',
+    price: '₺3.200',
+    features: ['6 Nokta Kilitleme', 'Dekoratif Panel', 'Özel Boyama', 'Ses Yalıtımı'],
+    specs: { thickness: '2mm', width: '90cm', height: '205cm', security: 'RC3' },
+    description: 'Modern tasarım anlayışı ile üretilmiş şık tek kanatlı kapı.'
   },
   {
     id: 3,
-    name: 'Premium Daire Kapısı',
-    price: '₺3.500',
-    features: ['8 Nokta Kilitleme', 'Biometric Uyumlu', 'Ahşap Detaylar', 'Ses Yalıtımı'],
-    specs: { thickness: '2mm', width: '85cm', height: '200cm', security: 'RC4' },
-    description: 'Lüks apartman daireleri için özel tasarlanmış premium kapı modeli.'
+    name: 'Premium Tek Kanat',
+    price: '₺4.500',
+    features: ['8 Nokta Kilitleme', 'Biometric Uyumlu', 'Termo İzolasyon', 'Premium Kaplama'],
+    specs: { thickness: '2.5mm', width: '95cm', height: '210cm', security: 'RC4' },
+    description: 'Lüks daireler için özel tasarlanmış premium tek kanatlı kapı.'
   },
   {
     id: 4,
-    name: 'Ekonomik Daire Kapısı',
-    price: '₺1.800',
-    features: ['3 Nokta Kilitleme', 'Standart Güvenlik', 'Çelik Gövde', 'Dayanıklı Boya'],
-    specs: { thickness: '1.2mm', width: '80cm', height: '200cm', security: 'RC1' },
-    description: 'Bütçe dostu, güvenilir daire kapısı çözümü.'
+    name: 'Cam Detaylı Tek Kanat',
+    price: '₺3.800',
+    features: ['Güvenlik Camı', 'Doğal Işık', '6 Nokta Kilitleme', 'Modern Tasarım'],
+    specs: { thickness: '2mm', width: '90cm', height: '205cm', security: 'RC3' },
+    description: 'Cam detayları ile aydınlık girişler için ideal tek kanatlı kapı.'
   },
   {
     id: 5,
-    name: 'Cam Detaylı Daire Kapısı',
-    price: '₺3.200',
-    features: ['5 Nokta Kilitleme', 'Cam Panel', 'LED Aydınlatma', 'Özel Tasarım'],
-    specs: { thickness: '1.8mm', width: '85cm', height: '200cm', security: 'RC3' },
-    description: 'Cam detayları ile aydınlık girişler için ideal kapı modeli.'
+    name: 'Akıllı Tek Kanat',
+    price: '₺4.200',
+    features: ['Akıllı Kilit', 'Parmak İzi Okuyucu', 'Mobil Kontrol', 'Alarm Sistemi'],
+    specs: { thickness: '2mm', width: '90cm', height: '205cm', security: 'RC3' },
+    description: 'Akıllı kilit sistemli modern tek kanatlı kapı modeli.'
   },
   {
     id: 6,
-    name: 'Çift Renkli Daire Kapısı',
-    price: '₺2.600',
-    features: ['5 Nokta Kilitleme', 'İki Renkli Boyama', 'Dekoratif Çizgiler', 'Kaliteli Aksesuar'],
-    specs: { thickness: '1.6mm', width: '80cm', height: '200cm', security: 'RC2' },
-    description: 'İç ve dış yüzeyi farklı renklerde boyanmış şık kapı modeli.'
+    name: 'Ekonomik Tek Kanat',
+    price: '₺1.800',
+    features: ['3 Nokta Kilitleme', 'Standart Güvenlik', 'Dayanıklı Boya', 'Hızlı Teslimat'],
+    specs: { thickness: '1.2mm', width: '85cm', height: '200cm', security: 'RC1' },
+    description: 'Bütçe dostu, güvenilir ekonomik tek kanatlı kapı çözümü.'
   }
 ]
 
@@ -60,20 +60,29 @@ const features = [
   {
     icon: (
       <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
-    title: 'Güvenli Kilitleme',
-    description: '3-8 nokta kilitleme sistemleri ile maksimum güvenlik'
+    title: 'Pratik Kullanım',
+    description: 'Günlük kullanım için ideal kompakt tasarım'
   },
   {
     icon: (
       <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
-    title: 'Kaliteli Malzeme',
-    description: 'Yüksek kalite çelik ve dayanıklı boyalar kullanılır'
+    title: 'Ekonomik Seçenekler',
+    description: 'Her bütçeye uygun fiyat seçenekleri'
+  },
+  {
+    icon: (
+      <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    ),
+    title: 'Hızlı Montaj',
+    description: 'Aynı gün montaj imkanı ile hızlı kurulum'
   },
   {
     icon: (
@@ -83,19 +92,10 @@ const features = [
     ),
     title: 'Özelleştirilebilir',
     description: 'Renk ve tasarım seçenekleri ile kişiselleştirme'
-  },
-  {
-    icon: (
-      <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-      </svg>
-    ),
-    title: 'Hızlı Teslimat',
-    description: 'Stoktan teslim ve özel siparişlerde hızlı üretim'
   }
 ]
 
-export default function DaireKapilariPage() {
+export default function TekKanatliPage() {
   return (
     <div className="min-h-screen bg-background-dark relative">
       {/* Noise Texture Overlay */}
@@ -109,17 +109,17 @@ export default function DaireKapilariPage() {
         
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-20 text-center">
           <p className="text-primary text-sm font-medium tracking-[0.3em] uppercase mb-4 font-display">
-            APARTMENT DOORS
+            SINGLE LEAF DOORS
           </p>
           <h1 className="text-steel text-5xl sm:text-7xl md:text-8xl font-extrabold uppercase font-syne tracking-tighter mb-6">
-            DAİRE KAPILARI
+            TEK KANATLI
           </h1>
           <p className="text-steel/70 text-lg sm:text-xl max-w-3xl mx-auto font-display leading-relaxed mb-8">
-            Apartman daire girişleri için özel tasarlanmış güvenli ve şık çelik kapı modelleri. 
-            Her bütçeye uygun seçenekler ile dairenizin güvenliğini sağlayın.
+            Standart daire, ofis ve konut girişleri için tek kanatlı çelik kapı modelleri. 
+            Pratik kullanım, güvenli yapı ve ekonomik fiyatlar.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            {['Apartman Girişleri', 'Güvenli Kilitleme', 'Estetik Tasarım', 'Uygun Fiyat'].map((tag, index) => (
+            {['Pratik Kullanım', 'Ekonomik', 'Hızlı Montaj', 'Geniş Seçenek'].map((tag, index) => (
               <span key={index} className="glass-panel px-4 py-2 rounded-full text-sm text-steel font-display">
                 {tag}
               </span>
@@ -133,13 +133,13 @@ export default function DaireKapilariPage() {
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-20">
           <div className="text-center mb-16">
             <p className="text-primary text-sm font-medium tracking-[0.3em] uppercase mb-4 font-display">
-              OUR MODELS
+              STANDARD ENTRANCE
             </p>
             <h2 className="text-steel text-4xl sm:text-5xl font-bold font-syne tracking-tight">
-              DAİRE KAPISI MODELLERİ
+              TEK KANATLI MODELLERİ
             </h2>
             <p className="text-steel/60 mt-4 font-display max-w-2xl mx-auto">
-              Farklı güvenlik seviyelerinde ve tasarımlarda daire kapısı seçeneklerimizi inceleyin.
+              Farklı güvenlik seviyeleri ve tasarımlarda tek kanatlı kapı seçeneklerimizi inceleyin.
             </p>
           </div>
 
@@ -153,11 +153,11 @@ export default function DaireKapilariPage() {
                 {/* Product Image */}
                 <div className="relative h-64 bg-gradient-to-br from-white/5 to-white/0 overflow-hidden">
                   <div className="absolute inset-0 flex items-center justify-center">
-                    {/* Door Illustration */}
-                    <div className="w-32 h-48 bg-gradient-to-b from-steel/30 to-steel/10 rounded-lg shadow-lg relative border border-white/10">
-                      <div className="absolute right-2 top-1/2 transform -translate-y-1/2 w-3 h-6 bg-primary rounded-full shadow-[0_0_10px_rgba(242,208,13,0.5)]" />
+                    {/* Single Door Illustration */}
+                    <div className="w-28 h-44 bg-gradient-to-b from-steel/30 to-steel/10 rounded-lg shadow-lg relative border border-white/10 group-hover:scale-105 transition-transform">
+                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2 w-3 h-6 bg-primary rounded-full shadow-[0_0_10px_rgba(242,208,13,0.5)]" />
                       <div className="absolute inset-3 border border-white/10 rounded" />
-                      <div className="absolute top-2 left-2 right-2 h-6 bg-primary/20 rounded" />
+                      <div className="absolute top-3 left-3 right-3 h-8 bg-primary/10 rounded border border-primary/20" />
                     </div>
                   </div>
                   
@@ -229,10 +229,10 @@ export default function DaireKapilariPage() {
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-20">
           <div className="text-center mb-16">
             <p className="text-primary text-sm font-medium tracking-[0.3em] uppercase mb-4 font-display">
-              WHY CHOOSE US
+              BENEFITS
             </p>
             <h2 className="text-steel text-4xl sm:text-5xl font-bold font-syne tracking-tight">
-              ÖZELLİKLERİMİZ
+              TEK KANATLI AVANTAJLARI
             </h2>
           </div>
           
@@ -254,10 +254,10 @@ export default function DaireKapilariPage() {
       <section className="relative z-10 py-20 border-t border-white/10">
         <div className="max-w-4xl mx-auto px-6 sm:px-10 lg:px-20 text-center">
           <h2 className="text-steel text-4xl sm:text-5xl font-bold font-syne tracking-tight mb-6">
-            DAİRENİZ İÇİN <span className="text-primary">MÜKEMMEL KAPI</span>
+            STANDART GİRİŞLER İÇİN <span className="text-primary">GÜÇLÜ ÇÖZÜMLER</span>
           </h2>
           <p className="text-steel/70 text-lg mb-10 font-display max-w-2xl mx-auto">
-            Uzman ekibimizle iletişime geçin, size en uygun daire kapısı modelini birlikte belirleyelim.
+            Daire veya ofisiniz için en uygun tek kanatlı kapı modelini birlikte seçelim.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
@@ -278,3 +278,4 @@ export default function DaireKapilariPage() {
     </div>
   )
 }
+

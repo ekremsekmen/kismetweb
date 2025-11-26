@@ -1,58 +1,58 @@
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Daire Kapıları | Öz Kısmet Çelik Kapı',
-  description: 'Apartman daire girişleri için özel tasarlanmış çelik kapı modelleri. Güvenlik ve estetik bir arada.',
+  title: 'Site Kapıları | Öz Kısmet Çelik Kapı',
+  description: 'Apartman ve site girişleri için özel tasarlanmış çelik kapı modelleri. Yüksek güvenlik ve dayanıklılık.',
 }
 
 const products = [
   {
     id: 1,
-    name: 'Klasik Daire Kapısı',
-    price: '₺2.200',
-    features: ['4 Nokta Kilitleme', 'Standart Silindir', 'Çelik Çerçeve', 'Boyalı Yüzey'],
-    specs: { thickness: '1.5mm', width: '80cm', height: '200cm', security: 'RC2' },
-    description: 'Apartman dairelerinin standart girişleri için ideal çelik kapı modeli.'
+    name: 'Standart Site Kapısı',
+    price: '₺4.500',
+    features: ['8 Nokta Kilitleme', 'Otomatik Kapanma', 'Kart Okuyucu Uyumlu', 'Hava Koşullarına Dayanıklı'],
+    specs: { thickness: '2.5mm', width: '120cm', height: '220cm', security: 'RC3' },
+    description: 'Apartman ve site girişleri için standart güvenlikli çelik kapı.'
   },
   {
     id: 2,
-    name: 'Modern Daire Kapısı',
-    price: '₺2.800',
-    features: ['6 Nokta Kilitleme', 'Anti-Drill Silindir', 'Dekoratif Panel', 'Özel Boyama'],
-    specs: { thickness: '1.8mm', width: '80cm', height: '200cm', security: 'RC3' },
-    description: 'Modern tasarım anlayışı ile üretilmiş şık daire kapısı.'
+    name: 'Çift Kanatlı Site Kapısı',
+    price: '₺7.800',
+    features: ['Çift Kanat Sistemi', '12 Nokta Kilitleme', 'Motorlu Açılım', 'Uzaktan Kumanda'],
+    specs: { thickness: '3mm', width: '180cm', height: '230cm', security: 'RC4' },
+    description: 'Geniş site girişleri için çift kanatlı güvenlik kapısı.'
   },
   {
     id: 3,
-    name: 'Premium Daire Kapısı',
-    price: '₺3.500',
-    features: ['8 Nokta Kilitleme', 'Biometric Uyumlu', 'Ahşap Detaylar', 'Ses Yalıtımı'],
-    specs: { thickness: '2mm', width: '85cm', height: '200cm', security: 'RC4' },
-    description: 'Lüks apartman daireleri için özel tasarlanmış premium kapı modeli.'
+    name: 'Cam Detaylı Site Kapısı',
+    price: '₺5.500',
+    features: ['Güvenlik Camı', 'LED Aydınlatma', 'Şık Tasarım', 'Doğal Işık'],
+    specs: { thickness: '2.5mm', width: '130cm', height: '220cm', security: 'RC3' },
+    description: 'Cam detayları ile estetik ve aydınlık giriş imkanı.'
   },
   {
     id: 4,
-    name: 'Ekonomik Daire Kapısı',
-    price: '₺1.800',
-    features: ['3 Nokta Kilitleme', 'Standart Güvenlik', 'Çelik Gövde', 'Dayanıklı Boya'],
-    specs: { thickness: '1.2mm', width: '80cm', height: '200cm', security: 'RC1' },
-    description: 'Bütçe dostu, güvenilir daire kapısı çözümü.'
+    name: 'Premium Site Kapısı',
+    price: '₺9.200',
+    features: ['Biyometrik Sistem', 'Interkom Entegrasyonu', 'Kamera Sistemi', 'Akıllı Kilit'],
+    specs: { thickness: '3mm', width: '140cm', height: '230cm', security: 'RC5' },
+    description: 'Lüks siteler için akıllı teknoloji donatılmış premium kapı.'
   },
   {
     id: 5,
-    name: 'Cam Detaylı Daire Kapısı',
-    price: '₺3.200',
-    features: ['5 Nokta Kilitleme', 'Cam Panel', 'LED Aydınlatma', 'Özel Tasarım'],
-    specs: { thickness: '1.8mm', width: '85cm', height: '200cm', security: 'RC3' },
-    description: 'Cam detayları ile aydınlık girişler için ideal kapı modeli.'
+    name: 'Apartman Dış Kapısı',
+    price: '₺3.800',
+    features: ['Yoğun Kullanım', 'Dayanıklı Menteşe', 'Otomatik Kapanma', 'Çelik Çerçeve'],
+    specs: { thickness: '2mm', width: '110cm', height: '210cm', security: 'RC3' },
+    description: 'Apartman bina girişleri için ekonomik ve dayanıklı kapı.'
   },
   {
     id: 6,
-    name: 'Çift Renkli Daire Kapısı',
-    price: '₺2.600',
-    features: ['5 Nokta Kilitleme', 'İki Renkli Boyama', 'Dekoratif Çizgiler', 'Kaliteli Aksesuar'],
-    specs: { thickness: '1.6mm', width: '80cm', height: '200cm', security: 'RC2' },
-    description: 'İç ve dış yüzeyi farklı renklerde boyanmış şık kapı modeli.'
+    name: 'Garaj Giriş Kapısı',
+    price: '₺6.500',
+    features: ['Motorlu Açılım', 'Uzaktan Kumanda', 'Geniş Açılım', 'Araç Sensörü'],
+    specs: { thickness: '2.5mm', width: '250cm', height: '220cm', security: 'RC3' },
+    description: 'Site ve apartman garaj girişleri için motorlu kapı sistemi.'
   }
 ]
 
@@ -60,42 +60,42 @@ const features = [
   {
     icon: (
       <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
       </svg>
     ),
-    title: 'Güvenli Kilitleme',
-    description: '3-8 nokta kilitleme sistemleri ile maksimum güvenlik'
+    title: 'Toplu Konut Uyumlu',
+    description: 'Apartman ve site standartlarına uygun tasarım'
   },
   {
     icon: (
       <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
       </svg>
     ),
-    title: 'Kaliteli Malzeme',
-    description: 'Yüksek kalite çelik ve dayanıklı boyalar kullanılır'
+    title: 'Geçiş Kontrolü',
+    description: 'Kart, şifre ve biyometrik erişim sistemleri'
   },
   {
     icon: (
       <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17v4a2 2 0 002 2h4" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
       </svg>
     ),
-    title: 'Özelleştirilebilir',
-    description: 'Renk ve tasarım seçenekleri ile kişiselleştirme'
+    title: 'Interkom Uyumlu',
+    description: 'Görüntülü interkom ve kamera sistemi entegrasyonu'
   },
   {
     icon: (
       <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
       </svg>
     ),
-    title: 'Hızlı Teslimat',
-    description: 'Stoktan teslim ve özel siparişlerde hızlı üretim'
+    title: 'Hava Koşullarına Dayanıklı',
+    description: 'Dış mekan kullanımı için özel koruma'
   }
 ]
 
-export default function DaireKapilariPage() {
+export default function SiteKapilariPage() {
   return (
     <div className="min-h-screen bg-background-dark relative">
       {/* Noise Texture Overlay */}
@@ -109,17 +109,17 @@ export default function DaireKapilariPage() {
         
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-20 text-center">
           <p className="text-primary text-sm font-medium tracking-[0.3em] uppercase mb-4 font-display">
-            APARTMENT DOORS
+            BUILDING ENTRANCE DOORS
           </p>
           <h1 className="text-steel text-5xl sm:text-7xl md:text-8xl font-extrabold uppercase font-syne tracking-tighter mb-6">
-            DAİRE KAPILARI
+            SİTE KAPILARI
           </h1>
           <p className="text-steel/70 text-lg sm:text-xl max-w-3xl mx-auto font-display leading-relaxed mb-8">
-            Apartman daire girişleri için özel tasarlanmış güvenli ve şık çelik kapı modelleri. 
-            Her bütçeye uygun seçenekler ile dairenizin güvenliğini sağlayın.
+            Apartman ve site girişleri için özel tasarlanmış çelik kapı modelleri. 
+            Yüksek güvenlik, dayanıklılık ve modern geçiş kontrol sistemleri.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            {['Apartman Girişleri', 'Güvenli Kilitleme', 'Estetik Tasarım', 'Uygun Fiyat'].map((tag, index) => (
+            {['Toplu Konut', 'Geçiş Kontrolü', 'Interkom Uyumlu', 'Dayanıklı'].map((tag, index) => (
               <span key={index} className="glass-panel px-4 py-2 rounded-full text-sm text-steel font-display">
                 {tag}
               </span>
@@ -133,13 +133,13 @@ export default function DaireKapilariPage() {
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-20">
           <div className="text-center mb-16">
             <p className="text-primary text-sm font-medium tracking-[0.3em] uppercase mb-4 font-display">
-              OUR MODELS
+              BUILDING SECURITY
             </p>
             <h2 className="text-steel text-4xl sm:text-5xl font-bold font-syne tracking-tight">
-              DAİRE KAPISI MODELLERİ
+              SİTE KAPISI MODELLERİ
             </h2>
             <p className="text-steel/60 mt-4 font-display max-w-2xl mx-auto">
-              Farklı güvenlik seviyelerinde ve tasarımlarda daire kapısı seçeneklerimizi inceleyin.
+              Apartman ve site yönetimi için profesyonel kapı çözümlerimizi inceleyin.
             </p>
           </div>
 
@@ -153,11 +153,17 @@ export default function DaireKapilariPage() {
                 {/* Product Image */}
                 <div className="relative h-64 bg-gradient-to-br from-white/5 to-white/0 overflow-hidden">
                   <div className="absolute inset-0 flex items-center justify-center">
-                    {/* Door Illustration */}
-                    <div className="w-32 h-48 bg-gradient-to-b from-steel/30 to-steel/10 rounded-lg shadow-lg relative border border-white/10">
-                      <div className="absolute right-2 top-1/2 transform -translate-y-1/2 w-3 h-6 bg-primary rounded-full shadow-[0_0_10px_rgba(242,208,13,0.5)]" />
-                      <div className="absolute inset-3 border border-white/10 rounded" />
-                      <div className="absolute top-2 left-2 right-2 h-6 bg-primary/20 rounded" />
+                    {/* Building Door Illustration */}
+                    <div className="relative">
+                      <div className="w-36 h-48 bg-gradient-to-b from-steel/20 to-steel/5 rounded-lg shadow-lg relative border border-white/20 group-hover:scale-105 transition-transform">
+                        <div className="absolute right-3 top-1/2 transform -translate-y-1/2 w-3 h-6 bg-primary rounded-full shadow-[0_0_10px_rgba(242,208,13,0.5)]" />
+                        <div className="absolute inset-3 border border-white/10 rounded" />
+                        <div className="absolute top-2 left-2 right-2 h-4 bg-white/5 rounded flex items-center justify-center">
+                          <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                        </div>
+                      </div>
+                      {/* Building outline */}
+                      <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-24 h-4 bg-steel/10 rounded-t" />
                     </div>
                   </div>
                   
@@ -229,10 +235,10 @@ export default function DaireKapilariPage() {
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-20">
           <div className="text-center mb-16">
             <p className="text-primary text-sm font-medium tracking-[0.3em] uppercase mb-4 font-display">
-              WHY CHOOSE US
+              BUILDING SECURITY
             </p>
             <h2 className="text-steel text-4xl sm:text-5xl font-bold font-syne tracking-tight">
-              ÖZELLİKLERİMİZ
+              SİTE KAPISI ÖZELLİKLERİ
             </h2>
           </div>
           
@@ -254,10 +260,10 @@ export default function DaireKapilariPage() {
       <section className="relative z-10 py-20 border-t border-white/10">
         <div className="max-w-4xl mx-auto px-6 sm:px-10 lg:px-20 text-center">
           <h2 className="text-steel text-4xl sm:text-5xl font-bold font-syne tracking-tight mb-6">
-            DAİRENİZ İÇİN <span className="text-primary">MÜKEMMEL KAPI</span>
+            SİTENİZ İÇİN <span className="text-primary">GÜVENLİ GİRİŞ</span>
           </h2>
           <p className="text-steel/70 text-lg mb-10 font-display max-w-2xl mx-auto">
-            Uzman ekibimizle iletişime geçin, size en uygun daire kapısı modelini birlikte belirleyelim.
+            Site ve apartman yönetimi için özel kapı çözümleri hakkında bilgi alın.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
@@ -278,3 +284,4 @@ export default function DaireKapilariPage() {
     </div>
   )
 }
+

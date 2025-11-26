@@ -1,76 +1,85 @@
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Yüksek Güvenlikli Kapılar | Öz Kısmet Çelik Kapı',
-  description: 'RC4-RC6 sınıfı yüksek güvenlikli çelik kapılar. Çoklu kilit, kalın gövde, kırılmaya dayanıklı özel güvenlik kapıları.',
+  title: 'Yangın Kapıları | Öz Kısmet Çelik Kapı',
+  description: 'EI30-EI120 sınıfı yangın dayanımlı çelik kapılar. İşyerleri, siteler ve endüstriyel alanlar için yangın güvenliği.',
 }
 
 const products = [
   {
     id: 1,
-    name: 'Ultra Güvenlik RC4',
-    price: '₺5.200',
-    features: ['8 Nokta Kilitleme', 'Anti-Drill Silindir', '2.5mm Çelik Gövde', 'Takviyeli Çerçeve'],
-    specs: { thickness: '2.5mm', width: '90cm', height: '200cm', security: 'RC4', testTime: '6 dakika' },
-    description: 'RC4 sınıfı yüksek güvenlik standardında üretilen profesyonel güvenlik kapısı.'
+    name: 'EI30 Yangın Kapısı',
+    price: '₺3.200',
+    features: ['30 Dakika Yangın Dayanımı', 'Otomatik Kapanma', 'Yangın Contası', 'TSE Belgeli'],
+    specs: { thickness: '1.5mm', width: '90cm', height: '210cm', fireRating: 'EI30', time: '30 dk' },
+    description: '30 dakika yangın dayanımı sağlayan standart yangın kapısı.'
   },
   {
     id: 2,
-    name: 'Maximum Güvenlik RC5',
-    price: '₺7.800',
-    features: ['10 Nokta Kilitleme', 'Biometric Kilit Uyumlu', '3mm Çelik Gövde', 'Çoklu Silindir'],
-    specs: { thickness: '3mm', width: '90cm', height: '200cm', security: 'RC5', testTime: '8 dakika' },
-    description: 'RC5 sınıfı maksimum güvenlik için tasarlanmış özel güvenlik kapısı.'
+    name: 'EI60 Yangın Kapısı',
+    price: '₺4.500',
+    features: ['60 Dakika Yangın Dayanımı', 'Termal İzolasyon', 'Panik Barlı', 'Sertifikalı'],
+    specs: { thickness: '2mm', width: '100cm', height: '210cm', fireRating: 'EI60', time: '60 dk' },
+    description: '60 dakika yangın dayanımı ile orta seviye koruma.'
   },
   {
     id: 3,
-    name: 'Premium Güvenlik RC6',
-    price: '₺12.500',
-    features: ['12 Nokta Kilitleme', 'Çoklu Güvenlik Sistemi', '4mm Çelik Gövde', 'Özel Zırhlı Çerçeve'],
-    specs: { thickness: '4mm', width: '95cm', height: '205cm', security: 'RC6', testTime: '20 dakika' },
-    description: 'RC6 sınıfı en yüksek güvenlik seviyesinde premium güvenlik kapısı.'
+    name: 'EI90 Yangın Kapısı',
+    price: '₺6.200',
+    features: ['90 Dakika Yangın Dayanımı', 'Çift Kanatlı Seçenek', 'Duman Sızdırmazlık', 'Fabrika Uyumu'],
+    specs: { thickness: '2.5mm', width: '100cm', height: '215cm', fireRating: 'EI90', time: '90 dk' },
+    description: '90 dakika yangın dayanımı ile yüksek güvenlik.'
   },
   {
     id: 4,
-    name: 'Kurşun Geçirmez Güvenlik',
-    price: '₺15.000',
-    features: ['Kurşun Geçirmez Panel', 'Özel Zırh Sistemi', 'Çoklu Kilitleme', 'Patlama Dayanımlı'],
-    specs: { thickness: '5mm', width: '90cm', height: '200cm', security: 'RC6+', testTime: '30+ dakika' },
-    description: 'En yüksek risk alanları için kurşun geçirmez özel güvenlik kapısı.'
+    name: 'EI120 Yangın Kapısı',
+    price: '₺8.500',
+    features: ['120 Dakika Yangın Dayanımı', 'Maksimum Koruma', 'Endüstriyel Kullanım', 'Özel Üretim'],
+    specs: { thickness: '3mm', width: '110cm', height: '220cm', fireRating: 'EI120', time: '120 dk' },
+    description: '120 dakika yangın dayanımı ile maksimum koruma.'
   },
   {
     id: 5,
-    name: 'Akıllı Güvenlik RC4',
-    price: '₺6.800',
-    features: ['Akıllı Kilit Sistemi', 'Biyometrik Okuyucu', 'Alarm Sistemi', 'Uzaktan Kontrol'],
-    specs: { thickness: '2.5mm', width: '90cm', height: '200cm', security: 'RC4', testTime: '6 dakika' },
-    description: 'Modern teknoloji ile donatılmış akıllı yüksek güvenlik kapısı.'
+    name: 'Cam Yangın Kapısı',
+    price: '₺7.800',
+    features: ['EI60 Yangın Camı', 'Görsel Geçiş', 'Termal Koruma', 'Modern Tasarım'],
+    specs: { thickness: '2mm', width: '100cm', height: '210cm', fireRating: 'EI60', time: '60 dk' },
+    description: 'Yangın dayanımlı cam panelli estetik yangın kapısı.'
   },
   {
     id: 6,
-    name: 'Çift Kapılı Güvenlik RC5',
-    price: '₺11.200',
-    features: ['Çift Kapı Sistemi', 'Bağımsız Kilitler', 'Geniş Çerçeve', 'Özel Güvenlik'],
-    specs: { thickness: '3mm', width: '120cm', height: '210cm', security: 'RC5', testTime: '8 dakika' },
-    description: 'Geniş girişler için çift kapılı yüksek güvenlik sistemi.'
+    name: 'Çift Kanatlı Yangın Kapısı',
+    price: '₺9.500',
+    features: ['EI90 Dayanım', 'Geniş Geçiş', 'Senkron Kapanma', 'Endüstriyel'],
+    specs: { thickness: '2.5mm', width: '180cm', height: '220cm', fireRating: 'EI90', time: '90 dk' },
+    description: 'Geniş geçişler için çift kanatlı yangın kapısı.'
   }
 ]
 
-const securityLevels = [
+const fireRatings = [
   {
-    level: 'RC4',
-    description: '6 dakika direnç',
-    features: ['Çoklu kilit sistemi', 'Anti-drill silindir', 'Takviyeli çerçeve', 'Profesyonel güvenlik']
+    rating: 'EI30',
+    minutes: '30',
+    description: 'Temel Koruma',
+    usage: 'Ofis bölmeleri, koridor kapıları'
   },
   {
-    level: 'RC5',
-    description: '8 dakika direnç',
-    features: ['Gelişmiş kilit sistemi', 'Çoklu güvenlik katmanı', 'Özel çelik alaşım', 'Yüksek direnç']
+    rating: 'EI60',
+    minutes: '60',
+    description: 'Standart Koruma',
+    usage: 'Merdiven boşlukları, acil çıkışlar'
   },
   {
-    level: 'RC6',
-    description: '20+ dakika direnç',
-    features: ['En üst seviye güvenlik', 'Özel zırh sistemi', 'Çoklu koruma katmanı', 'Maksimum direnç']
+    rating: 'EI90',
+    minutes: '90',
+    description: 'Yüksek Koruma',
+    usage: 'Fabrikalar, depolar, teknik alanlar'
+  },
+  {
+    rating: 'EI120',
+    minutes: '120',
+    description: 'Maksimum Koruma',
+    usage: 'Endüstriyel tesisler, yüksek riskli alanlar'
   }
 ]
 
@@ -78,11 +87,21 @@ const features = [
   {
     icon: (
       <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+      </svg>
+    ),
+    title: 'Yangın Dayanımı',
+    description: 'EN 1634 standardında test edilmiş koruma'
+  },
+  {
+    icon: (
+      <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
       </svg>
     ),
-    title: 'Çoklu Kilitleme',
-    description: '8-12 nokta kilitleme sistemi ile maksimum güvenlik'
+    title: 'Duman Sızdırmazlık',
+    description: 'Duman geçişini engelleyen özel contalar'
   },
   {
     icon: (
@@ -90,30 +109,21 @@ const features = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
       </svg>
     ),
-    title: 'Anti-Drill Silindir',
-    description: 'Delme girişimlerine karşı özel korumalı silindir'
+    title: 'Otomatik Kapanma',
+    description: 'Yangın anında otomatik kapanma mekanizması'
   },
   {
     icon: (
       <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
       </svg>
     ),
-    title: 'Zırhlı Çerçeve',
-    description: 'Özel çelik alaşım ile takviyeli zırhlı çerçeve yapısı'
-  },
-  {
-    icon: (
-      <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-      </svg>
-    ),
-    title: 'Akıllı Sistem',
-    description: 'Biyometrik ve dijital kilit sistemleri ile uyumlu'
+    title: 'TSE & CE Belgeli',
+    description: 'Ulusal ve uluslararası sertifikalı ürünler'
   }
 ]
 
-export default function YuksekGuvenlikPage() {
+export default function YanginKapilariPage() {
   return (
     <div className="min-h-screen bg-background-dark relative">
       {/* Noise Texture Overlay */}
@@ -127,17 +137,17 @@ export default function YuksekGuvenlikPage() {
         
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-20 text-center">
           <p className="text-primary text-sm font-medium tracking-[0.3em] uppercase mb-4 font-display">
-            MAXIMUM PROTECTION
+            FIRE RATED DOORS
           </p>
           <h1 className="text-steel text-5xl sm:text-7xl md:text-8xl font-extrabold uppercase font-syne tracking-tighter mb-6">
-            YÜKSEK GÜVENLİK
+            YANGIN KAPILARI
           </h1>
           <p className="text-steel/70 text-lg sm:text-xl max-w-3xl mx-auto font-display leading-relaxed mb-8">
-            RC4-RC6 sınıfı Avrupa standardında yüksek güvenlikli çelik kapılar. 
-            Maksimum koruma için çoklu kilit sistemi ve özel zırh teknolojisi.
+            EI30-EI120 sınıfı yangın dayanımlı çelik kapılar. İşyerleri, siteler ve endüstriyel 
+            alanlar için yasal mevzuata uygun yangın güvenliği çözümleri.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            {['RC4-RC6 Sınıfı', 'Çoklu Kilitleme', 'Zırhlı Çerçeve', 'Anti-Drill'].map((tag, index) => (
+            {['EI30-EI120', 'TSE Belgeli', 'Duman Sızdırmaz', 'Otomatik Kapanma'].map((tag, index) => (
               <span key={index} className="glass-panel px-4 py-2 rounded-full text-sm text-steel font-display">
                 {tag}
               </span>
@@ -146,39 +156,33 @@ export default function YuksekGuvenlikPage() {
         </div>
       </section>
 
-      {/* Security Levels Section */}
+      {/* Fire Ratings Section */}
       <section className="relative z-10 py-16 border-y border-white/10">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-20">
           <div className="text-center mb-12">
             <p className="text-primary text-sm font-medium tracking-[0.3em] uppercase mb-4 font-display">
-              SECURITY CLASSES
+              FIRE RATINGS
             </p>
             <h2 className="text-steel text-4xl sm:text-5xl font-bold font-syne tracking-tight">
-              GÜVENLİK SINIFLARI
+              YANGIN DAYANIMLI SINIFLARI
             </h2>
             <p className="text-steel/60 mt-4 font-display">
-              Avrupa EN 1627 standardına göre güvenlik seviyeleri
+              EN 1634 standardına göre yangın dayanım süreleri
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {securityLevels.map((level, index) => (
-              <div key={index} className="glass-panel rounded-xl p-6 hover:border-primary/50 transition-all duration-300">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-primary/30">
-                  <span className="text-primary font-bold text-xl font-syne">{level.level}</span>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {fireRatings.map((rating, index) => (
+              <div key={index} className="glass-panel rounded-xl p-6 text-center hover:border-primary/50 transition-all duration-300 group">
+                <div className="w-20 h-20 bg-gradient-to-br from-primary/30 to-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-primary/30 group-hover:scale-110 transition-transform">
+                  <div className="text-center">
+                    <span className="text-primary font-bold text-2xl font-syne">{rating.minutes}</span>
+                    <span className="text-primary text-xs block">DK</span>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-steel text-center mb-2 font-syne">{level.level} Sınıfı</h3>
-                <p className="text-primary text-center mb-4 font-display">{level.description}</p>
-                <ul className="space-y-2">
-                  {level.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center text-sm text-steel/70 font-display">
-                      <svg className="w-4 h-4 text-primary mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+                <h3 className="text-xl font-semibold text-steel mb-1 font-syne">{rating.rating}</h3>
+                <p className="text-primary text-sm mb-2 font-display">{rating.description}</p>
+                <p className="text-steel/50 text-xs font-display">{rating.usage}</p>
               </div>
             ))}
           </div>
@@ -190,13 +194,13 @@ export default function YuksekGuvenlikPage() {
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-20">
           <div className="text-center mb-16">
             <p className="text-primary text-sm font-medium tracking-[0.3em] uppercase mb-4 font-display">
-              ARMORED DOORS
+              CERTIFIED PRODUCTS
             </p>
             <h2 className="text-steel text-4xl sm:text-5xl font-bold font-syne tracking-tight">
-              YÜKSEK GÜVENLİK MODELLERİ
+              YANGIN KAPISI MODELLERİ
             </h2>
             <p className="text-steel/60 mt-4 font-display max-w-2xl mx-auto">
-              Profesyonel güvenlik ihtiyaçlarınız için özel tasarlanmış kapı seçeneklerimiz.
+              Farklı yangın dayanım sürelerinde sertifikalı kapı seçeneklerimizi inceleyin.
             </p>
           </div>
 
@@ -205,17 +209,18 @@ export default function YuksekGuvenlikPage() {
             {products.map((product) => (
               <div 
                 key={product.id}
-                className="glass-panel rounded-xl overflow-hidden group hover:border-primary/50 transition-all duration-300 border-l-4 border-l-primary"
+                className="glass-panel rounded-xl overflow-hidden group hover:border-primary/50 transition-all duration-300"
               >
                 {/* Product Image */}
-                <div className="relative h-64 bg-gradient-to-br from-white/5 to-white/0 overflow-hidden">
+                <div className="relative h-64 bg-gradient-to-br from-orange-500/10 to-red-500/5 overflow-hidden">
                   <div className="absolute inset-0 flex items-center justify-center">
-                    {/* Armored Door Illustration */}
-                    <div className="w-32 h-48 bg-gradient-to-b from-steel/20 to-steel/5 rounded-lg shadow-2xl relative border-4 border-primary/50">
-                      <div className="absolute right-2 top-1/4 w-3 h-4 bg-primary rounded-full shadow-[0_0_8px_rgba(242,208,13,0.5)]" />
-                      <div className="absolute right-2 top-1/2 w-3 h-4 bg-primary rounded-full shadow-[0_0_8px_rgba(242,208,13,0.5)]" />
-                      <div className="absolute right-2 top-3/4 w-3 h-4 bg-primary rounded-full shadow-[0_0_8px_rgba(242,208,13,0.5)]" />
-                      <div className="absolute inset-3 border-2 border-primary/30 rounded bg-gradient-to-b from-steel/10 to-transparent" />
+                    {/* Fire Door Illustration */}
+                    <div className="w-32 h-48 bg-gradient-to-b from-steel/20 to-steel/5 rounded-lg shadow-lg relative border-2 border-orange-500/30 group-hover:scale-105 transition-transform">
+                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2 w-3 h-6 bg-primary rounded-full shadow-[0_0_10px_rgba(242,208,13,0.5)]" />
+                      <div className="absolute inset-3 border border-orange-500/20 rounded" />
+                      <div className="absolute top-2 left-2 right-2 h-4 bg-orange-500/20 rounded flex items-center justify-center">
+                        <span className="text-orange-400 text-[8px] font-bold">🔥 FIRE</span>
+                      </div>
                     </div>
                   </div>
                   
@@ -224,9 +229,9 @@ export default function YuksekGuvenlikPage() {
                     {product.price}
                   </div>
                   
-                  {/* Security Badge */}
-                  <div className="absolute top-4 left-4 glass-panel px-3 py-1 rounded-full text-xs font-bold text-primary font-display border border-primary/50">
-                    {product.specs.security}
+                  {/* Fire Rating Badge */}
+                  <div className="absolute top-4 left-4 bg-orange-500/80 text-white px-3 py-1 rounded-full text-xs font-bold font-display">
+                    {product.specs.fireRating} • {product.specs.time}
                   </div>
                 </div>
 
@@ -241,12 +246,12 @@ export default function YuksekGuvenlikPage() {
                   </p>
 
                   {/* Specifications */}
-                  <div className="bg-primary/10 rounded-lg p-3 mb-4 border border-primary/30">
-                    <h4 className="font-semibold text-sm text-primary mb-2 font-display">Güvenlik Özellikleri:</h4>
+                  <div className="bg-orange-500/10 rounded-lg p-3 mb-4 border border-orange-500/20">
+                    <h4 className="font-semibold text-sm text-orange-400 mb-2 font-display">Yangın Özellikleri:</h4>
                     <div className="grid grid-cols-2 gap-2 text-xs text-steel/70 font-display">
+                      <div>Dayanım: {product.specs.time}</div>
+                      <div>Sınıf: {product.specs.fireRating}</div>
                       <div>Kalınlık: {product.specs.thickness}</div>
-                      <div>Güvenlik: {product.specs.security}</div>
-                      <div>Test Süresi: {product.specs.testTime}</div>
                       <div>Boyut: {product.specs.width}x{product.specs.height}</div>
                     </div>
                   </div>
@@ -266,13 +271,13 @@ export default function YuksekGuvenlikPage() {
                   {/* Action Buttons */}
                   <div className="flex flex-col gap-2">
                     <button className="bg-primary hover:bg-primary/90 text-background-dark px-4 py-2 rounded-lg font-semibold transition-all duration-300 hover:scale-[1.02] font-display">
-                      Güvenlik Detayları
+                      Teknik Detaylar
                     </button>
                     <Link 
                       href="/contact"
                       className="border border-white/20 text-steel hover:border-primary hover:text-primary px-4 py-2 rounded-lg font-semibold transition-all duration-300 text-center font-display"
                     >
-                      Güvenlik Analizi
+                      Teklif Al
                     </Link>
                   </div>
                 </div>
@@ -287,10 +292,10 @@ export default function YuksekGuvenlikPage() {
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-20">
           <div className="text-center mb-16">
             <p className="text-primary text-sm font-medium tracking-[0.3em] uppercase mb-4 font-display">
-              PROTECTION
+              FIRE SAFETY
             </p>
             <h2 className="text-steel text-4xl sm:text-5xl font-bold font-syne tracking-tight">
-              GÜVENLİK ÖZELLİKLERİ
+              YANGIN KAPISI ÖZELLİKLERİ
             </h2>
           </div>
           
@@ -312,23 +317,23 @@ export default function YuksekGuvenlikPage() {
       <section className="relative z-10 py-20 border-t border-white/10">
         <div className="max-w-4xl mx-auto px-6 sm:px-10 lg:px-20 text-center">
           <h2 className="text-steel text-4xl sm:text-5xl font-bold font-syne tracking-tight mb-6">
-            MAKSİMUM <span className="text-primary">GÜVENLİK</span>
+            YANGIN GÜVENLİĞİ <span className="text-primary">ŞART</span>
           </h2>
           <p className="text-steel/70 text-lg mb-10 font-display max-w-2xl mx-auto">
-            Yüksek riskli alanlar için özel güvenlik analizi ve kapı çözümleri sunuyoruz.
+            İşyeriniz veya binanız için uygun yangın kapısı çözümü hakkında bilgi alın.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
               href="/contact" 
               className="flex items-center justify-center gap-2 bg-primary text-background-dark px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(242,208,13,0.3)] font-display"
             >
-              Güvenlik Danışmanlığı
+              Yangın Güvenlik Danışmanlığı
             </a>
             <a 
               href="tel:+902125550123" 
               className="flex items-center justify-center gap-2 border border-white/20 text-steel hover:border-primary hover:text-primary px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 font-display"
             >
-              Acil Güvenlik: (0212) 555 01 23
+              Hemen Ara: (0212) 555 01 23
             </a>
           </div>
         </div>
@@ -336,3 +341,4 @@ export default function YuksekGuvenlikPage() {
     </div>
   )
 }
+
