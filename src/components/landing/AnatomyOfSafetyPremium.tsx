@@ -68,11 +68,10 @@ export default function AnatomyOfSafetyPremium() {
               {hotspots.map((hotspot, index) => (
                 <motion.button
                   key={hotspot.id}
-                  className={`w-full p-4 rounded-xl border text-left transition-all duration-300 ${
-                    activeHotspot === hotspot.id 
-                      ? 'bg-primary/5 border-primary/40 shadow-[0_0_20px_rgba(201,165,92,0.1)]' 
-                      : 'bg-background-tertiary/50 border-border hover:border-steel-dark'
-                  }`}
+                  className={`w-full p-4 rounded-xl border text-left transition-all duration-300 ${activeHotspot === hotspot.id
+                    ? 'bg-primary/5 border-primary/40 shadow-[0_0_20px_rgba(201,165,92,0.1)]'
+                    : 'bg-background-tertiary/50 border-border hover:border-steel-dark'
+                    }`}
                   initial={{ opacity: 0, y: 15 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.1 + index * 0.1 }}
@@ -82,9 +81,8 @@ export default function AnatomyOfSafetyPremium() {
                   <div className="flex items-center gap-4">
                     <span className="text-2xl">{hotspot.icon}</span>
                     <div>
-                      <h4 className={`font-semibold font-syne text-sm transition-colors duration-300 ${
-                        activeHotspot === hotspot.id ? 'text-primary' : 'text-steel'
-                      }`}>
+                      <h4 className={`font-semibold font-syne text-sm transition-colors duration-300 ${activeHotspot === hotspot.id ? 'text-primary' : 'text-steel'
+                        }`}>
                         {hotspot.title}
                       </h4>
                       <p className="text-steel-muted text-xs font-display">
@@ -106,26 +104,26 @@ export default function AnatomyOfSafetyPremium() {
           >
             {/* Door SVG */}
             <div className="relative">
-              <svg 
-                className="w-full h-full max-w-[220px]" 
-                fill="none" 
+              <svg
+                className="w-full h-full max-w-[220px]"
+                fill="none"
                 viewBox="0 0 200 400"
               >
                 {/* Door frame */}
-                <rect 
-                  x="25" y="10" 
-                  width="150" height="380" 
-                  rx="4" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
+                <rect
+                  x="25" y="10"
+                  width="150" height="380"
+                  rx="4"
+                  stroke="currentColor"
+                  strokeWidth="2"
                   className="text-steel-dark"
                 />
-                
+
                 {/* Door panels */}
                 <rect x="40" y="30" width="120" height="80" rx="2" stroke="currentColor" strokeWidth="1" className="text-border" />
                 <rect x="40" y="130" width="120" height="120" rx="2" stroke="currentColor" strokeWidth="1" className="text-border" />
                 <rect x="40" y="270" width="120" height="100" rx="2" stroke="currentColor" strokeWidth="1" className="text-border" />
-                
+
                 {/* Handle */}
                 <rect x="145" y="190" width="15" height="25" rx="3" fill="currentColor" className="text-primary" />
               </svg>
@@ -138,11 +136,10 @@ export default function AnatomyOfSafetyPremium() {
                   style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
                 >
                   <button
-                    className={`w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 ${
-                      activeHotspot === hotspot.id
-                        ? 'bg-primary scale-125 shadow-[0_0_20px_rgba(201,165,92,0.5)]'
-                        : 'bg-primary/70 hover:bg-primary'
-                    }`}
+                    className={`w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 ${activeHotspot === hotspot.id
+                      ? 'bg-primary scale-125 shadow-[0_0_20px_rgba(201,165,92,0.5)]'
+                      : 'bg-primary/70 hover:bg-primary'
+                      }`}
                     onMouseEnter={() => setActiveHotspot(hotspot.id)}
                     onMouseLeave={() => setActiveHotspot(null)}
                   >
@@ -152,7 +149,6 @@ export default function AnatomyOfSafetyPremium() {
                   {/* Tooltip */}
                   {activeHotspot === hotspot.id && (
                     <div
-                      className="absolute z-20 w-48 p-4 rounded-xl glass-panel border-primary/30 shadow-xl"
                       style={{
                         left: hotspot.x > 50 ? 'auto' : '100%',
                         right: hotspot.x > 50 ? '100%' : 'auto',
@@ -161,6 +157,10 @@ export default function AnatomyOfSafetyPremium() {
                         marginLeft: hotspot.x > 50 ? 0 : '12px',
                         marginRight: hotspot.x > 50 ? '12px' : 0,
                       }}
+                      className="absolute z-20 p-4 rounded-xl glass-panel border-primary/30 shadow-xl 
+                        w-40 text-center 
+                        sm:w-48 sm:text-left
+                        max-sm:!left-1/2 max-sm:!right-auto max-sm:!top-full max-sm:!translate-x-[-50%] max-sm:!translate-y-2 max-sm:!m-0"
                     >
                       <span className="text-xl mb-2 block">{hotspot.icon}</span>
                       <h4 className="text-primary font-bold font-syne text-sm mb-1">{hotspot.title}</h4>
@@ -177,7 +177,7 @@ export default function AnatomyOfSafetyPremium() {
             </div>
           </motion.div>
         </div>
-      </div>
-    </section>
+      </div >
+    </section >
   )
 }
