@@ -5,10 +5,10 @@
      Çelik kapı sektörü için özel tasarlanmış, göz yormayan renkler
   */
   
-  /* Primary Accent - Bakır/Bronz tonu (Premium, sıcak, elegant) */
-  --color-primary: #c9a55c;
-  --color-primary-light: #d4b875;
-  --color-primary-dark: #a88a45;
+  /* Primary Accent - Mat Gümüş tonu (Premium, soğuk, industrial) */
+  --color-primary: #a8b5c4;
+  --color-primary-light: #c5d0dc;
+  --color-primary-dark: #8a9bab;
   
   /* Background - Yumuşak koyu tonlar (göz yormayan) */
   --color-background-dark: #0f1419;
@@ -59,7 +59,7 @@ body {
 }
 
 /* ==========================================
-   CUSTOM SCROLLBAR - Bakır gradient
+   CUSTOM SCROLLBAR - Gümüş gradient
    ========================================== */
 
 ::-webkit-scrollbar {
@@ -106,16 +106,16 @@ body {
 }
 
 /* ==========================================
-   SELECTION - Bakır highlight
+   SELECTION - Gümüş highlight
    ========================================== */
 
 ::selection {
-  background: rgba(201, 165, 92, 0.3);
+  background: rgba(168, 181, 196, 0.3);
   color: #fff;
 }
 
 ::-moz-selection {
-  background: rgba(201, 165, 92, 0.3);
+  background: rgba(168, 181, 196, 0.3);
   color: #fff;
 }
 
@@ -164,11 +164,11 @@ button {
 
 /* Glow Effects */
 .glow-primary {
-  box-shadow: 0 0 40px rgba(201, 165, 92, 0.25);
+  box-shadow: 0 0 40px rgba(168, 181, 196, 0.25);
 }
 
 .glow-primary-sm {
-  box-shadow: 0 0 20px rgba(201, 165, 92, 0.2);
+  box-shadow: 0 0 20px rgba(168, 181, 196, 0.2);
 }
 
 /* Metallic Shine Effect - Only animates on hover for performance */
@@ -177,7 +177,7 @@ button {
     105deg,
     var(--color-background-secondary) 0%,
     var(--color-background-tertiary) 45%,
-    rgba(201, 165, 92, 0.1) 50%,
+    rgba(168, 181, 196, 0.15) 50%,
     var(--color-background-tertiary) 55%,
     var(--color-background-secondary) 100%
   );

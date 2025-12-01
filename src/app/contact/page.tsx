@@ -143,7 +143,7 @@ export default function ContactPage() {
                 <div className="mt-8 space-y-3">
                   <a 
                     href="tel:+902125550123"
-                    className="w-full bg-primary text-background-dark px-4 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 hover:shadow-[0_0_20px_rgba(242,208,13,0.3)] font-display"
+                    className="w-full bg-primary text-background-dark px-4 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 hover:shadow-[0_0_20px_rgba(168,181,196,0.3)] font-display"
                   >
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
@@ -306,7 +306,7 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-primary disabled:bg-steel/30 text-background-dark px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(242,208,13,0.3)] disabled:hover:scale-100 disabled:hover:shadow-none font-display"
+                    className="w-full bg-primary disabled:bg-steel/30 text-background-dark px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(168,181,196,0.3)] disabled:hover:scale-100 disabled:hover:shadow-none font-display"
                   >
                     {isSubmitting ? (
                       <>

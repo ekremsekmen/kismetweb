@@ -156,11 +156,11 @@ export default function VillaKapilariPage() {
                     {/* Double Door Illustration */}
                     <div className="flex gap-1">
                       <div className="w-16 h-48 bg-gradient-to-b from-primary/20 to-primary/5 rounded-lg shadow-lg relative border border-primary/30">
-                        <div className="absolute right-1 top-1/2 transform -translate-y-1/2 w-2 h-4 bg-primary rounded-full shadow-[0_0_8px_rgba(242,208,13,0.5)]" />
+                        <div className="absolute right-1 top-1/2 transform -translate-y-1/2 w-2 h-4 bg-primary rounded-full shadow-[0_0_8px_rgba(168,181,196,0.5)]" />
                         <div className="absolute inset-2 border border-primary/20 rounded" />
                       </div>
                       <div className="w-16 h-48 bg-gradient-to-b from-primary/20 to-primary/5 rounded-lg shadow-lg relative border border-primary/30">
-                        <div className="absolute left-1 top-1/2 transform -translate-y-1/2 w-2 h-4 bg-primary rounded-full shadow-[0_0_8px_rgba(242,208,13,0.5)]" />
+                        <div className="absolute left-1 top-1/2 transform -translate-y-1/2 w-2 h-4 bg-primary rounded-full shadow-[0_0_8px_rgba(168,181,196,0.5)]" />
                         <div className="absolute inset-2 border border-primary/20 rounded" />
                       </div>
                     </div>
@@ -267,7 +267,7 @@ export default function VillaKapilariPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
               href="/contact" 
-              className="flex items-center justify-center gap-2 bg-primary text-background-dark px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(242,208,13,0.3)] font-display"
+              className="flex items-center justify-center gap-2 bg-primary text-background-dark px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)] font-display"
             >
               Ücretsiz Tasarım Danışmanlığı
             </a>

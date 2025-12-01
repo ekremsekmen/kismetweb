@@ -206,7 +206,7 @@ export default function ProductDetailPage() {
                 <div className="relative z-10 aspect-[3/4] flex items-center justify-center">
                   {/* Door Illustration */}
                   <div className="w-48 h-80 bg-gradient-to-b from-steel/20 to-steel/5 rounded-xl shadow-2xl relative border-2 border-primary/30">
-                    <div className="absolute right-4 top-1/2 transform -translate-y-1/2 w-4 h-8 bg-primary rounded-full shadow-[0_0_20px_rgba(242,208,13,0.5)]" />
+                    <div className="absolute right-4 top-1/2 transform -translate-y-1/2 w-4 h-8 bg-primary rounded-full shadow-[0_0_20px_rgba(168,181,196,0.5)]" />
                     <div className="absolute inset-4 border border-white/10 rounded-lg" />
                     <div className="absolute top-4 left-4 right-4 h-12 bg-primary/10 rounded border border-primary/20" />
                     <div className="absolute bottom-4 left-4 right-4 h-12 bg-primary/10 rounded border border-primary/20" />
@@ -256,7 +256,7 @@ export default function ProductDetailPage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link 
                   href="/contact"
-                  className="flex items-center justify-center gap-2 bg-primary text-background-dark px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(242,208,13,0.3)] font-display"
+                  className="flex items-center justify-center gap-2 bg-primary text-background-dark px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)] font-display"
                 >
                   Teklif Al
                 </Link>
@@ -359,7 +359,7 @@ export default function ProductDetailPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/contact"
-              className="flex items-center justify-center gap-2 bg-primary text-background-dark px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(242,208,13,0.3)] font-display"
+              className="flex items-center justify-center gap-2 bg-primary text-background-dark px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)] font-display"
             >
               Ücretsiz Keşif
             </Link>

@@ -186,7 +186,7 @@ export default function ProductsGallery() {
                   onClick={() => handleCategoryChange(category.id as CategoryType)}
                   className={`px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 flex items-center gap-2 font-display ${
                     activeCategory === category.id
-                      ? 'bg-primary text-background-dark shadow-[0_0_20px_rgba(242,208,13,0.3)]'
+                      ? 'bg-primary text-background-dark shadow-[0_0_20px_rgba(168,181,196,0.3)]'
                       : 'glass-panel text-steel hover:border-primary/50 hover:text-primary'
                   }`}
                 >
@@ -320,7 +320,7 @@ export default function ProductsGallery() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
               href="/contact" 
-              className="flex items-center justify-center gap-2 bg-primary text-background-dark px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(242,208,13,0.3)] font-display"
+              className="flex items-center justify-center gap-2 bg-primary text-background-dark px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)] font-display"
             >
               Teklif Alın
             </a>

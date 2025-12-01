@@ -27,8 +27,8 @@ export default function CustomCursor() {
     isHoveringRef.current = hovering
     if (cursorOuterRef.current) {
       cursorOuterRef.current.style.borderColor = hovering 
-        ? 'rgba(201, 165, 92, 0.8)' 
-        : 'rgba(201, 165, 92, 0.4)'
+        ? 'rgba(168, 181, 196, 0.8)' 
+        : 'rgba(168, 181, 196, 0.4)'
     }
   }, [])
 

@@ -155,7 +155,7 @@ export default function DaireKapilariPage() {
                   <div className="absolute inset-0 flex items-center justify-center">
                     {/* Door Illustration */}
                     <div className="w-32 h-48 bg-gradient-to-b from-steel/30 to-steel/10 rounded-lg shadow-lg relative border border-white/10">
-                      <div className="absolute right-2 top-1/2 transform -translate-y-1/2 w-3 h-6 bg-primary rounded-full shadow-[0_0_10px_rgba(242,208,13,0.5)]" />
+                      <div className="absolute right-2 top-1/2 transform -translate-y-1/2 w-3 h-6 bg-primary rounded-full shadow-[0_0_10px_rgba(168,181,196,0.5)]" />
                       <div className="absolute inset-3 border border-white/10 rounded" />
                       <div className="absolute top-2 left-2 right-2 h-6 bg-primary/20 rounded" />
                     </div>
@@ -262,7 +262,7 @@ export default function DaireKapilariPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
               href="/contact" 
-              className="flex items-center justify-center gap-2 bg-primary text-background-dark px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(242,208,13,0.3)] font-display"
+              className="flex items-center justify-center gap-2 bg-primary text-background-dark px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)] font-display"
             >
               Ücretsiz Keşif
             </a>

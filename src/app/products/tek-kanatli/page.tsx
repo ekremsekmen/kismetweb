@@ -155,7 +155,7 @@ export default function TekKanatliPage() {
                   <div className="absolute inset-0 flex items-center justify-center">
                     {/* Single Door Illustration */}
                     <div className="w-28 h-44 bg-gradient-to-b from-steel/30 to-steel/10 rounded-lg shadow-lg relative border border-white/10 group-hover:scale-105 transition-transform">
-                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2 w-3 h-6 bg-primary rounded-full shadow-[0_0_10px_rgba(242,208,13,0.5)]" />
+                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2 w-3 h-6 bg-primary rounded-full shadow-[0_0_10px_rgba(168,181,196,0.5)]" />
                       <div className="absolute inset-3 border border-white/10 rounded" />
                       <div className="absolute top-3 left-3 right-3 h-8 bg-primary/10 rounded border border-primary/20" />
                     </div>
@@ -262,7 +262,7 @@ export default function TekKanatliPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
               href="/contact" 
-              className="flex items-center justify-center gap-2 bg-primary text-background-dark px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(242,208,13,0.3)] font-display"
+              className="flex items-center justify-center gap-2 bg-primary text-background-dark px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)] font-display"
             >
               Ücretsiz Keşif
             </a>
