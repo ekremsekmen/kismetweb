@@ -25,7 +25,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
   // Disable smooth scroll on mobile/tablets for better performance
   if (!isDesktop) {
-    return <>{children}</>
+    return children
   }
 
   return (

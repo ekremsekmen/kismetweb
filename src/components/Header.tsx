@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const productCategories = [
@@ -12,7 +12,7 @@ const productCategories = [
     { href: '/products/yangin-kapilari', label: 'Yangın Kapıları' },
     { href: '/products/akilli-kilitli', label: 'Akıllı Kilitler' },
     { href: '/products/site-kapilari', label: 'Site Kapıları' },
-];
+] as const;
 
 const navLinks = [
     { href: '/factory', label: 'Fabrika' },
@@ -20,7 +20,34 @@ const navLinks = [
     { href: '/about', label: 'Hakkımızda' },
     { href: '/dealers', label: 'Bayiler' },
     { href: '/contact', label: 'İletişim' },
-];
+] as const;
+
+// Memoized nav link component
+const NavLink = memo(function NavLink({ href, label }: { href: string; label: string }) {
+    return (
+        <Link
+            href={href}
+            className="px-4 py-2 rounded-lg text-sm font-medium font-display text-steel hover:text-primary hover:bg-white/5 transition-all duration-200"
+        >
+            {label}
+        </Link>
+    );
+});
+
+// Memoized product category link
+const CategoryLink = memo(function CategoryLink({ href, label }: { href: string; label: string }) {
+    return (
+        <Link
+            href={href}
+            className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm text-steel hover:text-primary hover:bg-primary/5 transition-all duration-150 group"
+        >
+            <span className="font-display">{label}</span>
+            <svg className="w-4 h-4 text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+        </Link>
+    );
+});
 
 export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -37,6 +64,11 @@ export default function Header() {
         document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
         return () => { document.body.style.overflow = ''; };
     }, [isMobileMenuOpen]);
+
+    const handleProductsMouseEnter = useCallback(() => setIsProductsOpen(true), []);
+    const handleProductsMouseLeave = useCallback(() => setIsProductsOpen(false), []);
+    const toggleMobileMenu = useCallback(() => setIsMobileMenuOpen(prev => !prev), []);
+    const closeMobileMenu = useCallback(() => setIsMobileMenuOpen(false), []);
 
     return (
         <>
@@ -70,8 +102,8 @@ export default function Header() {
                             {/* Products Dropdown */}
                             <div
                                 className="relative"
-                                onMouseEnter={() => setIsProductsOpen(true)}
-                                onMouseLeave={() => setIsProductsOpen(false)}
+                                onMouseEnter={handleProductsMouseEnter}
+                                onMouseLeave={handleProductsMouseLeave}
                             >
                                 <button className={`px-4 py-2 rounded-lg text-sm font-medium font-display flex items-center gap-1.5 transition-all duration-200 ${
                                     isProductsOpen ? 'text-primary bg-primary/10' : 'text-steel hover:text-primary hover:bg-white/5'
@@ -98,16 +130,7 @@ export default function Header() {
                                             <div className="bg-background-secondary rounded-xl border border-border overflow-hidden shadow-xl shadow-black/20">
                                                 <div className="p-2">
                                                     {productCategories.map((cat) => (
-                                                        <Link
-                                                            key={cat.href}
-                                                            href={cat.href}
-                                                            className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm text-steel hover:text-primary hover:bg-primary/5 transition-all duration-150 group"
-                                                        >
-                                                            <span className="font-display">{cat.label}</span>
-                                                            <svg className="w-4 h-4 text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                                            </svg>
-                                                        </Link>
+                                                        <CategoryLink key={cat.href} href={cat.href} label={cat.label} />
                                                     ))}
                                                 </div>
                                                 <div className="border-t border-border p-2">
@@ -127,13 +150,7 @@ export default function Header() {
 
                             {/* Other Links */}
                             {navLinks.map((link) => (
-                                <Link
-                                    key={link.href}
-                                    href={link.href}
-                                    className="px-4 py-2 rounded-lg text-sm font-medium font-display text-steel hover:text-primary hover:bg-white/5 transition-all duration-200"
-                                >
-                                    {link.label}
-                                </Link>
+                                <NavLink key={link.href} href={link.href} label={link.label} />
                             ))}
                         </nav>
 
@@ -149,7 +166,7 @@ export default function Header() {
                             {/* Mobile Menu */}
                             <button
                                 className="lg:hidden size-10 rounded-lg bg-background-secondary border border-border flex items-center justify-center text-steel hover:text-primary hover:border-primary/50 transition-all duration-200"
-                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                                onClick={toggleMobileMenu}
                             >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     {isMobileMenuOpen ? (
@@ -180,7 +197,7 @@ export default function Header() {
                                         key={link.href}
                                         href={link.href}
                                         className="block py-3 text-2xl font-bold font-syne text-steel hover:text-primary transition-colors border-b border-border"
-                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        onClick={closeMobileMenu}
                                     >
                                         {link.label}
                                     </Link>
@@ -189,7 +206,7 @@ export default function Header() {
                             <Link
                                 href="/contact"
                                 className="mt-8 flex items-center justify-center h-14 bg-primary text-background-dark text-lg font-bold font-syne rounded-xl"
-                                onClick={() => setIsMobileMenuOpen(false)}
+                                onClick={closeMobileMenu}
                             >
                                 Teklif Al
                             </Link>

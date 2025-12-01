@@ -47,7 +47,7 @@ export default function ProductShowcase() {
                                     className="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-t-xl"
                                     style={{ backgroundImage: `url("${product.image}")` }}
                                     aria-label={product.alt}
-                                ></div>
+                                 />
 
                                 <div className="flex flex-col flex-1 justify-between p-5 pt-0 gap-4">
                                     <div>

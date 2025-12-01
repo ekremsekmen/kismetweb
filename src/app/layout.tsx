@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Syne, Oswald } from "next/font/google";
 import "./globals.css";
 import Header from '@/components/Header';
@@ -32,14 +32,50 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
-  title: "Öz Kısmet - Forged in Steel",
-  description: "Engineering Secure Entrances since 1995. Security, Technology, Durability, Design.",
-  keywords: "steel doors, security, engineering, design, Öz Kısmet, çelik kapı",
+  title: {
+    default: "Öz Kısmet Çelik Kapı - Forged in Steel",
+    template: "%s | Öz Kısmet"
+  },
+  description: "1995'ten beri güvenli girişler mühendisliği. Çelik kapı üretiminde güvenlik, teknoloji, dayanıklılık ve tasarım.",
+  keywords: ["çelik kapı", "güvenlik kapısı", "villa kapısı", "yangın kapısı", "Öz Kısmet", "steel door", "security door"],
+  authors: [{ name: "Öz Kısmet Çelik Kapı" }],
+  creator: "Öz Kısmet",
+  publisher: "Öz Kısmet Çelik Kapı",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('https://kismetcelikapi.com'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: "Öz Kısmet Çelik Kapı - Forged in Steel",
+    description: "1995'ten beri güvenli girişler mühendisliği.",
+    url: 'https://kismetcelikapi.com',
+    siteName: 'Öz Kısmet Çelik Kapı',
+    locale: 'tr_TR',
+    type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
-export const viewport = {
+export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#0f1419',
 };
 
 export default function RootLayout({
@@ -48,7 +84,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="tr" className="dark">
+      <head>
+        {/* Preconnect to external domains */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://lh3.googleusercontent.com" />
+      </head>
       <body
         className={`${spaceGrotesk.variable} ${syne.variable} ${oswald.variable} antialiased bg-background-dark text-steel font-display`}
       >

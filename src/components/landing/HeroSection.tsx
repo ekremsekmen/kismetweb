@@ -12,7 +12,7 @@ export default function HeroSection() {
                     backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuDx6b4FHWQFeQY-S6HjJWEUPRXp2H2wib4CA3eyrJcNVVFHhYTK5zosB_QgYTGRyZEB5rQ-XplHTqSMq7hifSq-l5xdy_XYuTA4MOwfIvwv0rnkeXqIjKv80ia82hL5v6TVIOSA_XFpPzCqiQYMukK2u8cis5HWs8kjkzEdJun2zhCS2FEfbOaV04WitW9HmEccbunBU0iq3NVmOK_NQtsRhms5rowNMBvbBF5r_sqKKTxbRPZ1xKJxUmBKaV4IUruuzp73n1d50ao")',
                     opacity: 0.03
                 }}
-            ></div>
+             />
 
             <div className="z-10 flex flex-col items-center gap-4">
                 <h1 className="text-steel text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] font-extrabold uppercase font-syne tracking-tighter animate-fade-in-up">

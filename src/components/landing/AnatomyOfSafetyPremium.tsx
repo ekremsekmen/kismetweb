@@ -1,7 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useState, useRef, useEffect, memo, useCallback } from 'react'
 
 const hotspots = [
   {
@@ -36,23 +35,83 @@ const hotspots = [
     description: 'Yüksek yoğunluklu poliüretan yalıtım.',
     icon: '🌡️'
   }
-]
+] as const
+
+// Memoized feature button
+const FeatureButton = memo(function FeatureButton({ 
+  hotspot, 
+  isActive, 
+  onHover, 
+  onLeave,
+  index 
+}: { 
+  hotspot: typeof hotspots[number]
+  isActive: boolean
+  onHover: () => void
+  onLeave: () => void
+  index: number
+}) {
+  return (
+    <button
+      className={`w-full p-4 rounded-xl border text-left transition-all duration-300 scroll-reveal ${
+        isActive
+          ? 'bg-primary/5 border-primary/40 shadow-[0_0_20px_rgba(201,165,92,0.1)]'
+          : 'bg-background-tertiary/50 border-border hover:border-steel-dark'
+      }`}
+      style={{ animationDelay: `${0.1 + index * 0.1}s` }}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+    >
+      <div className="flex items-center gap-4">
+        <span className="text-2xl">{hotspot.icon}</span>
+        <div>
+          <h4 className={`font-semibold font-syne text-sm transition-colors duration-300 ${
+            isActive ? 'text-primary' : 'text-steel'
+          }`}>
+            {hotspot.title}
+          </h4>
+          <p className="text-steel-muted text-xs font-display">
+            {hotspot.description}
+          </p>
+        </div>
+      </div>
+    </button>
+  )
+})
 
 export default function AnatomyOfSafetyPremium() {
   const [activeHotspot, setActiveHotspot] = useState<string | null>(null)
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.3 })
+  const ref = useRef<HTMLElement>(null)
+  const [isInView, setIsInView] = useState(false)
+
+  // Use Intersection Observer instead of Framer Motion's useInView
+  useEffect(() => {
+    const element = ref.current
+    if (!element) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.3 }
+    )
+
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [])
+
+  const handleHover = useCallback((id: string) => setActiveHotspot(id), [])
+  const handleLeave = useCallback(() => setActiveHotspot(null), [])
 
   return (
-    <section ref={ref} className="py-20 lg:py-28 px-6 sm:px-10 lg:px-20 bg-background-secondary">
+    <section ref={ref} className="py-20 lg:py-28 px-6 sm:px-10 lg:px-20 bg-background-secondary contain-layout">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
-          >
+          <div className={`transition-all duration-700 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
             <p className="text-primary text-sm font-medium tracking-[0.3em] uppercase mb-3 font-display">
               MÜHENDİSLİK
             </p>
@@ -66,41 +125,21 @@ export default function AnatomyOfSafetyPremium() {
             {/* Feature list */}
             <div className="space-y-3">
               {hotspots.map((hotspot, index) => (
-                <motion.button
+                <FeatureButton
                   key={hotspot.id}
-                  className={`w-full p-4 rounded-xl border text-left transition-all duration-300 ${activeHotspot === hotspot.id
-                    ? 'bg-primary/5 border-primary/40 shadow-[0_0_20px_rgba(201,165,92,0.1)]'
-                    : 'bg-background-tertiary/50 border-border hover:border-steel-dark'
-                    }`}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.1 + index * 0.1 }}
-                  onMouseEnter={() => setActiveHotspot(hotspot.id)}
-                  onMouseLeave={() => setActiveHotspot(null)}
-                >
-                  <div className="flex items-center gap-4">
-                    <span className="text-2xl">{hotspot.icon}</span>
-                    <div>
-                      <h4 className={`font-semibold font-syne text-sm transition-colors duration-300 ${activeHotspot === hotspot.id ? 'text-primary' : 'text-steel'
-                        }`}>
-                        {hotspot.title}
-                      </h4>
-                      <p className="text-steel-muted text-xs font-display">
-                        {hotspot.description}
-                      </p>
-                    </div>
-                  </div>
-                </motion.button>
+                  hotspot={hotspot}
+                  isActive={activeHotspot === hotspot.id}
+                  onHover={() => handleHover(hotspot.id)}
+                  onLeave={handleLeave}
+                  index={index}
+                />
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Interactive door diagram */}
-          <motion.div
-            className="relative h-[400px] flex items-center justify-center"
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          <div
+            className={`relative h-[400px] flex items-center justify-center transition-all duration-700 delay-200 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
           >
             {/* Door SVG */}
             <div className="relative">
@@ -175,9 +214,9 @@ export default function AnatomyOfSafetyPremium() {
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="w-64 h-64 border border-border/30 rounded-full" />
             </div>
-          </motion.div>
+          </div>
         </div>
-      </div >
-    </section >
+      </div>
+    </section>
   )
 }

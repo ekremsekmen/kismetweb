@@ -17,6 +17,16 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    
+    // Ek strict kurallar
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "exactOptionalPropertyTypes": false,
+    "noUncheckedIndexedAccess": false,
+    
     "plugins": [
       {
         "name": "next"

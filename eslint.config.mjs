@@ -20,6 +20,32 @@ const eslintConfig = [
       "next-env.d.ts",
     ],
   },
+  {
+    rules: {
+      // Kod kalitesi kuralları
+      "prefer-const": "error",
+      "no-var": "error",
+      "no-unused-expressions": "error",
+      "no-duplicate-imports": "error",
+      "no-console": ["warn", { allow: ["warn", "error"] }],
+      
+      // React/Next.js kuralları
+      "react/jsx-no-useless-fragment": "warn",
+      "react/self-closing-comp": "warn",
+      "react-hooks/exhaustive-deps": "warn",
+      
+      // TypeScript kuralları
+      "@typescript-eslint/no-unused-vars": ["error", { 
+        argsIgnorePattern: "^_",
+        varsIgnorePattern: "^_"
+      }],
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/prefer-as-const": "error",
+      
+      // Import/Export kuralları
+      "import/no-anonymous-default-export": "off",
+    },
+  },
 ];
 
 export default eslintConfig;

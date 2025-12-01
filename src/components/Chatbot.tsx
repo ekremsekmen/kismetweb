@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback, memo } from 'react'
 
 interface Message {
   id: number
@@ -9,29 +9,83 @@ interface Message {
   timestamp: Date
 }
 
+// Response patterns - dışarıda tanımlandı, her render'da yeniden oluşturulmaz
+const RESPONSE_PATTERNS = [
+  { keywords: ['merhaba', 'selam', 'hey', 'hi'], response: 'Merhaba! Kismet Çelik Kapı\'na hoş geldiniz. Size nasıl yardımcı olabilirim? (Örn: Modeller, Fiyat, Bayiler, Garanti)' },
+  { keywords: ['fiyat', 'teklif', 'ücret', 'kaç para'], response: '💰 Fiyatlarımız model, ölçü ve kilit sistemine göre değişmektedir. Ücretsiz keşif ve size özel net bir teklif için lütfen telefon numaranızı paylaşın veya 0212 555 01 23 numaralı hattımızdan bize ulaşın.' },
+  { keywords: ['model', 'ürün', 'kapı', 'çeşit'], response: '🚪 Modern, Klasik, Villa, Premium ve Ekonomik serilerimiz bulunmaktadır. Hangi model hakkında bilgi almak istersiniz? Ayrıca ürünler sayfamızı ziyaret edebilirsiniz: /products' },
+  { keywords: ['bayi', 'satış noktası', 'showroom', 'mağaza'], response: '📍 Amasya, Kastamonu, Samsun, Çorum, Tokat ve Ankara\'da yetkili bayilerimiz bulunmaktadır. Bayilerimiz sayfasından size en yakın bayiyi bulabilirsiniz: /dealers' },
+  { keywords: ['garanti', 'garantisi'], response: '✅ Tüm ürünlerimiz 10 yıl garantilidir! TSE belgeli ve ISO 9001 sertifikalı üretim yapıyoruz.' },
+  { keywords: ['montaj', 'kurulum', 'takılım'], response: '🔧 Profesyonel montaj ekibimiz, ürün tesliminden sonra ücretsiz montaj hizmeti vermektedir. Montaj süresi genelde 2-4 saat arası sürmektedir.' },
+  { keywords: ['teslimat', 'kargo', 'ne zaman', 'süre'], response: '🚚 Sipariş sonrası üretim süresi 7-14 iş günüdür. Acil durumlar için hızlı teslimat seçeneklerimiz mevcuttur.' },
+  { keywords: ['iletişim', 'telefon', 'ara', 'mail'], response: '📞 Telefon: 0212 555 01 23\n📧 Email: info@kismetcelikapi.com\n🕐 Çalışma Saatleri: Pzt-Cmt 08:00-18:00' },
+  { keywords: ['teşekkür', 'sağol', 'eyvallah'], response: '🙏 Rica ederim! Başka sorunuz varsa her zaman buradayım.' },
+] as const
+
+const DEFAULT_RESPONSE = '🤔 Bu konuyu henüz tam olarak öğrenmedim, ancak uzman ekibimize notunuzu iletiyorum. Daha detaylı bilgi için telefon numaranızı bırakır mısınız? Veya 0212 555 01 23 numaralı hattımızdan bize ulaşabilirsiniz.'
+
+const INITIAL_MESSAGE: Message = {
+  id: 0,
+  text: 'Merhaba! Kismet Çelik Kapı AI Asistanına hoş geldiniz. Size nasıl yardımcı olabilirim?',
+  sender: 'bot',
+  timestamp: new Date()
+}
+
+// Memoized message component
+const ChatMessage = memo(function ChatMessage({ message }: { message: Message }) {
+  const isUser = message.sender === 'user'
+  
+  return (
+    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} animate-fade-in-up`}>
+      <div
+        className={`max-w-[80%] rounded-2xl px-4 py-3 ${
+          isUser
+            ? 'bg-gradient-to-r from-[#d4af37] to-[#b8941f] text-[#1a1a1a] rounded-br-none'
+            : 'bg-white border-2 border-gray-200 text-gray-900 rounded-bl-none shadow-sm'
+        }`}
+      >
+        <p className={`font-roboto text-sm whitespace-pre-line ${isUser ? 'font-medium' : ''}`}>
+          {message.text}
+        </p>
+        <span className={`text-xs mt-1 block ${isUser ? 'text-[#1a1a1a]/70' : 'text-gray-500'}`}>
+          {message.timestamp.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}
+        </span>
+      </div>
+    </div>
+  )
+})
+
+// Typing indicator component
+const TypingIndicator = memo(function TypingIndicator() {
+  return (
+    <div className="flex justify-start animate-fade-in">
+      <div className="bg-white border-2 border-gray-200 rounded-2xl rounded-bl-none px-4 py-3 shadow-sm">
+        <div className="flex items-center gap-1">
+          <div className="w-2 h-2 bg-[#d4af37] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+          <div className="w-2 h-2 bg-[#d4af37] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+          <div className="w-2 h-2 bg-[#d4af37] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+        </div>
+      </div>
+    </div>
+  )
+})
+
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false)
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 0,
-      text: 'Merhaba! Kismet Çelik Kapı AI Asistanına hoş geldiniz. Size nasıl yardımcı olabilirim?',
-      sender: 'bot',
-      timestamp: new Date()
-    }
-  ])
+  const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE])
   const [inputText, setInputText] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
   // Auto scroll to bottom when new message arrives
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
+  }, [])
 
   useEffect(() => {
     scrollToBottom()
-  }, [messages, isTyping])
+  }, [messages, isTyping, scrollToBottom])
 
   // Focus input when chat opens
   useEffect(() => {
@@ -40,63 +94,22 @@ export default function Chatbot() {
     }
   }, [isOpen])
 
-  // AI Response Simulation
-  const generateBotResponse = (userMessage: string): string => {
+  // AI Response Simulation - memoized
+  const generateBotResponse = useCallback((userMessage: string): string => {
     const lowerMessage = userMessage.toLowerCase()
-
-    // Kural 1: Selamlaşma
-    if (lowerMessage.includes('merhaba') || lowerMessage.includes('selam') || lowerMessage.includes('hey') || lowerMessage.includes('hi')) {
-      return 'Merhaba! Kismet Çelik Kapı\'na hoş geldiniz. Size nasıl yardımcı olabilirim? (Örn: Modeller, Fiyat, Bayiler, Garanti)'
+    
+    for (const pattern of RESPONSE_PATTERNS) {
+      if (pattern.keywords.some(keyword => lowerMessage.includes(keyword))) {
+        return pattern.response
+      }
     }
+    
+    return DEFAULT_RESPONSE
+  }, [])
 
-    // Kural 2: Fiyat/Teklif
-    if (lowerMessage.includes('fiyat') || lowerMessage.includes('teklif') || lowerMessage.includes('ücret') || lowerMessage.includes('kaç para')) {
-      return '💰 Fiyatlarımız model, ölçü ve kilit sistemine göre değişmektedir. Ücretsiz keşif ve size özel net bir teklif için lütfen telefon numaranızı paylaşın veya 0212 555 01 23 numaralı hattımızdan bize ulaşın. Uzmanlarımız sizi arayacaktır.'
-    }
-
-    // Modeller hakkında
-    if (lowerMessage.includes('model') || lowerMessage.includes('ürün') || lowerMessage.includes('kapı') || lowerMessage.includes('çeşit')) {
-      return '🚪 Modern, Klasik, Villa, Premium ve Ekonomik serilerimiz bulunmaktadır. Hangi model hakkında bilgi almak istersiniz? Ayrıca ürünler sayfamızı ziyaret edebilirsiniz: /products'
-    }
-
-    // Bayiler
-    if (lowerMessage.includes('bayi') || lowerMessage.includes('satış noktası') || lowerMessage.includes('showroom') || lowerMessage.includes('mağaza')) {
-      return '📍 Amasya, Kastamonu, Samsun, Çorum, Tokat ve Ankara\'da yetkili bayilerimiz bulunmaktadır. Bayilerimiz sayfasından size en yakın bayiyi bulabilirsiniz: /dealers'
-    }
-
-    // Garanti
-    if (lowerMessage.includes('garanti') || lowerMessage.includes('garantisi')) {
-      return '✅ Tüm ürünlerimiz 10 yıl garantilidir! TSE belgeli ve ISO 9001 sertifikalı üretim yapıyoruz.'
-    }
-
-    // Montaj
-    if (lowerMessage.includes('montaj') || lowerMessage.includes('kurulum') || lowerMessage.includes('takılım')) {
-      return '🔧 Profesyonel montaj ekibimiz, ürün tesliminden sonra ücretsiz montaj hizmeti vermektedir. Montaj süresi genelde 2-4 saat arası sürmektedir.'
-    }
-
-    // Teslimat
-    if (lowerMessage.includes('teslimat') || lowerMessage.includes('kargo') || lowerMessage.includes('ne zaman') || lowerMessage.includes('süre')) {
-      return '🚚 Sipariş sonrası üretim süresi 7-14 iş günüdür. Acil durumlar için hızlı teslimat seçeneklerimiz mevcuttur.'
-    }
-
-    // İletişim
-    if (lowerMessage.includes('iletişim') || lowerMessage.includes('telefon') || lowerMessage.includes('ara') || lowerMessage.includes('mail')) {
-      return '📞 Telefon: 0212 555 01 23\n📧 Email: info@kismetcelikapi.com\n🕐 Çalışma Saatleri: Pzt-Cmt 08:00-18:00'
-    }
-
-    // Teşekkür
-    if (lowerMessage.includes('teşekkür') || lowerMessage.includes('sağol') || lowerMessage.includes('eyvallah')) {
-      return '🙏 Rica ederim! Başka sorunuz varsa her zaman buradayım.'
-    }
-
-    // Default response
-    return '🤔 Bu konuyu henüz tam olarak öğrenmedim, ancak uzman ekibimize notunuzu iletiyorum. Daha detaylı bilgi için telefon numaranızı bırakır mısınız? Veya 0212 555 01 23 numaralı hattımızdan bize ulaşabilirsiniz.'
-  }
-
-  const handleSendMessage = async () => {
+  const handleSendMessage = useCallback(async () => {
     if (!inputText.trim()) return
 
-    // Add user message
     const userMessage: Message = {
       id: messages.length,
       text: inputText.trim(),
@@ -106,16 +119,12 @@ export default function Chatbot() {
 
     setMessages(prev => [...prev, userMessage])
     setInputText('')
-
-    // Show typing indicator
     setIsTyping(true)
 
-    // Simulate AI thinking time (1-2 seconds)
+    // Simulate AI thinking time
     await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000))
 
-    // Generate bot response
     const botResponse = generateBotResponse(userMessage.text)
-
     const botMessage: Message = {
       id: messages.length + 1,
       text: botResponse,
@@ -125,18 +134,18 @@ export default function Chatbot() {
 
     setIsTyping(false)
     setMessages(prev => [...prev, botMessage])
-  }
+  }, [inputText, messages.length, generateBotResponse])
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyPress = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       handleSendMessage()
     }
-  }
+  }, [handleSendMessage])
 
-  const toggleChat = () => {
-    setIsOpen(!isOpen)
-  }
+  const toggleChat = useCallback(() => {
+    setIsOpen(prev => !prev)
+  }, [])
 
   return (
     <>
@@ -157,7 +166,7 @@ export default function Chatbot() {
             <div>
               <h3 className="font-montserrat font-bold text-sm">Kismet AI Asistan</h3>
               <p className="font-roboto text-xs text-gray-300 flex items-center gap-1">
-                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                 Online
               </p>
             </div>
@@ -176,39 +185,10 @@ export default function Chatbot() {
         {/* Messages Area */}
         <div className="h-96 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-gray-50 to-white">
           {messages.map((message) => (
-            <div
-              key={message.id}
-              className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in-up`}
-            >
-              <div
-                className={`max-w-[80%] rounded-2xl px-4 py-3 ${
-                  message.sender === 'user'
-                    ? 'bg-gradient-to-r from-[#d4af37] to-[#b8941f] text-[#1a1a1a] rounded-br-none'
-                    : 'bg-white border-2 border-gray-200 text-gray-900 rounded-bl-none shadow-sm'
-                }`}
-              >
-                <p className={`font-roboto text-sm whitespace-pre-line ${message.sender === 'user' ? 'font-medium' : ''}`}>
-                  {message.text}
-                </p>
-                <span className={`text-xs mt-1 block ${message.sender === 'user' ? 'text-[#1a1a1a]/70' : 'text-gray-500'}`}>
-                  {message.timestamp.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}
-                </span>
-              </div>
-            </div>
+            <ChatMessage key={message.id} message={message} />
           ))}
 
-          {/* Typing Indicator */}
-          {isTyping && (
-            <div className="flex justify-start animate-fade-in">
-              <div className="bg-white border-2 border-gray-200 rounded-2xl rounded-bl-none px-4 py-3 shadow-sm">
-                <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 bg-[#d4af37] rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
-                  <div className="w-2 h-2 bg-[#d4af37] rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
-                  <div className="w-2 h-2 bg-[#d4af37] rounded-full animate-bounce" style={{animationDelay: '300ms'}}></div>
-                </div>
-              </div>
-            </div>
-          )}
+          {isTyping && <TypingIndicator />}
 
           <div ref={messagesEndRef} />
         </div>
@@ -266,7 +246,7 @@ export default function Chatbot() {
         )}
         
         {/* Ripple Effect */}
-        <span className="absolute inset-0 rounded-full bg-[#d4af37] animate-ping opacity-20"></span>
+        <span className="absolute inset-0 rounded-full bg-[#d4af37] animate-ping opacity-20" />
       </button>
     </>
   )

@@ -59,7 +59,7 @@ export default function Features() {
   return (
     <section className="py-20 bg-gradient-to-b from-gray-100 to-white relative overflow-hidden">
       {/* Background Pattern */}
-      <div className="absolute inset-0 grid-pattern opacity-10"></div>
+      <div className="absolute inset-0 grid-pattern opacity-10" />
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 animate-fade-in-up">
@@ -70,7 +70,7 @@ export default function Features() {
             25 yıllık deneyimimiz ve kaliteli üretim anlayışımızla sizlere en iyi hizmeti sunuyoruz
           </p>
           <div className="mt-6 flex justify-center">
-            <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full" />
           </div>
         </div>
 
@@ -82,7 +82,7 @@ export default function Features() {
               style={{animationDelay: `${index * 0.1}s`}}
             >
               {/* Background Glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 to-yellow-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 to-yellow-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               
               <div className="relative z-10">
                 <div className="text-yellow-500 group-hover:text-yellow-600 mb-6 transform group-hover:scale-110 transition-all duration-300 golden-glow-hover">
@@ -96,7 +96,7 @@ export default function Features() {
                 </p>
                 
                 {/* Decorative Element */}
-                <div className="mt-6 w-12 h-1 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="mt-6 w-12 h-1 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
             </div>
           ))}
@@ -106,8 +106,8 @@ export default function Features() {
         <div className="text-center mt-16 animate-fade-in-up">
           <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 rounded-3xl p-8 lg:p-12 text-white relative overflow-hidden dark-glass-effect border border-yellow-500/30">
             {/* Background Effects */}
-            <div className="absolute top-0 left-0 w-32 h-32 bg-yellow-400/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 right-0 w-40 h-40 bg-yellow-600/10 rounded-full blur-3xl"></div>
+            <div className="absolute top-0 left-0 w-32 h-32 bg-yellow-400/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 right-0 w-40 h-40 bg-yellow-600/10 rounded-full blur-3xl" />
             
             <div className="relative z-10">
               <h3 className="text-2xl lg:text-3xl font-bold mb-4 luxury-text">

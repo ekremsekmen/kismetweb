@@ -12,8 +12,8 @@ export default function AnatomyOfSafety() {
                 <div className="lg:w-1/2 w-full relative h-[500px] flex items-center justify-center">
                     {/* Simplified Door SVG */}
                     <svg className="w-full h-full max-w-sm" fill="none" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
-                        <rect height="380" rx="4" stroke="#cfd8dc" strokeWidth="2" width="150" x="25" y="10"></rect>
-                        <rect height="20" rx="2" stroke="#cfd8dc" strokeWidth="2" width="10" x="155" y="190"></rect>
+                        <rect height="380" rx="4" stroke="#cfd8dc" strokeWidth="2" width="150" x="25" y="10" />
+                        <rect height="20" rx="2" stroke="#cfd8dc" strokeWidth="2" width="10" x="155" y="190" />
                     </svg>
 
                     {/* Interactive Hotspots */}

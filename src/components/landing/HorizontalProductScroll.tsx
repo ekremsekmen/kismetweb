@@ -1,7 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef, useEffect, useState, memo } from 'react'
 import Link from 'next/link'
 
 const products = [
@@ -47,19 +46,117 @@ const products = [
   }
 ]
 
+// Memoized product card for better performance
+const ProductCard = memo(function ProductCard({ 
+  product, 
+  index 
+}: { 
+  product: typeof products[0]
+  index: number 
+}) {
+  return (
+    <Link
+      href={product.href}
+      className="flex-shrink-0 w-[300px] sm:w-[350px] glass-panel rounded-xl overflow-hidden group hover:border-primary/30 transition-all duration-300"
+    >
+      {/* Product image placeholder */}
+      <div className="relative h-[200px] sm:h-[250px] bg-gradient-to-br from-background-tertiary to-background-dark overflow-hidden">
+        <span className="absolute top-4 left-4 text-primary/10 text-6xl font-syne font-bold">
+          0{index + 1}
+        </span>
+
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-24 h-40 bg-gradient-to-b from-steel-dark/30 to-steel-dark/10 rounded-lg border border-border relative group-hover:scale-105 group-hover:border-primary/30 transition-all duration-500">
+            <div className="absolute right-2 top-1/2 -translate-y-1/2 w-2 h-6 bg-primary rounded-full shadow-[0_0_10px_rgba(201,165,92,0.5)]" />
+            <div className="absolute inset-2 border border-border/50 rounded" />
+          </div>
+        </div>
+
+        <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      </div>
+
+      {/* Product info */}
+      <div className="p-5">
+        <div className="flex items-start justify-between mb-3">
+          <div>
+            <p className="text-primary text-xs tracking-widest uppercase mb-1 font-display">
+              {product.series}
+            </p>
+            <h3 className="text-steel text-xl font-bold font-syne group-hover:text-primary transition-colors duration-300">
+              {product.name}
+            </h3>
+          </div>
+          <div className="w-8 h-8 rounded-lg bg-background-tertiary border border-border flex items-center justify-center group-hover:border-primary group-hover:bg-primary/10 transition-all duration-300">
+            <svg 
+              className="w-3 h-3 text-steel-muted group-hover:text-primary transition-colors duration-300" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </div>
+        </div>
+
+        <p className="text-steel-muted text-sm mb-4 font-display line-clamp-2">
+          {product.description}
+        </p>
+
+        <div className="flex flex-wrap gap-2">
+          {product.features.map((feature, i) => (
+            <span
+              key={i}
+              className="px-2 py-1 text-xs font-medium bg-background-tertiary border border-border rounded text-steel-muted font-display"
+            >
+              {feature}
+            </span>
+          ))}
+        </div>
+      </div>
+    </Link>
+  )
+})
+
 export default function HorizontalProductScroll() {
   const targetRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-  })
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [scrollProgress, setScrollProgress] = useState(0)
 
-  // Use transform with GPU acceleration
-  const x = useTransform(scrollYProgress, [0, 1], ['0%', '-60%'], {
-    clamp: true, // Prevent overshoot
-  })
+  useEffect(() => {
+    const target = targetRef.current
+    if (!target) return
+
+    let ticking = false
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const rect = target.getBoundingClientRect()
+          const windowHeight = window.innerHeight
+          const sectionHeight = target.offsetHeight - windowHeight
+          
+          // Calculate progress based on scroll position
+          const scrolled = -rect.top
+          const progress = Math.max(0, Math.min(1, scrolled / sectionHeight))
+          
+          setScrollProgress(progress)
+          ticking = false
+        })
+        ticking = true
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll() // Initial call
+    
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Calculate transform based on scroll progress
+  const translateX = scrollProgress * -60 // -60% total movement
 
   return (
-    <section ref={targetRef} className="relative h-[300vh]">
+    <section ref={targetRef} className="relative h-[300vh] contain-layout">
       {/* Sticky container */}
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden bg-background-dark">
         {/* Section header */}
@@ -73,79 +170,15 @@ export default function HorizontalProductScroll() {
         </div>
 
         {/* Horizontal scroll container - GPU accelerated */}
-        <motion.div 
-          className="flex gap-6 pl-6 sm:pl-10 lg:pl-20"
+        <div 
+          ref={scrollContainerRef}
+          className="flex gap-6 pl-6 sm:pl-10 lg:pl-20 gpu-accelerated"
           style={{ 
-            x,
-            willChange: 'transform',
-            backfaceVisibility: 'hidden',
+            transform: `translate3d(${translateX}%, 0, 0)`,
           }}
         >
           {products.map((product, index) => (
-            <Link
-              key={product.id}
-              href={product.href}
-              className="flex-shrink-0 w-[300px] sm:w-[350px] glass-panel rounded-xl overflow-hidden group hover:border-primary/30 transition-all duration-300"
-            >
-              {/* Product image placeholder */}
-              <div className="relative h-[200px] sm:h-[250px] bg-gradient-to-br from-background-tertiary to-background-dark overflow-hidden">
-                {/* Product number */}
-                <span className="absolute top-4 left-4 text-primary/10 text-6xl font-syne font-bold">
-                  0{index + 1}
-                </span>
-
-                {/* Simple door illustration */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-24 h-40 bg-gradient-to-b from-steel-dark/30 to-steel-dark/10 rounded-lg border border-border relative group-hover:scale-105 group-hover:border-primary/30 transition-all duration-500">
-                    <div className="absolute right-2 top-1/2 -translate-y-1/2 w-2 h-6 bg-primary rounded-full shadow-[0_0_10px_rgba(201,165,92,0.5)]" />
-                    <div className="absolute inset-2 border border-border/50 rounded" />
-                  </div>
-                </div>
-
-                {/* Hover gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </div>
-
-              {/* Product info */}
-              <div className="p-5">
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <p className="text-primary text-xs tracking-widest uppercase mb-1 font-display">
-                      {product.series}
-                    </p>
-                    <h3 className="text-steel text-xl font-bold font-syne group-hover:text-primary transition-colors duration-300">
-                      {product.name}
-                    </h3>
-                  </div>
-                  <div className="w-8 h-8 rounded-lg bg-background-tertiary border border-border flex items-center justify-center group-hover:border-primary group-hover:bg-primary/10 transition-all duration-300">
-                    <svg 
-                      className="w-3 h-3 text-steel-muted group-hover:text-primary transition-colors duration-300" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </div>
-                </div>
-
-                <p className="text-steel-muted text-sm mb-4 font-display line-clamp-2">
-                  {product.description}
-                </p>
-
-                {/* Feature tags */}
-                <div className="flex flex-wrap gap-2">
-                  {product.features.map((feature, i) => (
-                    <span
-                      key={i}
-                      className="px-2 py-1 text-xs font-medium bg-background-tertiary border border-border rounded text-steel-muted font-display"
-                    >
-                      {feature}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </Link>
+            <ProductCard key={product.id} product={product} index={index} />
           ))}
 
           {/* View all card */}
@@ -165,13 +198,13 @@ export default function HorizontalProductScroll() {
               50+ Model
             </p>
           </Link>
-        </motion.div>
+        </div>
 
         {/* Progress bar */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-32 h-1 bg-background-tertiary rounded-full overflow-hidden">
-          <motion.div
-            className="h-full bg-gradient-to-r from-primary-dark to-primary rounded-full origin-left"
-            style={{ scaleX: scrollYProgress }}
+          <div
+            className="h-full bg-gradient-to-r from-primary-dark to-primary rounded-full origin-left gpu-accelerated"
+            style={{ transform: `scaleX(${scrollProgress})` }}
           />
         </div>
       </div>
