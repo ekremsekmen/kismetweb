@@ -3,6 +3,38 @@
 import { useState, useRef, useEffect, memo, useCallback } from 'react'
 import Image from 'next/image'
 
+// Typing animation hook
+function useTypingEffect(text: string, speed: number = 25, trigger: boolean = true) {
+  const [displayedText, setDisplayedText] = useState('')
+  const [isComplete, setIsComplete] = useState(false)
+
+  useEffect(() => {
+    if (!trigger) {
+      setDisplayedText('')
+      setIsComplete(false)
+      return
+    }
+
+    setDisplayedText('')
+    setIsComplete(false)
+    let index = 0
+
+    const interval = setInterval(() => {
+      if (index < text.length) {
+        setDisplayedText(text.slice(0, index + 1))
+        index++
+      } else {
+        setIsComplete(true)
+        clearInterval(interval)
+      }
+    }, speed)
+
+    return () => clearInterval(interval)
+  }, [text, speed, trigger])
+
+  return { displayedText, isComplete }
+}
+
 // Call of Duty style component data
 const components = [
   {
@@ -91,21 +123,32 @@ const components = [
   }
 ] as const
 
-// Spec item component
+// Spec item component with staggered animation
 const SpecItem = memo(function SpecItem({ 
-  spec 
+  spec,
+  delay = 0
 }: { 
   spec: { label: string; value: string }
+  delay?: number
 }) {
+  const [show, setShow] = useState(false)
+  
+  useEffect(() => {
+    const timer = setTimeout(() => setShow(true), delay)
+    return () => clearTimeout(timer)
+  }, [delay])
+
   return (
-    <div className="flex items-center justify-between py-1.5 border-b border-border/20 last:border-0">
+    <div className={`flex items-center justify-between py-1.5 border-b border-border/20 last:border-0 transition-all duration-300 ${
+      show ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
+    }`}>
       <span className="text-[10px] text-steel-muted font-mono uppercase">{spec.label}</span>
       <span className="text-xs text-primary font-mono font-bold">{spec.value}</span>
     </div>
   )
 })
 
-// Component card with COD styling
+// Component card with COD styling and typing animation
 const ComponentCard = memo(function ComponentCard({
   component,
   isActive,
@@ -117,6 +160,12 @@ const ComponentCard = memo(function ComponentCard({
   onClick: () => void
   index: number
 }) {
+  const { displayedText, isComplete } = useTypingEffect(
+    component.description,
+    20,
+    isActive
+  )
+
   return (
     <button
       onClick={onClick}
@@ -154,16 +203,23 @@ const ComponentCard = memo(function ComponentCard({
           {component.label}
         </h4>
 
-        {/* Description */}
-        <p className="text-steel-dark text-[11px] font-display leading-relaxed mb-2">
-          {component.description}
+        {/* Description with typing animation */}
+        <p className="text-steel-dark text-[11px] font-display leading-relaxed mb-2 min-h-[2.5em]">
+          {isActive ? (
+            <>
+              {displayedText}
+              {!isComplete && <span className="animate-pulse text-primary">|</span>}
+            </>
+          ) : (
+            component.description
+          )}
         </p>
 
-        {/* Specs */}
+        {/* Specs with staggered animation */}
         {isActive && (
-          <div className="pt-2 border-t border-border/30 animate-fade-in">
+          <div className="pt-2 border-t border-border/30">
             {component.specs.map((spec, i) => (
-              <SpecItem key={i} spec={spec} />
+              <SpecItem key={i} spec={spec} delay={i * 100 + 400} />
             ))}
           </div>
         )}
