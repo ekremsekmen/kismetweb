@@ -2,6 +2,10 @@
 
 import { useRef, useEffect, useState, memo } from 'react'
 import Link from 'next/link'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { ArrowRight, Plus } from 'lucide-react'
 
 const products = [
   {
@@ -55,71 +59,59 @@ const ProductCard = memo(function ProductCard({
   index: number 
 }) {
   return (
-    <Link
-      href={product.href}
-      className="flex-shrink-0 w-[300px] sm:w-[350px] glass-panel rounded-xl overflow-hidden group hover:border-primary/30 transition-all duration-300"
-    >
-      {/* Product image placeholder */}
-      <div className="relative h-[200px] sm:h-[250px] bg-gradient-to-br from-background-tertiary to-background-dark overflow-hidden">
-        <span className="absolute top-4 left-4 text-primary/10 text-6xl font-syne font-bold">
-          0{index + 1}
-        </span>
+    <Link href={product.href} className="flex-shrink-0 w-[300px] sm:w-[350px] group">
+      <Card className="glass-panel border-border h-full overflow-hidden transition-all duration-300 hover:border-primary/30">
+        {/* Product image placeholder */}
+        <CardHeader className="relative h-[200px] sm:h-[250px] bg-gradient-to-br from-accent to-background p-0 overflow-hidden">
+          <span className="absolute top-4 left-4 text-primary/10 text-6xl font-syne font-bold">
+            0{index + 1}
+          </span>
 
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-24 h-40 bg-gradient-to-b from-steel-dark/30 to-steel-dark/10 rounded-lg border border-border relative group-hover:scale-105 group-hover:border-primary/30 transition-all duration-500">
-            <div className="absolute right-2 top-1/2 -translate-y-1/2 w-2 h-6 bg-primary rounded-full shadow-[0_0_10px_rgba(201,165,92,0.5)]" />
-            <div className="absolute inset-2 border border-border/50 rounded" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-24 h-40 bg-gradient-to-b from-muted-foreground/30 to-muted-foreground/10 rounded-lg border border-border relative group-hover:scale-105 group-hover:border-primary/30 transition-all duration-500">
+              <div className="absolute right-2 top-1/2 -translate-y-1/2 w-2 h-6 bg-primary rounded-full shadow-[0_0_10px_rgba(168,181,196,0.5)]" />
+              <div className="absolute inset-2 border border-border/50 rounded" />
+            </div>
           </div>
-        </div>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        </CardHeader>
 
-      {/* Product info */}
-      <div className="p-5">
-        <div className="flex items-start justify-between mb-3">
-          <div>
-            <p className="text-primary text-xs tracking-widest uppercase mb-1 font-display">
-              {product.series}
-            </p>
-            <h3 className="text-steel text-xl font-bold font-syne group-hover:text-primary transition-colors duration-300">
-              {product.name}
-            </h3>
+        {/* Product info */}
+        <CardContent className="p-5">
+          <div className="flex items-start justify-between mb-3">
+            <div>
+              <p className="text-primary text-xs tracking-widest uppercase mb-1">
+                {product.series}
+              </p>
+              <h3 className="text-foreground text-xl font-bold font-syne group-hover:text-primary transition-colors duration-300">
+                {product.name}
+              </h3>
+            </div>
+            <Button variant="outline" size="icon" className="h-8 w-8 group-hover:border-primary group-hover:bg-primary/10 transition-all duration-300">
+              <ArrowRight className="h-3 w-3 text-muted-foreground group-hover:text-primary transition-colors duration-300" />
+            </Button>
           </div>
-          <div className="w-8 h-8 rounded-lg bg-background-tertiary border border-border flex items-center justify-center group-hover:border-primary group-hover:bg-primary/10 transition-all duration-300">
-            <svg 
-              className="w-3 h-3 text-steel-muted group-hover:text-primary transition-colors duration-300" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
+
+          <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+            {product.description}
+          </p>
+
+          <div className="flex flex-wrap gap-2">
+            {product.features.map((feature, i) => (
+              <Badge key={i} variant="outline" className="text-xs">
+                {feature}
+              </Badge>
+            ))}
           </div>
-        </div>
-
-        <p className="text-steel-muted text-sm mb-4 font-display line-clamp-2">
-          {product.description}
-        </p>
-
-        <div className="flex flex-wrap gap-2">
-          {product.features.map((feature, i) => (
-            <span
-              key={i}
-              className="px-2 py-1 text-xs font-medium bg-background-tertiary border border-border rounded text-steel-muted font-display"
-            >
-              {feature}
-            </span>
-          ))}
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </Link>
   )
 })
 
 export default function HorizontalProductScroll() {
   const targetRef = useRef<HTMLDivElement>(null)
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [scrollProgress, setScrollProgress] = useState(0)
 
   useEffect(() => {
@@ -158,20 +150,17 @@ export default function HorizontalProductScroll() {
   return (
     <section ref={targetRef} className="relative h-[300vh] contain-layout">
       {/* Sticky container */}
-      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden bg-background-dark">
+      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden bg-background">
         {/* Section header */}
         <div className="px-6 sm:px-10 lg:px-20 mb-10">
-          <p className="text-primary text-sm font-medium tracking-[0.3em] uppercase mb-3 font-display">
-            KOLEKSİYON
-          </p>
-          <h2 className="text-steel text-3xl sm:text-4xl md:text-5xl font-bold font-syne tracking-tight">
+          <Badge variant="outline" className="mb-3">KOLEKSİYON</Badge>
+          <h2 className="text-foreground text-3xl sm:text-4xl md:text-5xl font-bold font-syne tracking-tight">
             MÜKEMMELLİK İÇİN <span className="text-gradient">MÜHENDİSLİK</span>
           </h2>
         </div>
 
         {/* Horizontal scroll container - GPU accelerated */}
         <div 
-          ref={scrollContainerRef}
           className="flex gap-6 pl-6 sm:pl-10 lg:pl-20 gpu-accelerated"
           style={{ 
             transform: `translate3d(${translateX}%, 0, 0)`,
@@ -182,30 +171,21 @@ export default function HorizontalProductScroll() {
           ))}
 
           {/* View all card */}
-          <Link 
-            href="/products"
-            className="flex-shrink-0 w-[250px] glass-panel rounded-xl flex flex-col items-center justify-center group hover:border-primary/30 transition-all duration-300"
-          >
-            <div className="w-14 h-14 rounded-xl bg-background-tertiary border border-border flex items-center justify-center mb-4 group-hover:border-primary group-hover:scale-110 transition-all duration-300">
-              <svg className="w-6 h-6 text-steel-muted group-hover:text-primary transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-              </svg>
-            </div>
-            <p className="text-steel text-lg font-bold font-syne group-hover:text-primary transition-colors duration-300">
-              Tümünü Gör
-            </p>
-            <p className="text-steel-muted text-sm font-display">
-              50+ Model
-            </p>
+          <Link href="/products" className="flex-shrink-0 w-[250px]">
+            <Card className="glass-panel border-border h-full flex flex-col items-center justify-center transition-all duration-300 hover:border-primary/30 group">
+              <CardContent className="flex flex-col items-center justify-center py-12">
+                <Button variant="outline" size="icon" className="h-14 w-14 rounded-xl mb-4 group-hover:border-primary group-hover:scale-110 transition-all duration-300">
+                  <Plus className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors duration-300" />
+                </Button>
+                <p className="text-foreground text-lg font-bold font-syne group-hover:text-primary transition-colors duration-300">
+                  Tümünü Gör
+                </p>
+                <p className="text-muted-foreground text-sm">
+                  50+ Model
+                </p>
+              </CardContent>
+            </Card>
           </Link>
-        </div>
-
-        {/* Progress bar */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-32 h-1 bg-background-tertiary rounded-full overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-primary-dark to-primary rounded-full origin-left gpu-accelerated"
-            style={{ transform: `scaleX(${scrollProgress})` }}
-          />
         </div>
       </div>
     </section>

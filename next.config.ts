@@ -1,4 +1,9 @@
 import type { NextConfig } from "next";
+import bundleAnalyzer from '@next/bundle-analyzer';
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
 
 const nextConfig: NextConfig = {
   // Performance optimizations
@@ -68,8 +73,17 @@ const nextConfig: NextConfig = {
   
   // Experimental features for better performance
   experimental: {
-    optimizePackageImports: ['framer-motion', 'lenis'],
+    optimizePackageImports: [
+      'framer-motion', 
+      'lenis',
+      'lucide-react',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-navigation-menu',
+      '@radix-ui/react-select',
+      '@radix-ui/react-tooltip',
+    ],
   },
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);

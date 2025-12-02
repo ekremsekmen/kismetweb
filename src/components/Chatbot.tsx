@@ -1,6 +1,13 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback, memo } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Badge } from '@/components/ui/badge'
+import { cn } from '@/lib/utils'
+import { MessageSquare, X, Send, ChevronDown } from 'lucide-react'
 
 interface Message {
   id: number
@@ -9,7 +16,7 @@ interface Message {
   timestamp: Date
 }
 
-// Response patterns - dışarıda tanımlandı, her render'da yeniden oluşturulmaz
+// Response patterns
 const RESPONSE_PATTERNS = [
   { keywords: ['merhaba', 'selam', 'hey', 'hi'], response: 'Merhaba! Kismet Çelik Kapı\'na hoş geldiniz. Size nasıl yardımcı olabilirim? (Örn: Modeller, Fiyat, Bayiler, Garanti)' },
   { keywords: ['fiyat', 'teklif', 'ücret', 'kaç para'], response: '💰 Fiyatlarımız model, ölçü ve kilit sistemine göre değişmektedir. Ücretsiz keşif ve size özel net bir teklif için lütfen telefon numaranızı paylaşın veya 0212 555 01 23 numaralı hattımızdan bize ulaşın.' },
@@ -36,18 +43,19 @@ const ChatMessage = memo(function ChatMessage({ message }: { message: Message })
   const isUser = message.sender === 'user'
   
   return (
-    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} animate-fade-in-up`}>
+    <div className={cn("flex animate-fade-in-up", isUser ? 'justify-end' : 'justify-start')}>
       <div
-        className={`max-w-[80%] rounded-2xl px-4 py-3 ${
+        className={cn(
+          "max-w-[80%] rounded-2xl px-4 py-3",
           isUser
-            ? 'bg-gradient-to-r from-[#d4af37] to-[#b8941f] text-[#1a1a1a] rounded-br-none'
-            : 'bg-white border-2 border-gray-200 text-gray-900 rounded-bl-none shadow-sm'
-        }`}
+            ? 'bg-primary text-primary-foreground rounded-br-none'
+            : 'bg-card border border-border text-card-foreground rounded-bl-none'
+        )}
       >
-        <p className={`font-roboto text-sm whitespace-pre-line ${isUser ? 'font-medium' : ''}`}>
+        <p className="text-sm whitespace-pre-line">
           {message.text}
         </p>
-        <span className={`text-xs mt-1 block ${isUser ? 'text-[#1a1a1a]/70' : 'text-gray-500'}`}>
+        <span className={cn("text-xs mt-1 block", isUser ? 'text-primary-foreground/70' : 'text-muted-foreground')}>
           {message.timestamp.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}
         </span>
       </div>
@@ -59,11 +67,11 @@ const ChatMessage = memo(function ChatMessage({ message }: { message: Message })
 const TypingIndicator = memo(function TypingIndicator() {
   return (
     <div className="flex justify-start animate-fade-in">
-      <div className="bg-white border-2 border-gray-200 rounded-2xl rounded-bl-none px-4 py-3 shadow-sm">
+      <div className="bg-card border border-border rounded-2xl rounded-bl-none px-4 py-3">
         <div className="flex items-center gap-1">
-          <div className="w-2 h-2 bg-[#d4af37] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-          <div className="w-2 h-2 bg-[#d4af37] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-          <div className="w-2 h-2 bg-[#d4af37] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+          <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+          <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+          <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
         </div>
       </div>
     </div>
@@ -150,105 +158,96 @@ export default function Chatbot() {
   return (
     <>
       {/* Chat Window */}
-      <div
-        className={`fixed bottom-24 right-6 w-96 max-w-[calc(100vw-3rem)] bg-white rounded-2xl shadow-2xl border-2 border-[#d4af37]/20 transition-all duration-300 transform z-50 ${
+      <Card
+        className={cn(
+          "fixed bottom-24 right-6 w-96 max-w-[calc(100vw-3rem)] shadow-2xl border-border transition-all duration-300 transform z-50",
           isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4 pointer-events-none'
-        }`}
+        )}
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#1a1a1a] via-[#2a2a2a] to-[#1a1a1a] text-white p-4 rounded-t-2xl flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-[#d4af37] to-[#b8941f] rounded-full flex items-center justify-center shadow-lg golden-glow">
-              <svg className="w-5 h-5 text-[#1a1a1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-              </svg>
+        <CardHeader className="bg-secondary border-b border-border p-4 rounded-t-lg">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                <MessageSquare className="w-5 h-5 text-primary-foreground" />
+              </div>
+              <div>
+                <CardTitle className="text-sm">Kismet AI Asistan</CardTitle>
+                <p className="text-xs text-muted-foreground flex items-center gap-1">
+                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  Online
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 className="font-montserrat font-bold text-sm">Kismet AI Asistan</h3>
-              <p className="font-roboto text-xs text-gray-300 flex items-center gap-1">
-                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                Online
-              </p>
-            </div>
+            <Button variant="ghost" size="icon" onClick={toggleChat}>
+              <X className="h-5 w-5" />
+            </Button>
           </div>
-          <button
-            onClick={toggleChat}
-            className="w-8 h-8 hover:bg-white/10 rounded-lg transition-colors flex items-center justify-center"
-            aria-label="Kapat"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
+        </CardHeader>
 
         {/* Messages Area */}
-        <div className="h-96 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-gray-50 to-white">
-          {messages.map((message) => (
-            <ChatMessage key={message.id} message={message} />
-          ))}
-
-          {isTyping && <TypingIndicator />}
-
-          <div ref={messagesEndRef} />
-        </div>
+        <CardContent className="p-0">
+          <ScrollArea className="h-96 p-4">
+            <div className="space-y-4">
+              {messages.map((message) => (
+                <ChatMessage key={message.id} message={message} />
+              ))}
+              {isTyping && <TypingIndicator />}
+              <div ref={messagesEndRef} />
+            </div>
+          </ScrollArea>
+        </CardContent>
 
         {/* Input Area */}
-        <div className="p-4 border-t-2 border-gray-100 bg-white rounded-b-2xl">
+        <div className="p-4 border-t border-border">
           <div className="flex gap-2">
-            <input
+            <Input
               ref={inputRef}
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Mesajınızı yazın..."
-              className="font-roboto flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#d4af37] focus:outline-none focus:ring-2 focus:ring-[#d4af37]/20 transition-all text-sm"
+              className="flex-1"
             />
-            <button
+            <Button
               onClick={handleSendMessage}
               disabled={!inputText.trim()}
-              className="bg-gradient-to-r from-[#d4af37] to-[#b8941f] hover:from-[#b8941f] hover:to-[#d4af37] disabled:from-gray-300 disabled:to-gray-400 text-[#1a1a1a] px-5 py-3 rounded-xl font-montserrat font-semibold text-sm transition-all duration-300 transform hover:scale-105 disabled:hover:scale-100 disabled:cursor-not-allowed shadow-lg hover:shadow-xl flex items-center justify-center"
+              size="icon"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-              </svg>
-            </button>
+              <Send className="h-4 w-4" />
+            </Button>
           </div>
-          <p className="font-roboto text-xs text-gray-500 mt-2 text-center">
+          <p className="text-xs text-muted-foreground mt-2 text-center">
             Enter tuşuna basarak da gönderebilirsiniz
           </p>
         </div>
-      </div>
+      </Card>
 
       {/* Chat Toggle Button */}
-      <button
+      <Button
         onClick={toggleChat}
-        className={`fixed bottom-6 right-6 w-16 h-16 bg-gradient-to-br from-[#d4af37] to-[#b8941f] hover:from-[#b8941f] hover:to-[#d4af37] text-[#1a1a1a] rounded-full shadow-2xl transition-all duration-300 transform hover:scale-110 z-50 flex items-center justify-center group ${
-          isOpen ? 'rotate-90 scale-90' : ''
-        }`}
-        aria-label="Chatbot'u Aç"
+        size="icon"
+        className={cn(
+          "fixed bottom-6 right-6 w-16 h-16 rounded-full shadow-2xl z-50 transition-all duration-300",
+          isOpen && 'rotate-90 scale-90'
+        )}
       >
         {isOpen ? (
-          <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
+          <ChevronDown className="h-7 w-7" />
         ) : (
           <>
-            <svg className="w-7 h-7 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-            </svg>
+            <MessageSquare className="h-7 w-7" />
             {/* Notification Badge */}
-            <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
-              <span className="font-montserrat text-white text-xs font-bold">1</span>
-            </span>
+            <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center text-xs">
+              1
+            </Badge>
           </>
         )}
         
         {/* Ripple Effect */}
-        <span className="absolute inset-0 rounded-full bg-[#d4af37] animate-ping opacity-20" />
-      </button>
+        <span className="absolute inset-0 rounded-full bg-primary animate-ping opacity-20" />
+      </Button>
     </>
   )
 }
-

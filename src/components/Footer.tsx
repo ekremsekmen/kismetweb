@@ -2,6 +2,10 @@
 
 import Link from "next/link"
 import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
+import { LOGO_BLUR } from "@/lib/image-placeholders"
+import { ArrowRight, Linkedin, Youtube, Instagram } from "lucide-react"
 
 const footerLinks = [
   {
@@ -35,26 +39,31 @@ const footerLinks = [
   }
 ]
 
+const socialLinks = [
+  { icon: Linkedin, label: 'LinkedIn', href: '#' },
+  { icon: Youtube, label: 'YouTube', href: '#' },
+  { icon: Instagram, label: 'Instagram', href: '#' }
+]
+
 export default function Footer() {
   return (
-    <footer className="relative pt-20 pb-8 px-6 sm:px-10 lg:px-20 border-t border-border bg-background-dark">
+    <footer className="relative pt-20 pb-8 px-6 sm:px-10 lg:px-20 border-t border-border bg-background">
       {/* Main CTA Section */}
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-steel-dark text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase font-syne tracking-tighter mb-2">
+          <h2 className="text-muted-foreground text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase font-syne tracking-tighter mb-2">
             BİRLİKTE
           </h2>
-          <h2 className="text-steel text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase font-syne tracking-tighter mb-8">
+          <h2 className="text-foreground text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase font-syne tracking-tighter mb-8">
             İNŞA EDELİM
           </h2>
 
-          <Link
-            href="/contact"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-background-dark text-base font-bold rounded-full font-syne transition-all hover:shadow-[0_0_30px_rgba(201,165,92,0.3)] hover:scale-105 active:scale-95"
-          >
-            Projenizi Başlatın
-            <span>→</span>
-          </Link>
+          <Button asChild size="lg" className="rounded-full px-8 group">
+            <Link href="/contact">
+              Projenizi Başlatın
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </Button>
         </div>
 
         {/* Footer links */}
@@ -68,26 +77,27 @@ export default function Footer() {
                 width={120}
                 height={48}
                 className="h-10 w-auto object-contain"
+                placeholder="blur"
+                blurDataURL={LOGO_BLUR}
               />
             </Link>
-            <p className="text-steel-muted text-sm font-display leading-relaxed mb-4">
+            <p className="text-muted-foreground text-sm leading-relaxed mb-4">
               1995&apos;ten beri güvenli girişler mühendisliği.
             </p>
             {/* Social links */}
             <div className="flex gap-2">
-              {[
-                { icon: 'in', label: 'LinkedIn' },
-                { icon: 'yt', label: 'YouTube' },
-                { icon: 'ig', label: 'Instagram' }
-              ].map((social) => (
-                <a
-                  key={social.icon}
-                  href="#"
-                  aria-label={social.label}
-                  className="w-8 h-8 rounded-lg bg-background-secondary border border-border flex items-center justify-center text-steel-muted hover:border-primary hover:text-primary transition-colors text-xs uppercase font-bold"
+              {socialLinks.map((social) => (
+                <Button
+                  key={social.label}
+                  variant="outline"
+                  size="icon"
+                  className="h-8 w-8"
+                  asChild
                 >
-                  {social.icon}
-                </a>
+                  <a href={social.href} aria-label={social.label}>
+                    <social.icon className="h-4 w-4" />
+                  </a>
+                </Button>
               ))}
             </div>
           </div>
@@ -95,13 +105,13 @@ export default function Footer() {
           {/* Link columns */}
           {footerLinks.map((column) => (
             <div key={column.title}>
-              <h3 className="text-steel font-semibold mb-4 font-syne text-sm">{column.title}</h3>
+              <h3 className="text-foreground font-semibold mb-4 font-syne text-sm">{column.title}</h3>
               <ul className="space-y-2">
                 {column.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-steel-muted text-sm font-display hover:text-primary transition-colors"
+                      className="text-muted-foreground text-sm hover:text-primary transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -113,16 +123,18 @@ export default function Footer() {
         </div>
       </div>
 
+      <Separator className="max-w-6xl mx-auto mb-6" />
+
       {/* Bottom bar */}
-      <div className="max-w-6xl mx-auto pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="text-steel-dark text-sm font-display">
+      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p className="text-muted-foreground text-sm">
           © {new Date().getFullYear()} Öz Kısmet. Tüm hakları saklıdır.
         </p>
-        <div className="flex items-center gap-4 text-sm text-steel-dark font-display">
+        <div className="flex items-center gap-4 text-sm text-muted-foreground">
           <Link href="/privacy" className="hover:text-primary transition-colors">Gizlilik</Link>
-          <span className="text-border">|</span>
+          <Separator orientation="vertical" className="h-4" />
           <Link href="/terms" className="hover:text-primary transition-colors">Şartlar</Link>
-          <span className="text-border hidden sm:inline">|</span>
+          <Separator orientation="vertical" className="h-4 hidden sm:block" />
           <span className="hidden sm:inline">İstanbul, Türkiye</span>
         </div>
       </div>

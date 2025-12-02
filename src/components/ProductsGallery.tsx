@@ -3,6 +3,10 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { ChevronRight, Phone } from 'lucide-react'
 
 // Product Types
 interface Product {
@@ -150,7 +154,7 @@ export default function ProductsGallery() {
   }
 
   return (
-    <div className="min-h-screen bg-background-dark relative">
+    <div className="min-h-screen bg-background relative">
       {/* Noise Texture Overlay */}
       <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-0" 
         style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }} 
@@ -158,16 +162,16 @@ export default function ProductsGallery() {
 
       {/* Hero Section */}
       <section className="relative min-h-[40vh] flex items-center justify-center pt-24 pb-16">
-        <div className="absolute inset-0 bg-gradient-to-b from-background-dark via-background-dark/90 to-background-dark" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
         
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-20 text-center">
-          <p className="text-primary text-sm font-medium tracking-[0.3em] uppercase mb-4 font-display">
+          <Badge variant="outline" className="mb-4 text-primary border-primary/30 tracking-[0.3em]">
             OUR COLLECTION
-          </p>
-          <h1 className="text-steel text-5xl sm:text-7xl md:text-8xl font-extrabold uppercase font-syne tracking-tighter mb-6">
+          </Badge>
+          <h1 className="text-foreground text-5xl sm:text-7xl md:text-8xl font-extrabold uppercase font-syne tracking-tighter mb-6">
             MODELLERİMİZ
           </h1>
-          <p className="text-steel/70 text-lg sm:text-xl max-w-3xl mx-auto font-display leading-relaxed">
+          <p className="text-muted-foreground text-lg sm:text-xl max-w-3xl mx-auto font-display leading-relaxed">
             Her ihtiyaca uygun, yüksek kaliteli çelik kapı modellerimizi keşfedin
           </p>
         </div>
@@ -181,29 +185,30 @@ export default function ProductsGallery() {
           <div className="mb-12">
             <div className="flex flex-wrap justify-center gap-3 mb-8">
               {categories.map((category) => (
-                <button
+                <Button
                   key={category.id}
+                  variant={activeCategory === category.id ? "default" : "outline"}
                   onClick={() => handleCategoryChange(category.id as CategoryType)}
-                  className={`px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300 flex items-center gap-2 font-display ${
+                  className={`px-6 py-3 text-sm font-semibold transition-all duration-300 gap-2 font-display ${
                     activeCategory === category.id
-                      ? 'bg-primary text-background-dark shadow-[0_0_20px_rgba(168,181,196,0.3)]'
-                      : 'glass-panel text-steel hover:border-primary/50 hover:text-primary'
+                      ? 'bg-primary text-primary-foreground shadow-[0_0_20px_rgba(168,181,196,0.3)]'
+                      : 'glass-panel border-border/50 text-foreground hover:border-primary/50 hover:text-primary'
                   }`}
                 >
                   <span className="text-lg">{category.icon}</span>
                   <span>{category.name}</span>
                   {activeCategory === category.id && (
-                    <span className="text-xs bg-background-dark/20 px-2 py-0.5 rounded-full">
+                    <Badge variant="secondary" className="text-xs bg-background/20 px-2 py-0.5">
                       {category.id === 'all' ? products.length : filteredProducts.length}
-                    </span>
+                    </Badge>
                   )}
-                </button>
+                </Button>
               ))}
             </div>
 
             {/* Results Count */}
             <div className="text-center">
-              <p className="text-steel/60 font-display">
+              <p className="text-muted-foreground font-display">
                 <span className="font-bold text-primary">{filteredProducts.length}</span> ürün gösteriliyor
               </p>
             </div>
@@ -214,9 +219,9 @@ export default function ProductsGallery() {
             isAnimating ? 'opacity-0' : 'opacity-100'
           }`}>
             {filteredProducts.map((product, index) => (
-              <div
+              <Card
                 key={product.id}
-                className="group relative glass-panel rounded-xl overflow-hidden hover:border-primary/50 transition-all duration-300 cursor-pointer"
+                className="group relative glass-panel border-border/50 overflow-hidden hover:border-primary/50 transition-all duration-300 cursor-pointer"
                 data-category={product.category}
                 style={{
                   animation: isAnimating ? 'none' : `fadeInUp 0.5s ease-out ${index * 0.05}s both`
@@ -233,57 +238,55 @@ export default function ProductsGallery() {
                   />
                   
                   {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                   
                   {/* Category Badge */}
                   <div className="absolute top-4 right-4 z-10">
-                    <span className="glass-panel px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-steel">
+                    <Badge variant="outline" className="glass-panel border-border/50 text-foreground text-xs font-bold uppercase tracking-wider">
                       {categories.find(c => c.id === product.category)?.name}
-                    </span>
+                    </Badge>
                   </div>
 
                   {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/80 to-background-dark/50 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/50 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
                     <div className="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
-                      <h3 className="text-3xl font-bold text-steel mb-2 font-syne">
+                      <h3 className="text-3xl font-bold text-foreground mb-2 font-syne">
                         {product.name}
                       </h3>
-                      <p className="text-sm text-steel/70 mb-4 font-display">
+                      <p className="text-sm text-muted-foreground mb-4 font-display">
                         {product.description}
                       </p>
                       
                       {/* Features */}
                       <div className="flex flex-wrap gap-2 mb-4">
                         {product.features.map((feature, idx) => (
-                          <span 
+                          <Badge 
                             key={idx}
-                            className="text-xs bg-primary/20 text-primary px-2 py-1 rounded-full border border-primary/30"
+                            variant="outline"
+                            className="text-xs bg-primary/20 text-primary border-primary/30"
                           >
                             {feature}
-                          </span>
+                          </Badge>
                         ))}
                       </div>
 
                       {/* CTA Button */}
-                      <Link 
-                        href={`/products/${product.id}`}
-                        className="w-full bg-primary text-background-dark px-6 py-3 rounded-lg font-bold text-sm transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 font-display"
-                      >
-                        <span>Detayları İncele</span>
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </Link>
+                      <Button asChild className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-bold transition-all duration-300 hover:scale-105">
+                        <Link href={`/products/${product.id}`} className="gap-2">
+                          <span>Detayları İncele</span>
+                          <ChevronRight className="w-4 h-4" />
+                        </Link>
+                      </Button>
                     </div>
                   </div>
                 </div>
 
                 {/* Product Info (visible on mobile/default) */}
-                <div className="p-4 group-hover:opacity-0 transition-opacity duration-300">
-                  <h3 className="text-xl font-bold text-steel font-syne">{product.name}</h3>
-                  <p className="text-steel/60 text-sm font-display">{product.description}</p>
-                </div>
-              </div>
+                <CardContent className="p-4 group-hover:opacity-0 transition-opacity duration-300">
+                  <h3 className="text-xl font-bold text-foreground font-syne">{product.name}</h3>
+                  <p className="text-muted-foreground text-sm font-display">{product.description}</p>
+                </CardContent>
+              </Card>
             ))}
           </div>
 
@@ -291,48 +294,44 @@ export default function ProductsGallery() {
           {filteredProducts.length === 0 && !isAnimating && (
             <div className="text-center py-20">
               <div className="text-6xl mb-4">⌖</div>
-              <h3 className="text-2xl font-bold text-steel mb-2 font-syne">
+              <h3 className="text-2xl font-bold text-foreground mb-2 font-syne">
                 Ürün Bulunamadı
               </h3>
-              <p className="text-steel/60 mb-6 font-display">
+              <p className="text-muted-foreground mb-6 font-display">
                 Bu kategoride henüz ürün bulunmuyor.
               </p>
-              <button
+              <Button
                 onClick={() => setActiveCategory('all')}
-                className="bg-primary text-background-dark px-6 py-3 rounded-lg font-bold transition-all duration-300 hover:scale-105 font-display"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold transition-all duration-300 hover:scale-105"
               >
                 Tüm Ürünleri Göster
-              </button>
+              </Button>
             </div>
           )}
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="relative z-10 py-20 border-t border-white/10">
+      <section className="relative z-10 py-20 border-t border-border">
         <div className="max-w-4xl mx-auto px-6 sm:px-10 lg:px-20 text-center">
-          <h2 className="text-steel text-4xl sm:text-5xl font-bold font-syne tracking-tight mb-6">
+          <h2 className="text-foreground text-4xl sm:text-5xl font-bold font-syne tracking-tight mb-6">
             ARADIĞINIZI <span className="text-primary">BULAMADINIZ MI?</span>
           </h2>
-          <p className="text-steel/70 text-lg mb-10 font-display max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-lg mb-10 font-display max-w-2xl mx-auto">
             Size özel tasarım yapabiliriz. Uzman ekibimiz ihtiyaçlarınıza göre çözüm üretir.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="/contact" 
-              className="flex items-center justify-center gap-2 bg-primary text-background-dark px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)] font-display"
-            >
-              Teklif Alın
-            </a>
-            <a 
-              href="tel:+902125550123" 
-              className="flex items-center justify-center gap-2 border border-white/20 text-steel hover:border-primary hover:text-primary px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 font-display"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
-              <span>Hemen Ara</span>
-            </a>
+            <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8 py-6 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)]">
+              <Link href="/contact">
+                Teklif Alın
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="border-border/50 text-foreground hover:border-primary hover:text-primary text-lg px-8 py-6 transition-all duration-300">
+              <a href="tel:+902125550123" className="gap-2">
+                <Phone className="w-5 h-5" />
+                <span>Hemen Ara</span>
+              </a>
+            </Button>
           </div>
         </div>
       </section>

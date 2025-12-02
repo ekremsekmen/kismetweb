@@ -1,7 +1,9 @@
 'use client'
 
-import { ReactLenis } from 'lenis/react'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState, lazy, Suspense } from 'react'
+
+// Lazy load Lenis only when needed
+const ReactLenis = lazy(() => import('lenis/react').then(mod => ({ default: mod.ReactLenis })))
 
 interface SmoothScrollProps {
   children: ReactNode
@@ -25,23 +27,25 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
   // Disable smooth scroll on mobile/tablets for better performance
   if (!isDesktop) {
-    return children
+    return <>{children}</>
   }
 
   return (
-    <ReactLenis 
-      root 
-      options={{ 
-        lerp: 0.12, // Slightly faster for snappier feel
-        duration: 1.0, // Reduced duration for better performance
-        smoothWheel: true,
-        wheelMultiplier: 1,
-        touchMultiplier: 1.5,
-        infinite: false,
-        syncTouch: false, // Disable touch sync for better mobile performance
-      }}
-    >
-      {children}
-    </ReactLenis>
+    <Suspense fallback={<>{children}</>}>
+      <ReactLenis 
+        root 
+        options={{ 
+          lerp: 0.12,
+          duration: 1.0,
+          smoothWheel: true,
+          wheelMultiplier: 1,
+          touchMultiplier: 1.5,
+          infinite: false,
+          syncTouch: false,
+        }}
+      >
+        {children}
+      </ReactLenis>
+    </Suspense>
   )
 }

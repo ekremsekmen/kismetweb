@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
+import { LOGO_BLUR } from '@/lib/image-placeholders'
 
 export default function Preloader() {
   const [isLoading, setIsLoading] = useState(true)
@@ -60,6 +61,8 @@ export default function Preloader() {
           width={180}
           height={72}
           className="h-16 w-auto object-contain"
+          placeholder="blur"
+          blurDataURL={LOGO_BLUR}
           priority
         />
         {/* Glow effect */}

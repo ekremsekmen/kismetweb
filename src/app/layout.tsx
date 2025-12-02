@@ -9,7 +9,7 @@ import Preloader from '@/components/ui/Preloader';
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   display: "swap",
   preload: true,
   fallback: ['system-ui', 'sans-serif'],
@@ -17,7 +17,7 @@ const spaceGrotesk = Space_Grotesk({
 
 const syne = Syne({
   variable: "--font-syne",
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   display: "swap",
   preload: true,
   fallback: ['system-ui', 'sans-serif'],
@@ -25,7 +25,7 @@ const syne = Syne({
 
 const oswald = Oswald({
   variable: "--font-oswald",
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   display: "swap",
   preload: true,
   fallback: ['system-ui', 'sans-serif'],
