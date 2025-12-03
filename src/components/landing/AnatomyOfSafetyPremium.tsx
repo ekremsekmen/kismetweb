@@ -142,8 +142,8 @@ const SpecItem = memo(function SpecItem({
     <div className={`flex items-center justify-between py-1.5 border-b border-border/20 last:border-0 transition-all duration-300 ${
       show ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
     }`}>
-      <span className="text-[10px] text-steel-muted font-mono uppercase">{spec.label}</span>
-      <span className="text-xs text-primary font-mono font-bold">{spec.value}</span>
+      <span className="text-[10px] text-muted-foreground font-mono uppercase">{spec.label}</span>
+      <span className="text-xs text-[var(--accent-copper)] font-mono font-bold">{spec.value}</span>
     </div>
   )
 })
@@ -153,12 +153,16 @@ const ComponentCard = memo(function ComponentCard({
   component,
   isActive,
   onClick,
-  index
+  onKeyDown,
+  index,
+  tabIndex
 }: {
   component: typeof components[number]
   isActive: boolean
   onClick: () => void
+  onKeyDown: (e: React.KeyboardEvent) => void
   index: number
+  tabIndex: number
 }) {
   const { displayedText, isComplete } = useTypingEffect(
     component.description,
@@ -168,8 +172,15 @@ const ComponentCard = memo(function ComponentCard({
 
   return (
     <button
+      type="button"
+      role="tab"
+      aria-selected={isActive}
+      aria-controls={`panel-${component.id}`}
+      id={`tab-${component.id}`}
+      tabIndex={tabIndex}
       onClick={onClick}
-      className={`group relative w-full text-left transition-all duration-300 ${
+      onKeyDown={onKeyDown}
+      className={`group relative w-full text-left transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-copper)] focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-lg ${
         isActive ? 'scale-[1.02]' : 'hover:scale-[1.01]'
       }`}
       style={{ animationDelay: `${index * 0.1}s` }}
@@ -177,20 +188,20 @@ const ComponentCard = memo(function ComponentCard({
       {/* Card background with military style border */}
       <div className={`relative p-3 rounded-lg border-l-2 transition-all duration-300 ${
         isActive 
-          ? 'bg-primary/10 border-l-primary shadow-[0_0_30px_rgba(168,181,196,0.15)]' 
-          : 'bg-background-tertiary/30 border-l-steel-dark/50 hover:bg-background-tertiary/50 hover:border-l-steel-muted'
+          ? 'bg-[var(--accent-copper)]/10 border-l-[var(--accent-copper)] shadow-[0_0_30px_var(--accent-copper-glow)]' 
+          : 'bg-accent/30 border-l-muted-foreground/30 hover:bg-accent/50 hover:border-l-muted-foreground'
       }`}>
         {/* Top line with code */}
         <div className="flex items-center justify-between mb-1">
           <span className={`text-[10px] font-mono tracking-wider transition-colors ${
-            isActive ? 'text-primary' : 'text-steel-dark'
+            isActive ? 'text-[var(--accent-copper)]' : 'text-muted-foreground'
           }`}>
             [{component.code}]
           </span>
           <span className={`text-[9px] px-2 py-0.5 rounded font-mono uppercase tracking-wider ${
             isActive 
-              ? 'bg-primary/20 text-primary' 
-              : 'bg-steel-dark/20 text-steel-muted'
+              ? 'bg-[var(--accent-copper)]/20 text-[var(--accent-copper)]' 
+              : 'bg-muted/50 text-muted-foreground'
           }`}>
             {component.category}
           </span>
@@ -198,17 +209,17 @@ const ComponentCard = memo(function ComponentCard({
 
         {/* Title */}
         <h4 className={`font-syne font-bold text-xs tracking-wide mb-0.5 transition-colors ${
-          isActive ? 'text-steel' : 'text-steel-muted group-hover:text-steel'
+          isActive ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'
         }`}>
           {component.label}
         </h4>
 
         {/* Description with typing animation */}
-        <p className="text-steel-dark text-[11px] font-display leading-relaxed mb-2 min-h-[2.5em]">
+        <p className="text-muted-foreground text-[11px] font-display leading-relaxed mb-2 min-h-[2.5em]">
           {isActive ? (
             <>
               {displayedText}
-              {!isComplete && <span className="animate-pulse text-primary">|</span>}
+              {!isComplete && <span className="animate-pulse text-[var(--accent-copper)]">|</span>}
             </>
           ) : (
             component.description
@@ -226,10 +237,10 @@ const ComponentCard = memo(function ComponentCard({
 
         {/* Corner accents */}
         <div className={`absolute top-0 right-0 w-3 h-3 border-t border-r transition-colors ${
-          isActive ? 'border-primary/50' : 'border-transparent'
+          isActive ? 'border-[var(--accent-copper)]/50' : 'border-transparent'
         }`} />
         <div className={`absolute bottom-0 left-0 w-3 h-3 border-b border-l transition-colors ${
-          isActive ? 'border-primary/50' : 'border-transparent'
+          isActive ? 'border-[var(--accent-copper)]/50' : 'border-transparent'
         }`} />
       </div>
     </button>
@@ -239,6 +250,7 @@ const ComponentCard = memo(function ComponentCard({
 export default function AnatomyOfSafetyPremium() {
   const [activeComponent, setActiveComponent] = useState<string>('door')
   const ref = useRef<HTMLElement>(null)
+  const tabListRef = useRef<HTMLDivElement>(null)
   const [isInView, setIsInView] = useState(false)
   const [scanLine, setScanLine] = useState(0)
 
@@ -273,17 +285,55 @@ export default function AnatomyOfSafetyPremium() {
     setActiveComponent(id)
   }, [])
 
+  // Keyboard navigation handler
+  const handleKeyDown = useCallback((e: React.KeyboardEvent, index: number) => {
+    let newIndex = index
+
+    switch (e.key) {
+      case 'ArrowDown':
+      case 'ArrowRight':
+        e.preventDefault()
+        newIndex = (index + 1) % components.length
+        break
+      case 'ArrowUp':
+      case 'ArrowLeft':
+        e.preventDefault()
+        newIndex = (index - 1 + components.length) % components.length
+        break
+      case 'Home':
+        e.preventDefault()
+        newIndex = 0
+        break
+      case 'End':
+        e.preventDefault()
+        newIndex = components.length - 1
+        break
+      default:
+        return
+    }
+
+    setActiveComponent(components[newIndex].id)
+    
+    // Focus the new tab
+    const tabList = tabListRef.current
+    if (tabList) {
+      const tabs = tabList.querySelectorAll('[role="tab"]')
+      const newTab = tabs[newIndex] as HTMLElement
+      newTab?.focus()
+    }
+  }, [])
+
   const activeData = components.find(c => c.id === activeComponent)
 
   return (
-    <section ref={ref} className="relative py-10 lg:py-16 bg-background-dark overflow-hidden">
+    <section ref={ref} className="relative section-padding bg-background overflow-hidden">
       {/* Background grid pattern */}
       <div 
         className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage: `
-            linear-gradient(var(--color-steel-dark) 1px, transparent 1px),
-            linear-gradient(90deg, var(--color-steel-dark) 1px, transparent 1px)
+            linear-gradient(var(--muted-foreground) 1px, transparent 1px),
+            linear-gradient(90deg, var(--muted-foreground) 1px, transparent 1px)
           `,
           backgroundSize: '50px 50px'
         }}
@@ -291,24 +341,24 @@ export default function AnatomyOfSafetyPremium() {
 
       {/* Scan line effect */}
       <div 
-        className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent pointer-events-none transition-all duration-75"
+        className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--accent-copper)]/30 to-transparent pointer-events-none transition-all duration-75"
         style={{ top: `${scanLine}%` }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative container-max">
         {/* Header - Military style */}
         <div className={`text-center mb-8 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="inline-flex items-center gap-3 mb-3">
-            <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary" />
-            <span className="text-primary text-xs font-mono tracking-[0.4em] uppercase">
+            <div className="h-px w-12 bg-gradient-to-r from-transparent to-[var(--accent-copper)]" />
+            <span className="text-[var(--accent-copper)] text-xs font-mono tracking-[0.4em] uppercase">
               TECHNICAL BREAKDOWN
             </span>
-            <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary" />
+            <div className="h-px w-12 bg-gradient-to-l from-transparent to-[var(--accent-copper)]" />
           </div>
-          <h2 className="text-steel text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-syne tracking-tight mb-2">
-            GÜVENLİĞİN <span className="text-gradient">ANATOMİSİ</span>
+          <h2 className="text-foreground text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-syne tracking-tight mb-2">
+            GÜVENLİĞİN <span className="text-gradient-copper">ANATOMİSİ</span>
           </h2>
-          <p className="text-steel-muted text-xs sm:text-sm font-display max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-xs sm:text-sm font-display max-w-2xl mx-auto">
             Her bileşen, maksimum koruma için hassas mühendislikle tasarlandı
           </p>
         </div>
@@ -316,15 +366,24 @@ export default function AnatomyOfSafetyPremium() {
         {/* Main content grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           
-          {/* Left panel - Component list */}
-          <div className={`lg:col-span-4 space-y-2 order-2 lg:order-1 transition-all duration-700 delay-200 ${
-            isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
-          }`}>
+          {/* Left panel - Component list with ARIA tablist */}
+          <div 
+            ref={tabListRef}
+            role="tablist"
+            aria-label="Kapı bileşenleri"
+            aria-orientation="vertical"
+            className={`lg:col-span-4 space-y-2 order-2 lg:order-1 transition-all duration-700 delay-200 ${
+              isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+            }`}
+          >
             {/* Panel header */}
             <div className="flex items-center gap-2 mb-3 pb-2 border-b border-border/30">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-              <span className="text-steel-muted text-xs font-mono uppercase tracking-wider">
+              <span className="text-muted-foreground text-xs font-mono uppercase tracking-wider">
                 Component Selection
+              </span>
+              <span className="ml-auto text-xs text-muted-foreground font-mono">
+                ← → navigate
               </span>
             </div>
 
@@ -334,15 +393,22 @@ export default function AnatomyOfSafetyPremium() {
                 component={component}
                 isActive={activeComponent === component.id}
                 onClick={() => handleSelect(component.id)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
                 index={index}
+                tabIndex={activeComponent === component.id ? 0 : -1}
               />
             ))}
           </div>
 
           {/* Center - Interactive Image */}
-          <div className={`lg:col-span-8 order-1 lg:order-2 transition-all duration-700 delay-300 ${
-            isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
-          }`}>
+          <div 
+            role="tabpanel"
+            id={`panel-${activeComponent}`}
+            aria-labelledby={`tab-${activeComponent}`}
+            className={`lg:col-span-8 order-1 lg:order-2 transition-all duration-700 delay-300 ${
+              isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+            }`}
+          >
             {/* HUD Frame */}
             <div className="relative">
               {/* Top HUD bar */}
@@ -352,23 +418,23 @@ export default function AnatomyOfSafetyPremium() {
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
                     <span className="text-green-500 text-[10px] font-mono">LIVE</span>
                   </div>
-                  <span className="text-steel-dark text-[10px] font-mono">|</span>
-                  <span className="text-steel-muted text-[10px] font-mono">EXPLODED VIEW</span>
+                  <span className="text-muted-foreground text-[10px] font-mono">|</span>
+                  <span className="text-muted-foreground text-[10px] font-mono">EXPLODED VIEW</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-steel-dark text-[10px] font-mono">ZOOM: 100%</span>
-                  <span className="text-steel-dark text-[10px] font-mono">|</span>
-                  <span className="text-primary text-[10px] font-mono">{activeData?.code}</span>
+                  <span className="text-muted-foreground text-[10px] font-mono">ZOOM: 100%</span>
+                  <span className="text-muted-foreground text-[10px] font-mono">|</span>
+                  <span className="text-[var(--accent-copper)] text-[10px] font-mono">{activeData?.code}</span>
                 </div>
               </div>
 
               {/* Main image container */}
               <div className="relative rounded-lg overflow-hidden border border-border/30 bg-[#4a4a4a]">
                 {/* Corner brackets */}
-                <div className="absolute top-2 left-2 w-6 h-6 border-l-2 border-t-2 border-primary/50 z-20" />
-                <div className="absolute top-2 right-2 w-6 h-6 border-r-2 border-t-2 border-primary/50 z-20" />
-                <div className="absolute bottom-2 left-2 w-6 h-6 border-l-2 border-b-2 border-primary/50 z-20" />
-                <div className="absolute bottom-2 right-2 w-6 h-6 border-r-2 border-b-2 border-primary/50 z-20" />
+                <div className="absolute top-2 left-2 w-6 h-6 border-l-2 border-t-2 border-[var(--accent-copper)]/50 z-20" />
+                <div className="absolute top-2 right-2 w-6 h-6 border-r-2 border-t-2 border-[var(--accent-copper)]/50 z-20" />
+                <div className="absolute bottom-2 left-2 w-6 h-6 border-l-2 border-b-2 border-[var(--accent-copper)]/50 z-20" />
+                <div className="absolute bottom-2 right-2 w-6 h-6 border-r-2 border-b-2 border-[var(--accent-copper)]/50 z-20" />
 
                 {/* Image */}
                 <div className="relative aspect-square lg:aspect-[5/4]">
@@ -385,6 +451,8 @@ export default function AnatomyOfSafetyPremium() {
                   {components.map((component) => (
                     <button
                       key={component.id}
+                      type="button"
+                      aria-label={`${component.label} seç`}
                       className={`absolute z-10 group transition-all duration-300 ${
                         activeComponent === component.id ? 'scale-110' : 'hover:scale-105'
                       }`}
@@ -394,18 +462,18 @@ export default function AnatomyOfSafetyPremium() {
                       {/* Pulse ring */}
                       <div className={`absolute inset-0 rounded-full transition-all duration-300 ${
                         activeComponent === component.id 
-                          ? 'animate-ping bg-primary/30' 
+                          ? 'animate-ping bg-[var(--accent-copper)]/30' 
                           : ''
                       }`} style={{ width: '24px', height: '24px', margin: '-4px' }} />
                       
                       {/* Main dot */}
                       <div className={`relative w-4 h-4 rounded-full border-2 transition-all duration-300 flex items-center justify-center ${
                         activeComponent === component.id
-                          ? 'bg-primary border-primary shadow-[0_0_20px_rgba(168,181,196,0.6)]'
-                          : 'bg-background-dark/80 border-steel-muted hover:border-primary hover:bg-primary/20'
+                          ? 'bg-[var(--accent-copper)] border-[var(--accent-copper)] shadow-[0_0_20px_var(--accent-copper-glow)]'
+                          : 'bg-background/80 border-muted-foreground hover:border-[var(--accent-copper)] hover:bg-[var(--accent-copper)]/20'
                       }`}>
                         <div className={`w-1.5 h-1.5 rounded-full transition-colors ${
-                          activeComponent === component.id ? 'bg-background-dark' : 'bg-steel-muted'
+                          activeComponent === component.id ? 'bg-background' : 'bg-muted-foreground'
                         }`} />
                       </div>
 
@@ -413,8 +481,8 @@ export default function AnatomyOfSafetyPremium() {
                       {activeComponent === component.id && (
                         <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 whitespace-nowrap animate-fade-in">
                           <div className="flex items-center gap-2">
-                            <div className="w-8 h-px bg-primary" />
-                            <span className="text-primary text-[10px] font-mono bg-background-dark/90 px-2 py-1 rounded border border-primary/30">
+                            <div className="w-8 h-px bg-[var(--accent-copper)]" />
+                            <span className="text-[var(--accent-copper)] text-[10px] font-mono bg-background/90 px-2 py-1 rounded border border-[var(--accent-copper)]/30">
                               {component.label}
                             </span>
                           </div>
@@ -425,17 +493,17 @@ export default function AnatomyOfSafetyPremium() {
                 </div>
 
                 {/* Bottom info bar */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background-dark/95 to-transparent p-4 pt-12">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/95 to-transparent p-4 pt-12">
                   <div className="flex items-end justify-between">
                     <div>
-                      <p className="text-primary text-[10px] font-mono mb-1">{activeData?.code}</p>
-                      <h3 className="text-steel font-syne font-bold text-lg sm:text-xl">{activeData?.label}</h3>
+                      <p className="text-[var(--accent-copper)] text-[10px] font-mono mb-1">{activeData?.code}</p>
+                      <h3 className="text-foreground font-syne font-bold text-lg sm:text-xl">{activeData?.label}</h3>
                     </div>
                     <div className="text-right">
-                      <p className="text-steel-dark text-[10px] font-mono">COMPONENT SPECS</p>
-                      <p className="text-primary font-syne font-bold text-2xl">
+                      <p className="text-muted-foreground text-[10px] font-mono">COMPONENT SPECS</p>
+                      <p className="text-[var(--accent-copper)] font-syne font-bold text-2xl">
                         {activeData?.specs.length || 0}
-                        <span className="text-sm text-steel-muted"> özellik</span>
+                        <span className="text-sm text-muted-foreground"> özellik</span>
                       </p>
                     </div>
                   </div>
@@ -444,14 +512,14 @@ export default function AnatomyOfSafetyPremium() {
 
               {/* Bottom HUD bar */}
               <div className="flex items-center justify-between mt-4 px-2">
-                <span className="text-steel-dark text-[10px] font-mono">
+                <span className="text-muted-foreground text-[10px] font-mono">
                   ÖZ KISMET STEEL DOORS™
                 </span>
                 <div className="flex items-center gap-4">
-                  <span className="text-steel-muted text-[10px] font-mono">
+                  <span className="text-muted-foreground text-[10px] font-mono">
                     {components.length} COMPONENTS
                   </span>
-                  <span className="text-primary text-[10px] font-mono">
+                  <span className="text-[var(--accent-copper)] text-[10px] font-mono">
                     INTERACTIVE
                   </span>
                 </div>
@@ -472,9 +540,9 @@ export default function AnatomyOfSafetyPremium() {
               { label: 'Isı Yalıtımı', value: 'A+', icon: '◆' },
             ].map((stat, i) => (
               <div key={i} className="text-center">
-                <span className="text-primary text-xs">{stat.icon}</span>
-                <p className="text-steel font-syne font-bold text-xl sm:text-2xl mt-1">{stat.value}</p>
-                <p className="text-steel-muted text-[10px] font-display uppercase tracking-wider">{stat.label}</p>
+                <span className="text-[var(--accent-copper)] text-xs">{stat.icon}</span>
+                <p className="text-foreground font-syne font-bold text-xl sm:text-2xl mt-1">{stat.value}</p>
+                <p className="text-muted-foreground text-[10px] font-display uppercase tracking-wider">{stat.label}</p>
               </div>
             ))}
           </div>

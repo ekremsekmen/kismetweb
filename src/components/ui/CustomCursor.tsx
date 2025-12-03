@@ -2,14 +2,18 @@
 
 import { useEffect, useRef, useCallback } from 'react'
 
+type CursorState = 'default' | 'pointer' | 'text' | 'grab' | 'view' | 'magnetic'
+
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null)
   const cursorOuterRef = useRef<HTMLDivElement>(null)
+  const cursorTextRef = useRef<HTMLSpanElement>(null)
   const posRef = useRef({ x: 0, y: 0 })
   const targetRef = useRef({ x: 0, y: 0 })
-  const isHoveringRef = useRef(false)
+  const cursorStateRef = useRef<CursorState>('default')
   const isVisibleRef = useRef(false)
   const isTouchDevice = useRef(false)
+  const magneticTargetRef = useRef<HTMLElement | null>(null)
 
   const updateCursorVisibility = useCallback((visible: boolean) => {
     if (isVisibleRef.current === visible) return
@@ -18,17 +22,87 @@ export default function CustomCursor() {
       cursorRef.current.style.opacity = visible ? '1' : '0'
     }
     if (cursorOuterRef.current) {
-      cursorOuterRef.current.style.opacity = visible ? '0.5' : '0'
+      cursorOuterRef.current.style.opacity = visible ? '1' : '0'
     }
   }, [])
 
-  const updateHoverState = useCallback((hovering: boolean) => {
-    if (isHoveringRef.current === hovering) return
-    isHoveringRef.current = hovering
-    if (cursorOuterRef.current) {
-      cursorOuterRef.current.style.borderColor = hovering 
-        ? 'rgba(168, 181, 196, 0.8)' 
-        : 'rgba(168, 181, 196, 0.4)'
+  const updateCursorState = useCallback((state: CursorState, text?: string) => {
+    if (cursorStateRef.current === state) return
+    cursorStateRef.current = state
+    
+    const cursor = cursorRef.current
+    const outer = cursorOuterRef.current
+    const textEl = cursorTextRef.current
+    
+    if (!cursor || !outer) return
+
+    // Reset all states
+    cursor.style.transform = ''
+    outer.style.transform = ''
+    
+    // Apply state-specific styles
+    switch (state) {
+      case 'pointer':
+        outer.style.width = '48px'
+        outer.style.height = '48px'
+        outer.style.borderColor = 'var(--accent-copper)'
+        outer.style.backgroundColor = 'var(--accent-copper-glow)'
+        cursor.style.backgroundColor = 'var(--accent-copper)'
+        if (textEl) textEl.textContent = ''
+        break
+        
+      case 'text':
+        outer.style.width = '4px'
+        outer.style.height = '24px'
+        outer.style.borderRadius = '2px'
+        outer.style.borderColor = 'var(--foreground)'
+        outer.style.backgroundColor = 'transparent'
+        cursor.style.opacity = '0'
+        if (textEl) textEl.textContent = ''
+        break
+        
+      case 'grab':
+        outer.style.width = '64px'
+        outer.style.height = '64px'
+        outer.style.borderColor = 'var(--accent-copper)'
+        outer.style.backgroundColor = 'transparent'
+        cursor.style.backgroundColor = 'var(--accent-copper)'
+        if (textEl) textEl.textContent = ''
+        break
+        
+      case 'view':
+        outer.style.width = '80px'
+        outer.style.height = '80px'
+        outer.style.borderColor = 'var(--accent-copper)'
+        outer.style.backgroundColor = 'var(--accent-copper-glow)'
+        cursor.style.opacity = '0'
+        if (textEl) {
+          textEl.textContent = text || 'VIEW'
+          textEl.style.opacity = '1'
+        }
+        break
+        
+      case 'magnetic':
+        outer.style.width = '56px'
+        outer.style.height = '56px'
+        outer.style.borderColor = 'var(--accent-copper)'
+        outer.style.backgroundColor = 'var(--accent-copper-glow)'
+        cursor.style.backgroundColor = 'var(--accent-copper)'
+        if (textEl) textEl.textContent = ''
+        break
+        
+      default:
+        outer.style.width = '32px'
+        outer.style.height = '32px'
+        outer.style.borderRadius = '50%'
+        outer.style.borderColor = 'rgba(var(--primary), 0.4)'
+        outer.style.backgroundColor = 'transparent'
+        cursor.style.backgroundColor = 'var(--primary)'
+        cursor.style.opacity = '1'
+        if (textEl) {
+          textEl.textContent = ''
+          textEl.style.opacity = '0'
+        }
     }
   }, [])
 
@@ -42,7 +116,22 @@ export default function CustomCursor() {
     let animationId: number
 
     const moveCursor = (e: MouseEvent) => {
-      targetRef.current = { x: e.clientX, y: e.clientY }
+      let targetX = e.clientX
+      let targetY = e.clientY
+      
+      // Magnetic effect
+      if (magneticTargetRef.current && cursorStateRef.current === 'magnetic') {
+        const rect = magneticTargetRef.current.getBoundingClientRect()
+        const centerX = rect.left + rect.width / 2
+        const centerY = rect.top + rect.height / 2
+        
+        // Pull cursor towards center of magnetic element
+        const pullStrength = 0.3
+        targetX = targetX + (centerX - targetX) * pullStrength
+        targetY = targetY + (centerY - targetY) * pullStrength
+      }
+      
+      targetRef.current = { x: targetX, y: targetY }
       if (!isVisibleRef.current) updateCursorVisibility(true)
     }
 
@@ -56,31 +145,70 @@ export default function CustomCursor() {
         cursorRef.current.style.transform = `translate3d(${posRef.current.x - 6}px, ${posRef.current.y - 6}px, 0)`
       }
       if (cursorOuterRef.current) {
-        const scale = isHoveringRef.current ? 1.5 : 1
-        cursorOuterRef.current.style.transform = `translate3d(${posRef.current.x - 16}px, ${posRef.current.y - 16}px, 0) scale(${scale})`
+        const outerSize = parseInt(cursorOuterRef.current.style.width || '32') / 2
+        cursorOuterRef.current.style.transform = `translate3d(${posRef.current.x - outerSize}px, ${posRef.current.y - outerSize}px, 0)`
       }
 
       animationId = requestAnimationFrame(animate)
     }
 
-    // Use event delegation instead of adding listeners to each element
+    // Enhanced event delegation for different cursor states
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement
-      if (target.closest('a, button, [data-cursor="pointer"]')) {
-        updateHoverState(true)
+      
+      // Check for custom cursor data attributes
+      const cursorType = target.closest('[data-cursor]')?.getAttribute('data-cursor') as CursorState | null
+      const cursorText = target.closest('[data-cursor-text]')?.getAttribute('data-cursor-text')
+      
+      if (cursorType) {
+        updateCursorState(cursorType, cursorText || undefined)
+        if (cursorType === 'magnetic') {
+          magneticTargetRef.current = target.closest('[data-cursor]') as HTMLElement
+        }
+        return
+      }
+      
+      // Default behaviors
+      if (target.closest('a, button, [role="button"]')) {
+        updateCursorState('pointer')
+      } else if (target.closest('input, textarea, [contenteditable]')) {
+        updateCursorState('text')
+      } else if (target.closest('.cursor-grab, [data-draggable]')) {
+        updateCursorState('grab')
       }
     }
 
     const handleMouseOut = (e: MouseEvent) => {
       const target = e.target as HTMLElement
-      if (target.closest('a, button, [data-cursor="pointer"]')) {
-        updateHoverState(false)
+      const relatedTarget = e.relatedTarget as HTMLElement | null
+      
+      // Only reset if we're actually leaving the interactive element
+      if (target.closest('[data-cursor], a, button, [role="button"], input, textarea')) {
+        // Check if we're moving to a child element
+        if (relatedTarget && target.contains(relatedTarget)) return
+        
+        updateCursorState('default')
+        magneticTargetRef.current = null
+      }
+    }
+
+    const handleMouseDown = () => {
+      if (cursorOuterRef.current) {
+        cursorOuterRef.current.style.transform += ' scale(0.9)'
+      }
+    }
+
+    const handleMouseUp = () => {
+      if (cursorOuterRef.current) {
+        cursorOuterRef.current.style.transform = cursorOuterRef.current.style.transform.replace(' scale(0.9)', '')
       }
     }
 
     window.addEventListener('mousemove', moveCursor, { passive: true })
     document.addEventListener('mouseover', handleMouseOver, { passive: true })
     document.addEventListener('mouseout', handleMouseOut, { passive: true })
+    document.addEventListener('mousedown', handleMouseDown, { passive: true })
+    document.addEventListener('mouseup', handleMouseUp, { passive: true })
     document.body.addEventListener('mouseleave', () => updateCursorVisibility(false))
     document.body.addEventListener('mouseenter', () => updateCursorVisibility(true))
     
@@ -90,9 +218,11 @@ export default function CustomCursor() {
       window.removeEventListener('mousemove', moveCursor)
       document.removeEventListener('mouseover', handleMouseOver)
       document.removeEventListener('mouseout', handleMouseOut)
+      document.removeEventListener('mousedown', handleMouseDown)
+      document.removeEventListener('mouseup', handleMouseUp)
       cancelAnimationFrame(animationId)
     }
-  }, [updateCursorVisibility, updateHoverState])
+  }, [updateCursorVisibility, updateCursorState])
 
   // Don't render on touch devices - check in SSR-safe way
   if (isTouchDevice.current) {
@@ -104,25 +234,37 @@ export default function CustomCursor() {
       {/* Main cursor dot */}
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-3 h-3 bg-primary rounded-full pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed top-0 left-0 w-3 h-3 rounded-full pointer-events-none z-[9999] mix-blend-difference"
         style={{
           opacity: 0,
           willChange: 'transform',
           backfaceVisibility: 'hidden',
+          backgroundColor: 'var(--primary)',
+          transition: 'background-color 0.2s, opacity 0.2s, width 0.2s, height 0.2s',
         }}
       />
 
-      {/* Outer ring */}
+      {/* Outer ring with text support */}
       <div
         ref={cursorOuterRef}
-        className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9998] border border-primary/40"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9998] border flex items-center justify-center"
         style={{
           opacity: 0,
           willChange: 'transform',
           backfaceVisibility: 'hidden',
-          transition: 'border-color 0.15s',
+          borderColor: 'rgba(var(--primary), 0.4)',
+          transition: 'border-color 0.2s, background-color 0.2s, width 0.3s, height 0.3s, border-radius 0.2s',
         }}
-      />
+      >
+        <span
+          ref={cursorTextRef}
+          className="text-[10px] font-mono font-bold tracking-wider text-background uppercase"
+          style={{
+            opacity: 0,
+            transition: 'opacity 0.2s',
+          }}
+        />
+      </div>
     </>
   )
 }

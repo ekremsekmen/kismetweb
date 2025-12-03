@@ -51,14 +51,14 @@ const CTAButtons = memo(function CTAButtons() {
       className="flex flex-col sm:flex-row gap-4 animate-fade-in-up"
       style={{ animationDelay: '0.8s' }}
     >
-      <Button asChild size="lg" className="rounded-full px-8 group">
+      <Button asChild size="lg" className="rounded-full px-8 group" data-cursor="magnetic">
         <Link href="/products">
           Explore Collection
           <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
         </Link>
       </Button>
 
-      <Button asChild variant="outline" size="lg" className="rounded-full px-8 group bg-secondary/50">
+      <Button asChild variant="outline" size="lg" className="rounded-full px-8 group bg-secondary/50" data-cursor="magnetic">
         <Link href="/contact">
           Get Quote
           <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:rotate-12" />
