@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { ChevronRight, Phone } from 'lucide-react'
+import { PRODUCT_BLUR } from '@/lib/image-placeholders'
 
 // Product Types
 interface Product {
@@ -26,7 +27,7 @@ const products: Product[] = [
     category: 'modern',
     image: '/slider-kismet.jpg',
     description: 'Minimalist tasarım, maksimum güvenlik',
-    features: ['RC3 Güvenlik', 'Akıllı Kilit', 'Ses Yalıtımlı']
+    features: ['RC3 Güvenlik', 'Akıllı Kilit', 'Ses Yalıtımlı'],
   },
   {
     id: 2,
@@ -34,7 +35,7 @@ const products: Product[] = [
     category: 'klasik',
     image: '/slider-kismet.jpg',
     description: 'Zamansız klasik tasarım',
-    features: ['RC2 Güvenlik', 'Klasik Panel', 'Ekonomik']
+    features: ['RC2 Güvenlik', 'Klasik Panel', 'Ekonomik'],
   },
   {
     id: 3,
@@ -42,7 +43,7 @@ const products: Product[] = [
     category: 'villa',
     image: '/slider-kismet.jpg',
     description: 'Prestijli villalar için özel tasarım',
-    features: ['RC4 Güvenlik', 'Çift Kanatlı', 'Premium Kaplama']
+    features: ['RC4 Güvenlik', 'Çift Kanatlı', 'Premium Kaplama'],
   },
   {
     id: 4,
@@ -50,7 +51,7 @@ const products: Product[] = [
     category: 'modern',
     image: '/slider-kismet.jpg',
     description: 'Siyah mat kaplama ile sofistike görünüm',
-    features: ['RC3 Güvenlik', 'Mat Siyah', 'LED Aydınlatma']
+    features: ['RC3 Güvenlik', 'Mat Siyah', 'LED Aydınlatma'],
   },
   {
     id: 5,
@@ -58,7 +59,7 @@ const products: Product[] = [
     category: 'premium',
     image: '/slider-kismet.jpg',
     description: 'Üstün güvenlik ve estetik',
-    features: ['RC5 Güvenlik', 'Altın Detay', 'Biyometrik Kilit']
+    features: ['RC5 Güvenlik', 'Altın Detay', 'Biyometrik Kilit'],
   },
   {
     id: 6,
@@ -66,7 +67,7 @@ const products: Product[] = [
     category: 'modern',
     image: '/slider-kismet.jpg',
     description: 'Cam detaylı modern tasarım',
-    features: ['RC3 Güvenlik', 'Cam Panel', 'Gün Işığı Geçirgen']
+    features: ['RC3 Güvenlik', 'Cam Panel', 'Gün Işığı Geçirgen'],
   },
   {
     id: 7,
@@ -74,7 +75,7 @@ const products: Product[] = [
     category: 'klasik',
     image: '/slider-kismet.jpg',
     description: 'Geleneksel ahşap görünümlü',
-    features: ['RC2 Güvenlik', 'Ahşap Kaplama', 'Klasik Detay']
+    features: ['RC2 Güvenlik', 'Ahşap Kaplama', 'Klasik Detay'],
   },
   {
     id: 8,
@@ -82,7 +83,7 @@ const products: Product[] = [
     category: 'villa',
     image: '/slider-kismet.jpg',
     description: 'Geniş girişler için lüks çözüm',
-    features: ['RC4 Güvenlik', 'Çift Kanatlı', 'Otomatik Açılış']
+    features: ['RC4 Güvenlik', 'Çift Kanatlı', 'Otomatik Açılış'],
   },
   {
     id: 9,
@@ -90,7 +91,7 @@ const products: Product[] = [
     category: 'premium',
     image: '/slider-kismet.jpg',
     description: 'Maksimum dayanıklılık',
-    features: ['RC6 Güvenlik', 'Kurşun Geçirmez', 'Yangına Dayanıklı']
+    features: ['RC6 Güvenlik', 'Kurşun Geçirmez', 'Yangına Dayanıklı'],
   },
   {
     id: 10,
@@ -98,7 +99,7 @@ const products: Product[] = [
     category: 'ekonomik',
     image: '/slider-kismet.jpg',
     description: 'Uygun fiyatlı, güvenli',
-    features: ['RC1 Güvenlik', 'Standart Panel', 'Ekonomik']
+    features: ['RC1 Güvenlik', 'Standart Panel', 'Ekonomik'],
   },
   {
     id: 11,
@@ -106,7 +107,7 @@ const products: Product[] = [
     category: 'modern',
     image: '/slider-kismet.jpg',
     description: 'Uyumlu renkler, zarif çizgiler',
-    features: ['RC3 Güvenlik', 'Çok Renkli', 'Özelleştirilebilir']
+    features: ['RC3 Güvenlik', 'Çok Renkli', 'Özelleştirilebilir'],
   },
   {
     id: 12,
@@ -114,8 +115,8 @@ const products: Product[] = [
     category: 'villa',
     image: '/slider-kismet.jpg',
     description: 'Bahçe girişleri için ideal',
-    features: ['RC3 Güvenlik', 'Geniş Açılım', 'Hava Koşullarına Dayanıklı']
-  }
+    features: ['RC3 Güvenlik', 'Geniş Açılım', 'Hava Koşullarına Dayanıklı'],
+  },
 ]
 
 type CategoryType = 'all' | 'modern' | 'klasik' | 'villa' | 'premium' | 'ekonomik'
@@ -126,7 +127,7 @@ const categories = [
   { id: 'klasik', name: 'Klasik', icon: '◆' },
   { id: 'villa', name: 'Villa', icon: '⌂' },
   { id: 'premium', name: 'Premium', icon: '★' },
-  { id: 'ekonomik', name: 'Ekonomik', icon: '○' }
+  { id: 'ekonomik', name: 'Ekonomik', icon: '○' },
 ]
 
 export default function ProductsGallery() {
@@ -136,7 +137,7 @@ export default function ProductsGallery() {
 
   useEffect(() => {
     setIsAnimating(true)
-    
+
     const timer = setTimeout(() => {
       if (activeCategory === 'all') {
         setFilteredProducts(products)
@@ -154,24 +155,28 @@ export default function ProductsGallery() {
   }
 
   return (
-    <div className="min-h-screen bg-background relative">
+    <div className="bg-background relative min-h-screen">
       {/* Noise Texture Overlay */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-0" 
-        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }} 
+      <div
+        className="pointer-events-none fixed inset-0 z-0 opacity-[0.03]"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+        }}
       />
 
       {/* Hero Section */}
-      <section className="relative min-h-[40vh] flex items-center justify-center pt-24 pb-16">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
-        
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-20 text-center">
-          <Badge variant="outline" className="mb-4 text-primary border-primary/30 tracking-[0.3em]">
+      <section className="relative flex min-h-[40vh] items-center justify-center pt-24 pb-16">
+        <div className="from-background via-background/90 to-background absolute inset-0 bg-gradient-to-b" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-6 text-center sm:px-10 lg:px-20">
+          <Badge variant="outline" className="text-primary border-primary/30 mb-4 tracking-[0.3em]">
             OUR COLLECTION
           </Badge>
-          <h1 className="text-foreground text-5xl sm:text-7xl md:text-8xl font-extrabold uppercase font-syne tracking-tighter mb-6">
+          <h1 className="text-foreground font-syne mb-6 text-5xl font-extrabold tracking-tighter uppercase sm:text-7xl md:text-8xl">
             MODELLERİMİZ
           </h1>
-          <p className="text-muted-foreground text-lg sm:text-xl max-w-3xl mx-auto font-display leading-relaxed">
+          <p className="text-muted-foreground font-display mx-auto max-w-3xl text-lg leading-relaxed sm:text-xl">
             Her ihtiyaca uygun, yüksek kaliteli çelik kapı modellerimizi keşfedin
           </p>
         </div>
@@ -179,17 +184,16 @@ export default function ProductsGallery() {
 
       {/* Main Content */}
       <section className="relative z-10 py-16">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-20">
-          
+        <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-20">
           {/* Filter Buttons */}
           <div className="mb-12">
-            <div className="flex flex-wrap justify-center gap-3 mb-8">
-              {categories.map((category) => (
+            <div className="mb-8 flex flex-wrap justify-center gap-3">
+              {categories.map(category => (
                 <Button
                   key={category.id}
-                  variant={activeCategory === category.id ? "default" : "outline"}
+                  variant={activeCategory === category.id ? 'default' : 'outline'}
                   onClick={() => handleCategoryChange(category.id as CategoryType)}
-                  className={`px-6 py-3 text-sm font-semibold transition-all duration-300 gap-2 font-display ${
+                  className={`font-display gap-2 px-6 py-3 text-sm font-semibold transition-all duration-300 ${
                     activeCategory === category.id
                       ? 'bg-primary text-primary-foreground shadow-[0_0_20px_rgba(168,181,196,0.3)]'
                       : 'glass-panel border-border/50 text-foreground hover:border-primary/50 hover:text-primary'
@@ -198,7 +202,7 @@ export default function ProductsGallery() {
                   <span className="text-lg">{category.icon}</span>
                   <span>{category.name}</span>
                   {activeCategory === category.id && (
-                    <Badge variant="secondary" className="text-xs bg-background/20 px-2 py-0.5">
+                    <Badge variant="secondary" className="bg-background/20 px-2 py-0.5 text-xs">
                       {category.id === 'all' ? products.length : filteredProducts.length}
                     </Badge>
                   )}
@@ -209,22 +213,25 @@ export default function ProductsGallery() {
             {/* Results Count */}
             <div className="text-center">
               <p className="text-muted-foreground font-display">
-                <span className="font-bold text-primary">{filteredProducts.length}</span> ürün gösteriliyor
+                <span className="text-primary font-bold">{filteredProducts.length}</span> ürün
+                gösteriliyor
               </p>
             </div>
           </div>
 
           {/* Products Grid */}
-          <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 transition-opacity duration-300 ${
-            isAnimating ? 'opacity-0' : 'opacity-100'
-          }`}>
+          <div
+            className={`grid grid-cols-1 gap-6 transition-opacity duration-300 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ${
+              isAnimating ? 'opacity-0' : 'opacity-100'
+            }`}
+          >
             {filteredProducts.map((product, index) => (
               <Card
                 key={product.id}
-                className="group relative glass-panel border-border/50 overflow-hidden hover:border-primary/50 transition-all duration-300 cursor-pointer"
+                className="group glass-panel border-border/50 hover:border-primary/50 relative cursor-pointer overflow-hidden transition-all duration-300"
                 data-category={product.category}
                 style={{
-                  animation: isAnimating ? 'none' : `fadeInUp 0.5s ease-out ${index * 0.05}s both`
+                  animation: isAnimating ? 'none' : `fadeInUp 0.5s ease-out ${index * 0.05}s both`,
                 }}
               >
                 {/* Product Image */}
@@ -235,35 +242,40 @@ export default function ProductsGallery() {
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                     loading="lazy"
+                    placeholder="blur"
+                    blurDataURL={PRODUCT_BLUR}
                   />
-                  
+
                   {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-                  
+                  <div className="from-background via-background/20 absolute inset-0 bg-gradient-to-t to-transparent" />
+
                   {/* Category Badge */}
                   <div className="absolute top-4 right-4 z-10">
-                    <Badge variant="outline" className="glass-panel border-border/50 text-foreground text-xs font-bold uppercase tracking-wider">
+                    <Badge
+                      variant="outline"
+                      className="glass-panel border-border/50 text-foreground text-xs font-bold tracking-wider uppercase"
+                    >
                       {categories.find(c => c.id === product.category)?.name}
                     </Badge>
                   </div>
 
                   {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/50 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
-                    <div className="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
-                      <h3 className="text-3xl font-bold text-foreground mb-2 font-syne">
+                  <div className="from-background via-background/80 to-background/50 absolute inset-0 flex flex-col justify-end bg-gradient-to-t p-6 opacity-0 transition-all duration-500 group-hover:opacity-100">
+                    <div className="translate-y-8 transform transition-transform duration-500 group-hover:translate-y-0">
+                      <h3 className="text-foreground font-syne mb-2 text-3xl font-bold">
                         {product.name}
                       </h3>
-                      <p className="text-sm text-muted-foreground mb-4 font-display">
+                      <p className="text-muted-foreground font-display mb-4 text-sm">
                         {product.description}
                       </p>
-                      
+
                       {/* Features */}
-                      <div className="flex flex-wrap gap-2 mb-4">
+                      <div className="mb-4 flex flex-wrap gap-2">
                         {product.features.map((feature, idx) => (
-                          <Badge 
+                          <Badge
                             key={idx}
                             variant="outline"
-                            className="text-xs bg-primary/20 text-primary border-primary/30"
+                            className="bg-primary/20 text-primary border-primary/30 text-xs"
                           >
                             {feature}
                           </Badge>
@@ -271,10 +283,13 @@ export default function ProductsGallery() {
                       </div>
 
                       {/* CTA Button */}
-                      <Button asChild className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-bold transition-all duration-300 hover:scale-105">
+                      <Button
+                        asChild
+                        className="bg-primary text-primary-foreground hover:bg-primary/90 w-full font-bold transition-all duration-300 hover:scale-105"
+                      >
                         <Link href={`/products/${product.id}`} className="gap-2">
                           <span>Detayları İncele</span>
-                          <ChevronRight className="w-4 h-4" />
+                          <ChevronRight className="h-4 w-4" />
                         </Link>
                       </Button>
                     </div>
@@ -282,9 +297,11 @@ export default function ProductsGallery() {
                 </div>
 
                 {/* Product Info (visible on mobile/default) */}
-                <CardContent className="p-4 group-hover:opacity-0 transition-opacity duration-300">
-                  <h3 className="text-xl font-bold text-foreground font-syne">{product.name}</h3>
-                  <p className="text-muted-foreground text-sm font-display">{product.description}</p>
+                <CardContent className="p-4 transition-opacity duration-300 group-hover:opacity-0">
+                  <h3 className="text-foreground font-syne text-xl font-bold">{product.name}</h3>
+                  <p className="text-muted-foreground font-display text-sm">
+                    {product.description}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -292,12 +309,10 @@ export default function ProductsGallery() {
 
           {/* No Results */}
           {filteredProducts.length === 0 && !isAnimating && (
-            <div className="text-center py-20">
-              <div className="text-6xl mb-4">⌖</div>
-              <h3 className="text-2xl font-bold text-foreground mb-2 font-syne">
-                Ürün Bulunamadı
-              </h3>
-              <p className="text-muted-foreground mb-6 font-display">
+            <div className="py-20 text-center">
+              <div className="mb-4 text-6xl">⌖</div>
+              <h3 className="text-foreground font-syne mb-2 text-2xl font-bold">Ürün Bulunamadı</h3>
+              <p className="text-muted-foreground font-display mb-6">
                 Bu kategoride henüz ürün bulunmuyor.
               </p>
               <Button
@@ -312,23 +327,30 @@ export default function ProductsGallery() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative z-10 py-20 border-t border-border">
-        <div className="max-w-4xl mx-auto px-6 sm:px-10 lg:px-20 text-center">
-          <h2 className="text-foreground text-4xl sm:text-5xl font-bold font-syne tracking-tight mb-6">
+      <section className="border-border relative z-10 border-t py-20">
+        <div className="mx-auto max-w-4xl px-6 text-center sm:px-10 lg:px-20">
+          <h2 className="text-foreground font-syne mb-6 text-4xl font-bold tracking-tight sm:text-5xl">
             ARADIĞINIZI <span className="text-primary">BULAMADINIZ MI?</span>
           </h2>
-          <p className="text-muted-foreground text-lg mb-10 font-display max-w-2xl mx-auto">
+          <p className="text-muted-foreground font-display mx-auto mb-10 max-w-2xl text-lg">
             Size özel tasarım yapabiliriz. Uzman ekibimiz ihtiyaçlarınıza göre çözüm üretir.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8 py-6 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)]">
-              <Link href="/contact">
-                Teklif Alın
-              </Link>
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+            <Button
+              asChild
+              size="lg"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-6 text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)]"
+            >
+              <Link href="/contact">Teklif Alın</Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="border-border/50 text-foreground hover:border-primary hover:text-primary text-lg px-8 py-6 transition-all duration-300">
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="border-border/50 text-foreground hover:border-primary hover:text-primary px-8 py-6 text-lg transition-all duration-300"
+            >
               <a href="tel:+902125550123" className="gap-2">
-                <Phone className="w-5 h-5" />
+                <Phone className="h-5 w-5" />
                 <span>Hemen Ara</span>
               </a>
             </Button>

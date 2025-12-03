@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, memo, useCallback } from 'react'
 import Image from 'next/image'
+import { STEEL_DOOR_BLUR } from '@/lib/image-placeholders'
 
 // Typing animation hook
 function useTypingEffect(text: string, speed: number = 25, trigger: boolean = true) {
@@ -49,7 +50,7 @@ const components = [
       { label: 'Sınıf', value: 'RC3' },
     ],
     description: 'Premium çelik kapı - Tüm bileşenlerin entegre edilmiş hali',
-    category: 'MAIN'
+    category: 'MAIN',
   },
   {
     id: 'frame',
@@ -63,7 +64,7 @@ const components = [
       { label: 'Ankraj', value: '10 Nokta' },
     ],
     description: '2.0mm galvanizli çelik kasa - Beton ankraj sistemi',
-    category: 'FRAME'
+    category: 'FRAME',
   },
   {
     id: 'core',
@@ -77,7 +78,7 @@ const components = [
       { label: 'Kaynak', value: 'MIG' },
     ],
     description: 'İç çelik iskelet - Omega takviyeli nervür yapı',
-    category: 'CORE'
+    category: 'CORE',
   },
   {
     id: 'panel',
@@ -91,7 +92,7 @@ const components = [
       { label: 'Kaplama', value: 'Lake' },
     ],
     description: 'Premium ahşap kaplama - Doğal meşe dokusu',
-    category: 'PANEL'
+    category: 'PANEL',
   },
   {
     id: 'lock',
@@ -105,7 +106,7 @@ const components = [
       { label: 'Sürgü', value: 'Çelik' },
     ],
     description: 'Çoklu nokta kilit sistemi - 12 noktadan kavrama',
-    category: 'LOCK'
+    category: 'LOCK',
   },
   {
     id: 'insulation',
@@ -119,31 +120,33 @@ const components = [
       { label: 'Conta', value: 'EPDM 3x' },
     ],
     description: 'Yüksek yoğunluklu poliüretan + EPDM contalar',
-    category: 'SEAL'
-  }
+    category: 'SEAL',
+  },
 ] as const
 
 // Spec item component with staggered animation
-const SpecItem = memo(function SpecItem({ 
+const SpecItem = memo(function SpecItem({
   spec,
-  delay = 0
-}: { 
+  delay = 0,
+}: {
   spec: { label: string; value: string }
   delay?: number
 }) {
   const [show, setShow] = useState(false)
-  
+
   useEffect(() => {
     const timer = setTimeout(() => setShow(true), delay)
     return () => clearTimeout(timer)
   }, [delay])
 
   return (
-    <div className={`flex items-center justify-between py-1.5 border-b border-border/20 last:border-0 transition-all duration-300 ${
-      show ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
-    }`}>
-      <span className="text-[10px] text-muted-foreground font-mono uppercase">{spec.label}</span>
-      <span className="text-xs text-[var(--accent-copper)] font-mono font-bold">{spec.value}</span>
+    <div
+      className={`border-border/20 flex items-center justify-between border-b py-1.5 transition-all duration-300 last:border-0 ${
+        show ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'
+      }`}
+    >
+      <span className="text-muted-foreground font-mono text-[10px] uppercase">{spec.label}</span>
+      <span className="font-mono text-xs font-bold text-[var(--accent-copper)]">{spec.value}</span>
     </div>
   )
 })
@@ -155,20 +158,16 @@ const ComponentCard = memo(function ComponentCard({
   onClick,
   onKeyDown,
   index,
-  tabIndex
+  tabIndex,
 }: {
-  component: typeof components[number]
+  component: (typeof components)[number]
   isActive: boolean
   onClick: () => void
   onKeyDown: (e: React.KeyboardEvent) => void
   index: number
   tabIndex: number
 }) {
-  const { displayedText, isComplete } = useTypingEffect(
-    component.description,
-    20,
-    isActive
-  )
+  const { displayedText, isComplete } = useTypingEffect(component.description, 20, isActive)
 
   return (
     <button
@@ -180,42 +179,50 @@ const ComponentCard = memo(function ComponentCard({
       tabIndex={tabIndex}
       onClick={onClick}
       onKeyDown={onKeyDown}
-      className={`group relative w-full text-left transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-copper)] focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-lg ${
+      className={`group focus-visible:ring-offset-background relative w-full rounded-lg text-left transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-copper)] focus-visible:ring-offset-2 ${
         isActive ? 'scale-[1.02]' : 'hover:scale-[1.01]'
       }`}
       style={{ animationDelay: `${index * 0.1}s` }}
     >
       {/* Card background with military style border */}
-      <div className={`relative p-3 rounded-lg border-l-2 transition-all duration-300 ${
-        isActive 
-          ? 'bg-[var(--accent-copper)]/10 border-l-[var(--accent-copper)] shadow-[0_0_30px_var(--accent-copper-glow)]' 
-          : 'bg-accent/30 border-l-muted-foreground/30 hover:bg-accent/50 hover:border-l-muted-foreground'
-      }`}>
+      <div
+        className={`relative rounded-lg border-l-2 p-3 transition-all duration-300 ${
+          isActive
+            ? 'border-l-[var(--accent-copper)] bg-[var(--accent-copper)]/10 shadow-[0_0_30px_var(--accent-copper-glow)]'
+            : 'bg-accent/30 border-l-muted-foreground/30 hover:bg-accent/50 hover:border-l-muted-foreground'
+        }`}
+      >
         {/* Top line with code */}
-        <div className="flex items-center justify-between mb-1">
-          <span className={`text-[10px] font-mono tracking-wider transition-colors ${
-            isActive ? 'text-[var(--accent-copper)]' : 'text-muted-foreground'
-          }`}>
+        <div className="mb-1 flex items-center justify-between">
+          <span
+            className={`font-mono text-[10px] tracking-wider transition-colors ${
+              isActive ? 'text-[var(--accent-copper)]' : 'text-muted-foreground'
+            }`}
+          >
             [{component.code}]
           </span>
-          <span className={`text-[9px] px-2 py-0.5 rounded font-mono uppercase tracking-wider ${
-            isActive 
-              ? 'bg-[var(--accent-copper)]/20 text-[var(--accent-copper)]' 
-              : 'bg-muted/50 text-muted-foreground'
-          }`}>
+          <span
+            className={`rounded px-2 py-0.5 font-mono text-[9px] tracking-wider uppercase ${
+              isActive
+                ? 'bg-[var(--accent-copper)]/20 text-[var(--accent-copper)]'
+                : 'bg-muted/50 text-muted-foreground'
+            }`}
+          >
             {component.category}
           </span>
         </div>
 
         {/* Title */}
-        <h4 className={`font-syne font-bold text-xs tracking-wide mb-0.5 transition-colors ${
-          isActive ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'
-        }`}>
+        <h4
+          className={`font-syne mb-0.5 text-xs font-bold tracking-wide transition-colors ${
+            isActive ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'
+          }`}
+        >
           {component.label}
         </h4>
 
         {/* Description with typing animation */}
-        <p className="text-muted-foreground text-[11px] font-display leading-relaxed mb-2 min-h-[2.5em]">
+        <p className="text-muted-foreground font-display mb-2 min-h-[2.5em] text-[11px] leading-relaxed">
           {isActive ? (
             <>
               {displayedText}
@@ -228,7 +235,7 @@ const ComponentCard = memo(function ComponentCard({
 
         {/* Specs with staggered animation */}
         {isActive && (
-          <div className="pt-2 border-t border-border/30">
+          <div className="border-border/30 border-t pt-2">
             {component.specs.map((spec, i) => (
               <SpecItem key={i} spec={spec} delay={i * 100 + 400} />
             ))}
@@ -236,12 +243,16 @@ const ComponentCard = memo(function ComponentCard({
         )}
 
         {/* Corner accents */}
-        <div className={`absolute top-0 right-0 w-3 h-3 border-t border-r transition-colors ${
-          isActive ? 'border-[var(--accent-copper)]/50' : 'border-transparent'
-        }`} />
-        <div className={`absolute bottom-0 left-0 w-3 h-3 border-b border-l transition-colors ${
-          isActive ? 'border-[var(--accent-copper)]/50' : 'border-transparent'
-        }`} />
+        <div
+          className={`absolute top-0 right-0 h-3 w-3 border-t border-r transition-colors ${
+            isActive ? 'border-[var(--accent-copper)]/50' : 'border-transparent'
+          }`}
+        />
+        <div
+          className={`absolute bottom-0 left-0 h-3 w-3 border-b border-l transition-colors ${
+            isActive ? 'border-[var(--accent-copper)]/50' : 'border-transparent'
+          }`}
+        />
       </div>
     </button>
   )
@@ -313,7 +324,7 @@ export default function AnatomyOfSafetyPremium() {
     }
 
     setActiveComponent(components[newIndex].id)
-    
+
     // Focus the new tab
     const tabList = tabListRef.current
     if (tabList) {
@@ -326,65 +337,64 @@ export default function AnatomyOfSafetyPremium() {
   const activeData = components.find(c => c.id === activeComponent)
 
   return (
-    <section ref={ref} className="relative section-padding bg-background overflow-hidden">
+    <section ref={ref} className="section-padding bg-background relative overflow-hidden">
       {/* Background grid pattern */}
-      <div 
+      <div
         className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage: `
             linear-gradient(var(--muted-foreground) 1px, transparent 1px),
             linear-gradient(90deg, var(--muted-foreground) 1px, transparent 1px)
           `,
-          backgroundSize: '50px 50px'
+          backgroundSize: '50px 50px',
         }}
       />
 
       {/* Scan line effect */}
-      <div 
-        className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--accent-copper)]/30 to-transparent pointer-events-none transition-all duration-75"
+      <div
+        className="pointer-events-none absolute right-0 left-0 h-px bg-gradient-to-r from-transparent via-[var(--accent-copper)]/30 to-transparent transition-all duration-75"
         style={{ top: `${scanLine}%` }}
       />
 
-      <div className="relative container-max">
+      <div className="container-max relative">
         {/* Header - Military style */}
-        <div className={`text-center mb-8 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="inline-flex items-center gap-3 mb-3">
+        <div
+          className={`mb-8 text-center transition-all duration-700 ${isInView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+        >
+          <div className="mb-3 inline-flex items-center gap-3">
             <div className="h-px w-12 bg-gradient-to-r from-transparent to-[var(--accent-copper)]" />
-            <span className="text-[var(--accent-copper)] text-xs font-mono tracking-[0.4em] uppercase">
+            <span className="font-mono text-xs tracking-[0.4em] text-[var(--accent-copper)] uppercase">
               TECHNICAL BREAKDOWN
             </span>
             <div className="h-px w-12 bg-gradient-to-l from-transparent to-[var(--accent-copper)]" />
           </div>
-          <h2 className="text-foreground text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-syne tracking-tight mb-2">
+          <h2 className="text-foreground font-syne mb-2 text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
             GÜVENLİĞİN <span className="text-gradient-copper">ANATOMİSİ</span>
           </h2>
-          <p className="text-muted-foreground text-xs sm:text-sm font-display max-w-2xl mx-auto">
+          <p className="text-muted-foreground font-display mx-auto max-w-2xl text-xs sm:text-sm">
             Her bileşen, maksimum koruma için hassas mühendislikle tasarlandı
           </p>
         </div>
 
         {/* Main content grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-          
+        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12 lg:gap-8">
           {/* Left panel - Component list with ARIA tablist */}
-          <div 
+          <div
             ref={tabListRef}
             role="tablist"
             aria-label="Kapı bileşenleri"
             aria-orientation="vertical"
-            className={`lg:col-span-4 space-y-2 order-2 lg:order-1 transition-all duration-700 delay-200 ${
-              isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+            className={`order-2 space-y-2 transition-all delay-200 duration-700 lg:order-1 lg:col-span-4 ${
+              isInView ? 'translate-x-0 opacity-100' : '-translate-x-8 opacity-0'
             }`}
           >
             {/* Panel header */}
-            <div className="flex items-center gap-2 mb-3 pb-2 border-b border-border/30">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-              <span className="text-muted-foreground text-xs font-mono uppercase tracking-wider">
+            <div className="border-border/30 mb-3 flex items-center gap-2 border-b pb-2">
+              <div className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
+              <span className="text-muted-foreground font-mono text-xs tracking-wider uppercase">
                 Component Selection
               </span>
-              <span className="ml-auto text-xs text-muted-foreground font-mono">
-                ← → navigate
-              </span>
+              <span className="text-muted-foreground ml-auto font-mono text-xs">← → navigate</span>
             </div>
 
             {components.map((component, index) => (
@@ -393,7 +403,7 @@ export default function AnatomyOfSafetyPremium() {
                 component={component}
                 isActive={activeComponent === component.id}
                 onClick={() => handleSelect(component.id)}
-                onKeyDown={(e) => handleKeyDown(e, index)}
+                onKeyDown={e => handleKeyDown(e, index)}
                 index={index}
                 tabIndex={activeComponent === component.id ? 0 : -1}
               />
@@ -401,40 +411,42 @@ export default function AnatomyOfSafetyPremium() {
           </div>
 
           {/* Center - Interactive Image */}
-          <div 
+          <div
             role="tabpanel"
             id={`panel-${activeComponent}`}
             aria-labelledby={`tab-${activeComponent}`}
-            className={`lg:col-span-8 order-1 lg:order-2 transition-all duration-700 delay-300 ${
-              isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+            className={`order-1 transition-all delay-300 duration-700 lg:order-2 lg:col-span-8 ${
+              isInView ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'
             }`}
           >
             {/* HUD Frame */}
             <div className="relative">
               {/* Top HUD bar */}
-              <div className="flex items-center justify-between mb-4 px-2">
+              <div className="mb-4 flex items-center justify-between px-2">
                 <div className="flex items-center gap-3">
                   <div className="flex items-center gap-1.5">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                    <span className="text-green-500 text-[10px] font-mono">LIVE</span>
+                    <div className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
+                    <span className="font-mono text-[10px] text-green-500">LIVE</span>
                   </div>
-                  <span className="text-muted-foreground text-[10px] font-mono">|</span>
-                  <span className="text-muted-foreground text-[10px] font-mono">EXPLODED VIEW</span>
+                  <span className="text-muted-foreground font-mono text-[10px]">|</span>
+                  <span className="text-muted-foreground font-mono text-[10px]">EXPLODED VIEW</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-muted-foreground text-[10px] font-mono">ZOOM: 100%</span>
-                  <span className="text-muted-foreground text-[10px] font-mono">|</span>
-                  <span className="text-[var(--accent-copper)] text-[10px] font-mono">{activeData?.code}</span>
+                  <span className="text-muted-foreground font-mono text-[10px]">ZOOM: 100%</span>
+                  <span className="text-muted-foreground font-mono text-[10px]">|</span>
+                  <span className="font-mono text-[10px] text-[var(--accent-copper)]">
+                    {activeData?.code}
+                  </span>
                 </div>
               </div>
 
               {/* Main image container */}
-              <div className="relative rounded-lg overflow-hidden border border-border/30 bg-[#4a4a4a]">
+              <div className="border-border/30 relative overflow-hidden rounded-lg border bg-[#4a4a4a]">
                 {/* Corner brackets */}
-                <div className="absolute top-2 left-2 w-6 h-6 border-l-2 border-t-2 border-[var(--accent-copper)]/50 z-20" />
-                <div className="absolute top-2 right-2 w-6 h-6 border-r-2 border-t-2 border-[var(--accent-copper)]/50 z-20" />
-                <div className="absolute bottom-2 left-2 w-6 h-6 border-l-2 border-b-2 border-[var(--accent-copper)]/50 z-20" />
-                <div className="absolute bottom-2 right-2 w-6 h-6 border-r-2 border-b-2 border-[var(--accent-copper)]/50 z-20" />
+                <div className="absolute top-2 left-2 z-20 h-6 w-6 border-t-2 border-l-2 border-[var(--accent-copper)]/50" />
+                <div className="absolute top-2 right-2 z-20 h-6 w-6 border-t-2 border-r-2 border-[var(--accent-copper)]/50" />
+                <div className="absolute bottom-2 left-2 z-20 h-6 w-6 border-b-2 border-l-2 border-[var(--accent-copper)]/50" />
+                <div className="absolute right-2 bottom-2 z-20 h-6 w-6 border-r-2 border-b-2 border-[var(--accent-copper)]/50" />
 
                 {/* Image */}
                 <div className="relative aspect-square lg:aspect-[5/4]">
@@ -445,44 +457,55 @@ export default function AnatomyOfSafetyPremium() {
                     className="object-contain object-top"
                     priority
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 800px"
+                    placeholder="blur"
+                    blurDataURL={STEEL_DOOR_BLUR}
                   />
 
                   {/* Hotspots */}
-                  {components.map((component) => (
+                  {components.map(component => (
                     <button
                       key={component.id}
                       type="button"
                       aria-label={`${component.label} seç`}
-                      className={`absolute z-10 group transition-all duration-300 ${
+                      className={`group absolute z-10 transition-all duration-300 ${
                         activeComponent === component.id ? 'scale-110' : 'hover:scale-105'
                       }`}
                       style={{ left: `${component.x}%`, top: `${component.y}%` }}
                       onClick={() => handleSelect(component.id)}
                     >
                       {/* Pulse ring */}
-                      <div className={`absolute inset-0 rounded-full transition-all duration-300 ${
-                        activeComponent === component.id 
-                          ? 'animate-ping bg-[var(--accent-copper)]/30' 
-                          : ''
-                      }`} style={{ width: '24px', height: '24px', margin: '-4px' }} />
-                      
+                      <div
+                        className={`absolute inset-0 rounded-full transition-all duration-300 ${
+                          activeComponent === component.id
+                            ? 'animate-ping bg-[var(--accent-copper)]/30'
+                            : ''
+                        }`}
+                        style={{ width: '24px', height: '24px', margin: '-4px' }}
+                      />
+
                       {/* Main dot */}
-                      <div className={`relative w-4 h-4 rounded-full border-2 transition-all duration-300 flex items-center justify-center ${
-                        activeComponent === component.id
-                          ? 'bg-[var(--accent-copper)] border-[var(--accent-copper)] shadow-[0_0_20px_var(--accent-copper-glow)]'
-                          : 'bg-background/80 border-muted-foreground hover:border-[var(--accent-copper)] hover:bg-[var(--accent-copper)]/20'
-                      }`}>
-                        <div className={`w-1.5 h-1.5 rounded-full transition-colors ${
-                          activeComponent === component.id ? 'bg-background' : 'bg-muted-foreground'
-                        }`} />
+                      <div
+                        className={`relative flex h-4 w-4 items-center justify-center rounded-full border-2 transition-all duration-300 ${
+                          activeComponent === component.id
+                            ? 'border-[var(--accent-copper)] bg-[var(--accent-copper)] shadow-[0_0_20px_var(--accent-copper-glow)]'
+                            : 'bg-background/80 border-muted-foreground hover:border-[var(--accent-copper)] hover:bg-[var(--accent-copper)]/20'
+                        }`}
+                      >
+                        <div
+                          className={`h-1.5 w-1.5 rounded-full transition-colors ${
+                            activeComponent === component.id
+                              ? 'bg-background'
+                              : 'bg-muted-foreground'
+                          }`}
+                        />
                       </div>
 
                       {/* Label line */}
                       {activeComponent === component.id && (
-                        <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 whitespace-nowrap animate-fade-in">
+                        <div className="animate-fade-in absolute top-1/2 left-full ml-2 -translate-y-1/2 whitespace-nowrap">
                           <div className="flex items-center gap-2">
-                            <div className="w-8 h-px bg-[var(--accent-copper)]" />
-                            <span className="text-[var(--accent-copper)] text-[10px] font-mono bg-background/90 px-2 py-1 rounded border border-[var(--accent-copper)]/30">
+                            <div className="h-px w-8 bg-[var(--accent-copper)]" />
+                            <span className="bg-background/90 rounded border border-[var(--accent-copper)]/30 px-2 py-1 font-mono text-[10px] text-[var(--accent-copper)]">
                               {component.label}
                             </span>
                           </div>
@@ -493,17 +516,21 @@ export default function AnatomyOfSafetyPremium() {
                 </div>
 
                 {/* Bottom info bar */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/95 to-transparent p-4 pt-12">
+                <div className="from-background/95 absolute right-0 bottom-0 left-0 bg-gradient-to-t to-transparent p-4 pt-12">
                   <div className="flex items-end justify-between">
                     <div>
-                      <p className="text-[var(--accent-copper)] text-[10px] font-mono mb-1">{activeData?.code}</p>
-                      <h3 className="text-foreground font-syne font-bold text-lg sm:text-xl">{activeData?.label}</h3>
+                      <p className="mb-1 font-mono text-[10px] text-[var(--accent-copper)]">
+                        {activeData?.code}
+                      </p>
+                      <h3 className="text-foreground font-syne text-lg font-bold sm:text-xl">
+                        {activeData?.label}
+                      </h3>
                     </div>
                     <div className="text-right">
-                      <p className="text-muted-foreground text-[10px] font-mono">COMPONENT SPECS</p>
-                      <p className="text-[var(--accent-copper)] font-syne font-bold text-2xl">
+                      <p className="text-muted-foreground font-mono text-[10px]">COMPONENT SPECS</p>
+                      <p className="font-syne text-2xl font-bold text-[var(--accent-copper)]">
                         {activeData?.specs.length || 0}
-                        <span className="text-sm text-muted-foreground"> özellik</span>
+                        <span className="text-muted-foreground text-sm"> özellik</span>
                       </p>
                     </div>
                   </div>
@@ -511,15 +538,15 @@ export default function AnatomyOfSafetyPremium() {
               </div>
 
               {/* Bottom HUD bar */}
-              <div className="flex items-center justify-between mt-4 px-2">
-                <span className="text-muted-foreground text-[10px] font-mono">
+              <div className="mt-4 flex items-center justify-between px-2">
+                <span className="text-muted-foreground font-mono text-[10px]">
                   ÖZ KISMET STEEL DOORS™
                 </span>
                 <div className="flex items-center gap-4">
-                  <span className="text-muted-foreground text-[10px] font-mono">
+                  <span className="text-muted-foreground font-mono text-[10px]">
                     {components.length} COMPONENTS
                   </span>
-                  <span className="text-[var(--accent-copper)] text-[10px] font-mono">
+                  <span className="font-mono text-[10px] text-[var(--accent-copper)]">
                     INTERACTIVE
                   </span>
                 </div>
@@ -529,10 +556,12 @@ export default function AnatomyOfSafetyPremium() {
         </div>
 
         {/* Bottom stats bar */}
-        <div className={`mt-8 pt-6 border-t border-border/20 transition-all duration-700 delay-500 ${
-          isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div
+          className={`border-border/20 mt-8 border-t pt-6 transition-all delay-500 duration-700 ${
+            isInView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          }`}
+        >
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             {[
               { label: 'Çelik Kalınlığı', value: '2.2mm', icon: '◆' },
               { label: 'Kilit Noktası', value: '12', icon: '◆' },
@@ -540,9 +569,13 @@ export default function AnatomyOfSafetyPremium() {
               { label: 'Isı Yalıtımı', value: 'A+', icon: '◆' },
             ].map((stat, i) => (
               <div key={i} className="text-center">
-                <span className="text-[var(--accent-copper)] text-xs">{stat.icon}</span>
-                <p className="text-foreground font-syne font-bold text-xl sm:text-2xl mt-1">{stat.value}</p>
-                <p className="text-muted-foreground text-[10px] font-display uppercase tracking-wider">{stat.label}</p>
+                <span className="text-xs text-[var(--accent-copper)]">{stat.icon}</span>
+                <p className="text-foreground font-syne mt-1 text-xl font-bold sm:text-2xl">
+                  {stat.value}
+                </p>
+                <p className="text-muted-foreground font-display text-[10px] tracking-wider uppercase">
+                  {stat.label}
+                </p>
               </div>
             ))}
           </div>

@@ -1,20 +1,20 @@
-import type { NextConfig } from "next";
-import bundleAnalyzer from '@next/bundle-analyzer';
+import type { NextConfig } from 'next'
+import bundleAnalyzer from '@next/bundle-analyzer'
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
-});
+})
 
 const nextConfig: NextConfig = {
   // Performance optimizations
   reactStrictMode: true,
-  
+
   // Compiler optimizations
   compiler: {
     // Remove console.log in production
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  
+
   // Image optimization
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -27,7 +27,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  
+
   // Headers for security and caching
   async headers() {
     return [
@@ -44,7 +44,33 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin',
+            value: 'strict-origin-when-cross-origin',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "font-src 'self' https://fonts.gstatic.com data:",
+              "img-src 'self' data: blob: https: http:",
+              "connect-src 'self' https://www.google-analytics.com https://vitals.vercel-insights.com",
+              "frame-ancestors 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+            ].join('; '),
           },
         ],
       },
@@ -68,13 +94,13 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-    ];
+    ]
   },
-  
+
   // Experimental features for better performance
   experimental: {
     optimizePackageImports: [
-      'framer-motion', 
+      'framer-motion',
       'lenis',
       'lucide-react',
       '@radix-ui/react-dialog',
@@ -84,6 +110,6 @@ const nextConfig: NextConfig = {
       '@radix-ui/react-tooltip',
     ],
   },
-};
+}
 
-export default withBundleAnalyzer(nextConfig);
+export default withBundleAnalyzer(nextConfig)

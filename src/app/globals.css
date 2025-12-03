@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -10,7 +10,7 @@
 
 :root {
   --radius: 0.625rem;
-  
+
   /* Fonts */
   --font-display: var(--font-space-grotesk), system-ui, sans-serif;
   --font-syne: var(--font-syne), system-ui, sans-serif;
@@ -19,16 +19,16 @@
   /* ==========================================
      GLOBAL SPACING SCALE - Awwwards Consistency
      ========================================== */
-  --space-xs: 0.5rem;    /* 8px */
-  --space-sm: 0.75rem;   /* 12px */
-  --space-md: 1rem;      /* 16px */
-  --space-lg: 1.5rem;    /* 24px */
-  --space-xl: 2rem;      /* 32px */
-  --space-2xl: 3rem;     /* 48px */
-  --space-3xl: 4rem;     /* 64px */
-  --space-4xl: 6rem;     /* 96px */
-  --space-5xl: 8rem;     /* 128px */
-  
+  --space-xs: 0.5rem; /* 8px */
+  --space-sm: 0.75rem; /* 12px */
+  --space-md: 1rem; /* 16px */
+  --space-lg: 1.5rem; /* 24px */
+  --space-xl: 2rem; /* 32px */
+  --space-2xl: 3rem; /* 48px */
+  --space-3xl: 4rem; /* 64px */
+  --space-4xl: 6rem; /* 96px */
+  --space-5xl: 8rem; /* 128px */
+
   /* Section spacing - responsive */
   --section-padding-x: clamp(1.5rem, 5vw, 5rem);
   --section-padding-y: clamp(4rem, 10vh, 8rem);
@@ -40,7 +40,7 @@
      ========================================== */
   --accent-copper: oklch(0.65 0.12 55);
   --accent-copper-light: oklch(0.78 0.08 55);
-  --accent-copper-dark: oklch(0.50 0.14 55);
+  --accent-copper-dark: oklch(0.5 0.14 55);
   --accent-copper-glow: oklch(0.65 0.12 55 / 40%);
 
   /* Animations */
@@ -49,13 +49,21 @@
   --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 
   @keyframes marquee {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-50%); }
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
   }
 
   @keyframes marquee-reverse {
-    0% { transform: translateX(-50%); }
-    100% { transform: translateX(0%); }
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
   }
 }
 
@@ -68,7 +76,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  
+
   /* Shadcn color mappings to Kismet theme */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -108,48 +116,48 @@
   /* Core */
   --background: oklch(0.12 0.01 250);
   --foreground: oklch(0.85 0.01 250);
-  
+
   /* Cards & Popovers */
   --card: oklch(0.15 0.01 250);
   --card-foreground: oklch(0.85 0.01 250);
   --popover: oklch(0.15 0.01 250);
   --popover-foreground: oklch(0.85 0.01 250);
-  
+
   /* Primary - Steel Silver */
   --primary: oklch(0.75 0.02 250);
   --primary-foreground: oklch(0.12 0.01 250);
-  
+
   /* Secondary */
   --secondary: oklch(0.18 0.01 250);
   --secondary-foreground: oklch(0.85 0.01 250);
-  
+
   /* Muted */
   --muted: oklch(0.18 0.01 250);
   --muted-foreground: oklch(0.62 0.01 250);
-  
+
   /* Accent */
   --accent: oklch(0.18 0.01 250);
   --accent-foreground: oklch(0.85 0.01 250);
-  
+
   /* Copper Accent (Brand) */
   --copper: var(--accent-copper);
   --copper-foreground: oklch(0.15 0.01 250);
-  
+
   /* Destructive */
   --destructive: oklch(0.577 0.245 27.325);
-  
+
   /* Borders & Inputs */
   --border: oklch(0.55 0.01 250 / 20%);
   --input: oklch(0.55 0.01 250 / 25%);
   --ring: oklch(0.75 0.02 250);
-  
+
   /* Charts */
   --chart-1: oklch(0.75 0.02 250);
   --chart-2: oklch(0.65 0.02 250);
   --chart-3: oklch(0.55 0.02 250);
   --chart-4: oklch(0.45 0.02 250);
   --chart-5: oklch(0.35 0.02 250);
-  
+
   /* Sidebar */
   --sidebar: oklch(0.15 0.01 250);
   --sidebar-foreground: oklch(0.85 0.01 250);
@@ -178,8 +186,8 @@
   --accent: oklch(0.95 0.005 250);
   --accent-foreground: oklch(0.15 0.01 250);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.90 0.005 250);
-  --input: oklch(0.90 0.005 250);
+  --border: oklch(0.9 0.005 250);
+  --input: oklch(0.9 0.005 250);
   --ring: oklch(0.35 0.02 250);
 }
 
@@ -191,7 +199,7 @@
   * {
     @apply border-border outline-ring/50;
   }
-  
+
   html {
     scroll-behavior: auto;
     -webkit-font-smoothing: antialiased;
@@ -261,6 +269,52 @@
 }
 
 /* ==========================================
+   NOISE TEXTURE - Reusable CSS class
+   ========================================== */
+
+.noise-texture {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.noise-texture-light {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ==========================================
+   SKIP TO CONTENT - Accessibility
+   ========================================== */
+
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  z-index: 9999;
+  padding: 1rem 1.5rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius);
+  transition: left 0.2s ease;
+}
+
+.skip-to-content:focus {
+  left: 1rem;
+  top: 1rem;
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* ==========================================
    UTILITY CLASSES
    ========================================== */
 
@@ -301,14 +355,24 @@
 
 /* Copper Gradient */
 .text-gradient-copper {
-  background: linear-gradient(135deg, var(--accent-copper-light) 0%, var(--accent-copper) 50%, var(--accent-copper-dark) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--accent-copper-light) 0%,
+    var(--accent-copper) 50%,
+    var(--accent-copper-dark) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .bg-gradient-copper {
-  background: linear-gradient(135deg, var(--accent-copper-light) 0%, var(--accent-copper) 50%, var(--accent-copper-dark) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--accent-copper-light) 0%,
+    var(--accent-copper) 50%,
+    var(--accent-copper-dark) 100%
+  );
 }
 
 /* Section Spacing Utilities */
@@ -392,8 +456,12 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes scaleIn {
@@ -408,45 +476,78 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 @keyframes border-beam {
-  0% { offset-distance: 0%; }
-  100% { offset-distance: 100%; }
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
 }
 
 @keyframes gradient-x {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 @keyframes gradient-y {
-  0%, 100% { background-position: 50% 0%; }
-  50% { background-position: 50% 100%; }
+  0%,
+  100% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
 }
 
 @keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes bounce-subtle {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
 }
 
 @keyframes glow-pulse {
-  0%, 100% { 
+  0%,
+  100% {
     box-shadow: 0 0 20px oklch(0.75 0.02 250 / 20%);
   }
-  50% { 
+  50% {
     box-shadow: 0 0 40px oklch(0.75 0.02 250 / 40%);
   }
 }
@@ -514,8 +615,9 @@
 .scroll-reveal {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .scroll-reveal.is-visible {
@@ -539,7 +641,8 @@
   contain: content;
 }
 
-img, video {
+img,
+video {
   content-visibility: auto;
 }
 
