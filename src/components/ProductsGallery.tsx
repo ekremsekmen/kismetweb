@@ -69,7 +69,7 @@ export default function ProductsGallery() {
 
       {/* Hero Section */}
       <section className="relative flex min-h-[40vh] items-center justify-center pt-24 pb-16">
-        <div className="from-background via-background/90 to-background absolute inset-0 bg-gradient-to-b" />
+        <div className="from-background via-background/90 to-background absolute inset-0 bg-linear-to-b" />
 
         <div className="relative z-10 mx-auto max-w-7xl px-6 text-center sm:px-10 lg:px-20">
           <Badge variant="outline" className="text-primary border-primary/30 mb-4 tracking-[0.3em]">
@@ -149,7 +149,7 @@ export default function ProductsGallery() {
                   />
 
                   {/* Gradient Overlay */}
-                  <div className="from-background via-background/20 absolute inset-0 bg-gradient-to-t to-transparent" />
+                  <div className="from-background via-background/20 absolute inset-0 bg-linear-to-t to-transparent" />
 
                   {/* Category Badge */}
                   <div className="absolute top-4 right-4 z-10">
@@ -162,7 +162,7 @@ export default function ProductsGallery() {
                   </div>
 
                   {/* Hover Overlay */}
-                  <div className="from-background via-background/80 to-background/50 absolute inset-0 flex flex-col justify-end bg-gradient-to-t p-6 opacity-0 transition-all duration-500 group-hover:opacity-100">
+                  <div className="from-background via-background/80 to-background/50 absolute inset-0 flex flex-col justify-end bg-linear-to-t p-6 opacity-0 transition-all duration-500 group-hover:opacity-100">
                     <div className="translate-y-8 transform transition-transform duration-500 group-hover:translate-y-0">
                       <h3 className="text-foreground font-syne mb-2 text-3xl font-bold">
                         {product.name}

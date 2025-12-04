@@ -29,28 +29,28 @@ export default function CustomCursor() {
   const updateCursorState = useCallback((state: CursorState, text?: string) => {
     if (cursorStateRef.current === state) return
     cursorStateRef.current = state
-    
+
     const cursor = cursorRef.current
     const outer = cursorOuterRef.current
     const textEl = cursorTextRef.current
-    
+
     if (!cursor || !outer) return
 
     // Reset all states
     cursor.style.transform = ''
     outer.style.transform = ''
-    
+
     // Apply state-specific styles
     switch (state) {
       case 'pointer':
-        outer.style.width = '48px'
-        outer.style.height = '48px'
-        outer.style.borderColor = 'var(--accent-copper)'
-        outer.style.backgroundColor = 'var(--accent-copper-glow)'
-        cursor.style.backgroundColor = 'var(--accent-copper)'
+        outer.style.width = '40px'
+        outer.style.height = '40px'
+        outer.style.borderColor = 'var(--primary)'
+        outer.style.backgroundColor = 'transparent'
+        cursor.style.backgroundColor = 'var(--primary)'
         if (textEl) textEl.textContent = ''
         break
-        
+
       case 'text':
         outer.style.width = '4px'
         outer.style.height = '24px'
@@ -60,37 +60,37 @@ export default function CustomCursor() {
         cursor.style.opacity = '0'
         if (textEl) textEl.textContent = ''
         break
-        
+
       case 'grab':
-        outer.style.width = '64px'
-        outer.style.height = '64px'
-        outer.style.borderColor = 'var(--accent-copper)'
+        outer.style.width = '48px'
+        outer.style.height = '48px'
+        outer.style.borderColor = 'var(--primary)'
         outer.style.backgroundColor = 'transparent'
-        cursor.style.backgroundColor = 'var(--accent-copper)'
+        cursor.style.backgroundColor = 'var(--primary)'
         if (textEl) textEl.textContent = ''
         break
-        
+
       case 'view':
-        outer.style.width = '80px'
-        outer.style.height = '80px'
-        outer.style.borderColor = 'var(--accent-copper)'
-        outer.style.backgroundColor = 'var(--accent-copper-glow)'
+        outer.style.width = '56px'
+        outer.style.height = '56px'
+        outer.style.borderColor = 'var(--primary)'
+        outer.style.backgroundColor = 'rgba(168,181,196,0.1)'
         cursor.style.opacity = '0'
         if (textEl) {
           textEl.textContent = text || 'VIEW'
           textEl.style.opacity = '1'
         }
         break
-        
+
       case 'magnetic':
-        outer.style.width = '56px'
-        outer.style.height = '56px'
-        outer.style.borderColor = 'var(--accent-copper)'
-        outer.style.backgroundColor = 'var(--accent-copper-glow)'
-        cursor.style.backgroundColor = 'var(--accent-copper)'
+        outer.style.width = '44px'
+        outer.style.height = '44px'
+        outer.style.borderColor = 'var(--primary)'
+        outer.style.backgroundColor = 'transparent'
+        cursor.style.backgroundColor = 'var(--primary)'
         if (textEl) textEl.textContent = ''
         break
-        
+
       default:
         outer.style.width = '32px'
         outer.style.height = '32px'
@@ -118,19 +118,19 @@ export default function CustomCursor() {
     const moveCursor = (e: MouseEvent) => {
       let targetX = e.clientX
       let targetY = e.clientY
-      
+
       // Magnetic effect
       if (magneticTargetRef.current && cursorStateRef.current === 'magnetic') {
         const rect = magneticTargetRef.current.getBoundingClientRect()
         const centerX = rect.left + rect.width / 2
         const centerY = rect.top + rect.height / 2
-        
+
         // Pull cursor towards center of magnetic element
         const pullStrength = 0.3
         targetX = targetX + (centerX - targetX) * pullStrength
         targetY = targetY + (centerY - targetY) * pullStrength
       }
-      
+
       targetRef.current = { x: targetX, y: targetY }
       if (!isVisibleRef.current) updateCursorVisibility(true)
     }
@@ -155,11 +155,13 @@ export default function CustomCursor() {
     // Enhanced event delegation for different cursor states
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement
-      
+
       // Check for custom cursor data attributes
-      const cursorType = target.closest('[data-cursor]')?.getAttribute('data-cursor') as CursorState | null
+      const cursorType = target
+        .closest('[data-cursor]')
+        ?.getAttribute('data-cursor') as CursorState | null
       const cursorText = target.closest('[data-cursor-text]')?.getAttribute('data-cursor-text')
-      
+
       if (cursorType) {
         updateCursorState(cursorType, cursorText || undefined)
         if (cursorType === 'magnetic') {
@@ -167,7 +169,7 @@ export default function CustomCursor() {
         }
         return
       }
-      
+
       // Default behaviors
       if (target.closest('a, button, [role="button"]')) {
         updateCursorState('pointer')
@@ -181,12 +183,12 @@ export default function CustomCursor() {
     const handleMouseOut = (e: MouseEvent) => {
       const target = e.target as HTMLElement
       const relatedTarget = e.relatedTarget as HTMLElement | null
-      
+
       // Only reset if we're actually leaving the interactive element
       if (target.closest('[data-cursor], a, button, [role="button"], input, textarea')) {
         // Check if we're moving to a child element
         if (relatedTarget && target.contains(relatedTarget)) return
-        
+
         updateCursorState('default')
         magneticTargetRef.current = null
       }
@@ -200,7 +202,10 @@ export default function CustomCursor() {
 
     const handleMouseUp = () => {
       if (cursorOuterRef.current) {
-        cursorOuterRef.current.style.transform = cursorOuterRef.current.style.transform.replace(' scale(0.9)', '')
+        cursorOuterRef.current.style.transform = cursorOuterRef.current.style.transform.replace(
+          ' scale(0.9)',
+          ''
+        )
       }
     }
 
@@ -211,7 +216,7 @@ export default function CustomCursor() {
     document.addEventListener('mouseup', handleMouseUp, { passive: true })
     document.body.addEventListener('mouseleave', () => updateCursorVisibility(false))
     document.body.addEventListener('mouseenter', () => updateCursorVisibility(true))
-    
+
     animationId = requestAnimationFrame(animate)
 
     return () => {
@@ -234,7 +239,7 @@ export default function CustomCursor() {
       {/* Main cursor dot */}
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-3 h-3 rounded-full pointer-events-none z-[9999] mix-blend-difference"
+        className="pointer-events-none fixed top-0 left-0 z-9999 h-3 w-3 rounded-full mix-blend-difference"
         style={{
           opacity: 0,
           willChange: 'transform',
@@ -247,18 +252,19 @@ export default function CustomCursor() {
       {/* Outer ring with text support */}
       <div
         ref={cursorOuterRef}
-        className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9998] border flex items-center justify-center"
+        className="pointer-events-none fixed top-0 left-0 z-9998 flex h-8 w-8 items-center justify-center rounded-full border"
         style={{
           opacity: 0,
           willChange: 'transform',
           backfaceVisibility: 'hidden',
           borderColor: 'rgba(var(--primary), 0.4)',
-          transition: 'border-color 0.2s, background-color 0.2s, width 0.3s, height 0.3s, border-radius 0.2s',
+          transition:
+            'border-color 0.2s, background-color 0.2s, width 0.3s, height 0.3s, border-radius 0.2s',
         }}
       >
         <span
           ref={cursorTextRef}
-          className="text-[10px] font-mono font-bold tracking-wider text-background uppercase"
+          className="text-background font-mono text-[10px] font-bold tracking-wider uppercase"
           style={{
             opacity: 0,
             transition: 'opacity 0.2s',

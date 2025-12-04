@@ -146,7 +146,7 @@ const SpecItem = memo(function SpecItem({
       }`}
     >
       <span className="text-muted-foreground font-mono text-[10px] uppercase">{spec.label}</span>
-      <span className="font-mono text-xs font-bold text-[var(--accent-copper)]">{spec.value}</span>
+      <span className="text-primary font-mono text-xs font-bold">{spec.value}</span>
     </div>
   )
 })
@@ -179,7 +179,7 @@ const ComponentCard = memo(function ComponentCard({
       tabIndex={tabIndex}
       onClick={onClick}
       onKeyDown={onKeyDown}
-      className={`group focus-visible:ring-offset-background relative w-full rounded-lg text-left transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-copper)] focus-visible:ring-offset-2 ${
+      className={`group focus-visible:ring-offset-background focus-visible:ring-primary relative w-full rounded-lg text-left transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
         isActive ? 'scale-[1.02]' : 'hover:scale-[1.01]'
       }`}
       style={{ animationDelay: `${index * 0.1}s` }}
@@ -188,7 +188,7 @@ const ComponentCard = memo(function ComponentCard({
       <div
         className={`relative rounded-lg border-l-2 p-3 transition-all duration-300 ${
           isActive
-            ? 'border-l-[var(--accent-copper)] bg-[var(--accent-copper)]/10 shadow-[0_0_30px_var(--accent-copper-glow)]'
+            ? 'border-l-primary bg-primary/10 shadow-[0_0_30px_rgba(168,181,196,0.3)]'
             : 'bg-accent/30 border-l-muted-foreground/30 hover:bg-accent/50 hover:border-l-muted-foreground'
         }`}
       >
@@ -196,16 +196,14 @@ const ComponentCard = memo(function ComponentCard({
         <div className="mb-1 flex items-center justify-between">
           <span
             className={`font-mono text-[10px] tracking-wider transition-colors ${
-              isActive ? 'text-[var(--accent-copper)]' : 'text-muted-foreground'
+              isActive ? 'text-primary' : 'text-muted-foreground'
             }`}
           >
             [{component.code}]
           </span>
           <span
             className={`rounded px-2 py-0.5 font-mono text-[9px] tracking-wider uppercase ${
-              isActive
-                ? 'bg-[var(--accent-copper)]/20 text-[var(--accent-copper)]'
-                : 'bg-muted/50 text-muted-foreground'
+              isActive ? 'bg-primary/20 text-primary' : 'bg-muted/50 text-muted-foreground'
             }`}
           >
             {component.category}
@@ -226,7 +224,7 @@ const ComponentCard = memo(function ComponentCard({
           {isActive ? (
             <>
               {displayedText}
-              {!isComplete && <span className="animate-pulse text-[var(--accent-copper)]">|</span>}
+              {!isComplete && <span className="text-primary animate-pulse">|</span>}
             </>
           ) : (
             component.description
@@ -245,12 +243,12 @@ const ComponentCard = memo(function ComponentCard({
         {/* Corner accents */}
         <div
           className={`absolute top-0 right-0 h-3 w-3 border-t border-r transition-colors ${
-            isActive ? 'border-[var(--accent-copper)]/50' : 'border-transparent'
+            isActive ? 'border-primary/50' : 'border-transparent'
           }`}
         />
         <div
           className={`absolute bottom-0 left-0 h-3 w-3 border-b border-l transition-colors ${
-            isActive ? 'border-[var(--accent-copper)]/50' : 'border-transparent'
+            isActive ? 'border-primary/50' : 'border-transparent'
           }`}
         />
       </div>
@@ -352,7 +350,7 @@ export default function AnatomyOfSafetyPremium() {
 
       {/* Scan line effect */}
       <div
-        className="pointer-events-none absolute right-0 left-0 h-px bg-gradient-to-r from-transparent via-[var(--accent-copper)]/30 to-transparent transition-all duration-75"
+        className="via-primary/30 pointer-events-none absolute right-0 left-0 h-px bg-linear-to-r from-transparent to-transparent transition-all duration-75"
         style={{ top: `${scanLine}%` }}
       />
 
@@ -362,14 +360,14 @@ export default function AnatomyOfSafetyPremium() {
           className={`mb-8 text-center transition-all duration-700 ${isInView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
         >
           <div className="mb-3 inline-flex items-center gap-3">
-            <div className="h-px w-12 bg-gradient-to-r from-transparent to-[var(--accent-copper)]" />
-            <span className="font-mono text-xs tracking-[0.4em] text-[var(--accent-copper)] uppercase">
+            <div className="to-primary h-px w-12 bg-linear-to-r from-transparent" />
+            <span className="text-primary font-mono text-xs tracking-[0.4em] uppercase">
               TECHNICAL BREAKDOWN
             </span>
-            <div className="h-px w-12 bg-gradient-to-l from-transparent to-[var(--accent-copper)]" />
+            <div className="to-primary h-px w-12 bg-linear-to-l from-transparent" />
           </div>
           <h2 className="text-foreground font-syne mb-2 text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
-            GÜVENLİĞİN <span className="text-gradient-copper">ANATOMİSİ</span>
+            GÜVENLİĞİN <span className="text-gradient">ANATOMİSİ</span>
           </h2>
           <p className="text-muted-foreground font-display mx-auto max-w-2xl text-xs sm:text-sm">
             Her bileşen, maksimum koruma için hassas mühendislikle tasarlandı
@@ -434,22 +432,20 @@ export default function AnatomyOfSafetyPremium() {
                 <div className="flex items-center gap-2">
                   <span className="text-muted-foreground font-mono text-[10px]">ZOOM: 100%</span>
                   <span className="text-muted-foreground font-mono text-[10px]">|</span>
-                  <span className="font-mono text-[10px] text-[var(--accent-copper)]">
-                    {activeData?.code}
-                  </span>
+                  <span className="text-primary font-mono text-[10px]">{activeData?.code}</span>
                 </div>
               </div>
 
               {/* Main image container */}
               <div className="border-border/30 relative overflow-hidden rounded-lg border bg-[#4a4a4a]">
                 {/* Corner brackets */}
-                <div className="absolute top-2 left-2 z-20 h-6 w-6 border-t-2 border-l-2 border-[var(--accent-copper)]/50" />
-                <div className="absolute top-2 right-2 z-20 h-6 w-6 border-t-2 border-r-2 border-[var(--accent-copper)]/50" />
-                <div className="absolute bottom-2 left-2 z-20 h-6 w-6 border-b-2 border-l-2 border-[var(--accent-copper)]/50" />
-                <div className="absolute right-2 bottom-2 z-20 h-6 w-6 border-r-2 border-b-2 border-[var(--accent-copper)]/50" />
+                <div className="border-primary/50 absolute top-2 left-2 z-20 h-6 w-6 border-t-2 border-l-2" />
+                <div className="border-primary/50 absolute top-2 right-2 z-20 h-6 w-6 border-t-2 border-r-2" />
+                <div className="border-primary/50 absolute bottom-2 left-2 z-20 h-6 w-6 border-b-2 border-l-2" />
+                <div className="border-primary/50 absolute right-2 bottom-2 z-20 h-6 w-6 border-r-2 border-b-2" />
 
                 {/* Image */}
-                <div className="relative aspect-square lg:aspect-[5/4]">
+                <div className="relative aspect-square lg:aspect-5/4">
                   <Image
                     src="/images/door-anatomy.png"
                     alt="Steel Door Anatomy - Exploded View"
@@ -476,9 +472,7 @@ export default function AnatomyOfSafetyPremium() {
                       {/* Pulse ring */}
                       <div
                         className={`absolute inset-0 rounded-full transition-all duration-300 ${
-                          activeComponent === component.id
-                            ? 'animate-ping bg-[var(--accent-copper)]/30'
-                            : ''
+                          activeComponent === component.id ? 'bg-primary/30 animate-ping' : ''
                         }`}
                         style={{ width: '24px', height: '24px', margin: '-4px' }}
                       />
@@ -487,8 +481,8 @@ export default function AnatomyOfSafetyPremium() {
                       <div
                         className={`relative flex h-4 w-4 items-center justify-center rounded-full border-2 transition-all duration-300 ${
                           activeComponent === component.id
-                            ? 'border-[var(--accent-copper)] bg-[var(--accent-copper)] shadow-[0_0_20px_var(--accent-copper-glow)]'
-                            : 'bg-background/80 border-muted-foreground hover:border-[var(--accent-copper)] hover:bg-[var(--accent-copper)]/20'
+                            ? 'border-primary bg-primary shadow-[0_0_20px_rgba(168,181,196,0.3)]'
+                            : 'bg-background/80 border-muted-foreground hover:border-primary hover:bg-primary/20'
                         }`}
                       >
                         <div
@@ -504,8 +498,8 @@ export default function AnatomyOfSafetyPremium() {
                       {activeComponent === component.id && (
                         <div className="animate-fade-in absolute top-1/2 left-full ml-2 -translate-y-1/2 whitespace-nowrap">
                           <div className="flex items-center gap-2">
-                            <div className="h-px w-8 bg-[var(--accent-copper)]" />
-                            <span className="bg-background/90 rounded border border-[var(--accent-copper)]/30 px-2 py-1 font-mono text-[10px] text-[var(--accent-copper)]">
+                            <div className="bg-primary h-px w-8" />
+                            <span className="bg-background/90 border-primary/30 text-primary rounded border px-2 py-1 font-mono text-[10px]">
                               {component.label}
                             </span>
                           </div>
@@ -516,19 +510,17 @@ export default function AnatomyOfSafetyPremium() {
                 </div>
 
                 {/* Bottom info bar */}
-                <div className="from-background/95 absolute right-0 bottom-0 left-0 bg-gradient-to-t to-transparent p-4 pt-12">
+                <div className="from-background/95 absolute right-0 bottom-0 left-0 bg-linear-to-t to-transparent p-4 pt-12">
                   <div className="flex items-end justify-between">
                     <div>
-                      <p className="mb-1 font-mono text-[10px] text-[var(--accent-copper)]">
-                        {activeData?.code}
-                      </p>
+                      <p className="text-primary mb-1 font-mono text-[10px]">{activeData?.code}</p>
                       <h3 className="text-foreground font-syne text-lg font-bold sm:text-xl">
                         {activeData?.label}
                       </h3>
                     </div>
                     <div className="text-right">
                       <p className="text-muted-foreground font-mono text-[10px]">COMPONENT SPECS</p>
-                      <p className="font-syne text-2xl font-bold text-[var(--accent-copper)]">
+                      <p className="font-syne text-primary text-2xl font-bold">
                         {activeData?.specs.length || 0}
                         <span className="text-muted-foreground text-sm"> özellik</span>
                       </p>
@@ -546,9 +538,7 @@ export default function AnatomyOfSafetyPremium() {
                   <span className="text-muted-foreground font-mono text-[10px]">
                     {components.length} COMPONENTS
                   </span>
-                  <span className="font-mono text-[10px] text-[var(--accent-copper)]">
-                    INTERACTIVE
-                  </span>
+                  <span className="text-primary font-mono text-[10px]">INTERACTIVE</span>
                 </div>
               </div>
             </div>
@@ -569,7 +559,7 @@ export default function AnatomyOfSafetyPremium() {
               { label: 'Isı Yalıtımı', value: 'A+', icon: '◆' },
             ].map((stat, i) => (
               <div key={i} className="text-center">
-                <span className="text-xs text-[var(--accent-copper)]">{stat.icon}</span>
+                <span className="text-primary text-xs">{stat.icon}</span>
                 <p className="text-foreground font-syne mt-1 text-xl font-bold sm:text-2xl">
                   {stat.value}
                 </p>

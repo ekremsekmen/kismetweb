@@ -118,9 +118,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 <div className="bg-primary/10 absolute top-0 right-0 h-40 w-40 rounded-full blur-3xl" />
                 <div className="bg-primary/5 absolute bottom-0 left-0 h-32 w-32 rounded-full blur-2xl" />
 
-                <div className="relative z-10 flex aspect-[3/4] items-center justify-center">
+                <div className="relative z-10 flex aspect-3/4 items-center justify-center">
                   {/* Door Illustration */}
-                  <div className="from-steel/20 to-steel/5 border-primary/30 relative h-80 w-48 rounded-xl border-2 bg-gradient-to-b shadow-2xl">
+                  <div className="from-steel/20 to-steel/5 border-primary/30 relative h-80 w-48 rounded-xl border-2 bg-linear-to-b shadow-2xl">
                     <div className="bg-primary absolute top-1/2 right-4 h-8 w-4 -translate-y-1/2 transform rounded-full shadow-[0_0_20px_rgba(168,181,196,0.5)]" />
                     <div className="absolute inset-4 rounded-lg border border-white/10" />
                     <div className="bg-primary/10 border-primary/20 absolute top-4 right-4 left-4 h-12 rounded border" />
@@ -162,7 +162,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 {product.features.map((feature, index) => (
                   <div key={index} className="text-steel/80 font-display flex items-center gap-2">
                     <svg
-                      className="text-primary h-5 w-5 flex-shrink-0"
+                      className="text-primary h-5 w-5 shrink-0"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -262,8 +262,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
                   href={`/products/${related.id}`}
                   className="glass-panel group hover:border-primary/50 overflow-hidden rounded-xl transition-all duration-300"
                 >
-                  <div className="relative flex h-48 items-center justify-center bg-gradient-to-br from-white/5 to-white/0">
-                    <div className="from-steel/20 to-steel/5 h-32 w-20 rounded-lg border border-white/10 bg-gradient-to-b shadow-lg transition-transform group-hover:scale-110">
+                  <div className="relative flex h-48 items-center justify-center bg-linear-to-br from-white/5 to-white/0">
+                    <div className="from-steel/20 to-steel/5 h-32 w-20 rounded-lg border border-white/10 bg-linear-to-b shadow-lg transition-transform group-hover:scale-110">
                       <div className="bg-primary absolute top-1/2 right-2 h-4 w-2 -translate-y-1/2 transform rounded-full" />
                     </div>
                     <div className="bg-primary text-background-dark font-display absolute top-4 right-4 rounded-full px-3 py-1 text-sm font-bold">
