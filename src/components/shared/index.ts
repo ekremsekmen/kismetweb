@@ -9,9 +9,6 @@ export { default as Container } from './Container'
 export { default as StatsGrid } from './StatsGrid'
 export { default as SectionHeader } from './SectionHeader'
 
-// Error Boundary
-export { ErrorBoundary, withErrorBoundary, useErrorHandler } from './ErrorBoundary'
-
 // Skeleton Components
 export {
   ProductCardSkeleton,
