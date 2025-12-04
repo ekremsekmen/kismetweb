@@ -95,17 +95,13 @@ const nextConfig: NextConfig = {
   experimental: {
     // Tree-shake these packages for smaller bundles
     optimizePackageImports: [
-      'framer-motion',
       'lenis',
       'lucide-react',
       '@radix-ui/react-dialog',
-      '@radix-ui/react-dropdown-menu',
       '@radix-ui/react-navigation-menu',
       '@radix-ui/react-select',
-      '@radix-ui/react-tooltip',
       '@radix-ui/react-avatar',
       '@radix-ui/react-label',
-      '@radix-ui/react-scroll-area',
       '@radix-ui/react-separator',
       '@radix-ui/react-slot',
       'class-variance-authority',
