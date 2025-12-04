@@ -13,9 +13,6 @@ export function ServiceWorkerRegistration() {
       navigator.serviceWorker
         .register('/sw.js')
         .then(registration => {
-          // eslint-disable-next-line no-console
-          console.log('SW registered:', registration.scope)
-
           // Check for updates every hour
           setInterval(
             () => {
@@ -78,9 +75,7 @@ export function usePWAInstall() {
     ;(window as PWAWindow).installPWA = async () => {
       if (deferredPrompt) {
         deferredPrompt.prompt()
-        const { outcome } = await deferredPrompt.userChoice
-        // eslint-disable-next-line no-console
-        console.log('PWA install outcome:', outcome)
+        await deferredPrompt.userChoice
         deferredPrompt = null
       }
     }
