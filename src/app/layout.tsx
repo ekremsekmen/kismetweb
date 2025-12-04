@@ -101,9 +101,6 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Öz Kısmet" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
 
-        {/* DNS Prefetch for external resources */}
-        <link rel="dns-prefetch" href="https://lh3.googleusercontent.com" />
-
         {/* JSON-LD Structured Data */}
         <JsonLd data={generateOrganizationSchema()} />
         <JsonLd data={generateLocalBusinessSchema()} />
