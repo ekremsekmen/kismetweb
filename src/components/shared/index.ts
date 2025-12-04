@@ -8,15 +8,3 @@ export { default as Section } from './Section'
 export { default as Container } from './Container'
 export { default as StatsGrid } from './StatsGrid'
 export { default as SectionHeader } from './SectionHeader'
-
-// Skeleton Components
-export {
-  ProductCardSkeleton,
-  ProductsGridSkeleton,
-  HeroSkeleton,
-  StatsSkeleton,
-  ContactFormSkeleton,
-  DealerCardSkeleton,
-  PageLoadingSkeleton,
-  TableSkeleton,
-} from './Skeletons'

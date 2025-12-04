@@ -1,14 +1,11 @@
+'use client'
+
 import PageLayout from '@/components/shared/PageLayout'
 import Container from '@/components/shared/Container'
 import { Card, CardContent } from '@/components/ui/card'
 import { WifiOff, RefreshCw, Home } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-
-export const metadata = {
-  title: 'Çevrimdışı',
-  description: 'İnternet bağlantınız yok. Lütfen bağlantınızı kontrol edin.',
-}
 
 export default function OfflinePage() {
   return (
