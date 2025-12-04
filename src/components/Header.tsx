@@ -99,15 +99,21 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav with shadcn NavigationMenu */}
-          <NavigationMenu className="hidden lg:flex">
+          <NavigationMenu className="hidden lg:flex" aria-label="Ana navigasyon">
             <NavigationMenuList>
               {/* Products Dropdown */}
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-foreground hover:bg-accent hover:text-accent-foreground data-[state=open]:bg-accent/50 bg-transparent">
+                <NavigationMenuTrigger
+                  className="text-foreground hover:bg-accent hover:text-accent-foreground data-[state=open]:bg-accent/50 bg-transparent"
+                  aria-label="Ürünler menüsünü aç"
+                >
                   Ürünler
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                  <ul
+                    className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]"
+                    role="menu"
+                  >
                     {productCategories.map(category => (
                       <ListItem
                         key={category.href}
@@ -121,9 +127,15 @@ export default function Header() {
                     <Link
                       href="/products"
                       className="text-primary hover:bg-primary/10 flex items-center justify-between rounded-md px-3 py-2 text-sm font-medium transition-all duration-150"
+                      aria-label="Tüm ürünleri görüntüle"
                     >
                       <span>Tüm Ürünler</span>
-                      <span className="bg-primary/20 rounded-full px-2 py-0.5 text-xs">50+</span>
+                      <span
+                        className="bg-primary/20 rounded-full px-2 py-0.5 text-xs"
+                        aria-label="50'den fazla ürün"
+                      >
+                        50+
+                      </span>
                     </Link>
                   </div>
                 </NavigationMenuContent>
@@ -149,20 +161,30 @@ export default function Header() {
           {/* Right */}
           <div className="flex items-center gap-3">
             <Button asChild className="hidden sm:flex">
-              <Link href="/contact">Teklif Al</Link>
+              <Link href="/contact" aria-label="Teklif almak için iletişim sayfasına git">
+                Teklif Al
+              </Link>
             </Button>
 
             {/* Mobile Menu with shadcn Sheet */}
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
-                <Button variant="outline" size="icon" className="lg:hidden">
-                  <Menu className="h-5 w-5" />
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="lg:hidden"
+                  aria-label="Mobil menüyü aç"
+                  aria-expanded={isMobileMenuOpen}
+                  aria-controls="mobile-menu"
+                >
+                  <Menu className="h-5 w-5" aria-hidden="true" />
                   <span className="sr-only">Menü</span>
                 </Button>
               </SheetTrigger>
               <SheetContent
                 side="right"
                 className="bg-background border-border w-full sm:w-[400px]"
+                id="mobile-menu"
               >
                 <SheetHeader>
                   <SheetTitle className="text-left">
@@ -177,14 +199,14 @@ export default function Header() {
                     />
                   </SheetTitle>
                 </SheetHeader>
-                <nav className="mt-8 flex flex-col gap-4">
+                <nav className="mt-8 flex flex-col gap-4" aria-label="Mobil navigasyon">
                   <Link
                     href="/products"
                     className="font-syne text-foreground hover:text-primary border-border flex items-center justify-between border-b py-3 text-xl font-bold transition-colors"
                     onClick={closeMobileMenu}
                   >
                     Ürünler
-                    <ChevronDown className="h-5 w-5" />
+                    <ChevronDown className="h-5 w-5" aria-hidden="true" />
                   </Link>
                   {navLinks.map(link => (
                     <Link

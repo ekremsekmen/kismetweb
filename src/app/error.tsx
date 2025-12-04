@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { AlertTriangle, RefreshCw, Home, ArrowLeft } from 'lucide-react'
+import { Sentry } from '@/lib/sentry'
 
 interface ErrorPageProps {
   error: Error & { digest?: string }
@@ -13,8 +14,11 @@ interface ErrorPageProps {
 
 export default function Error({ error, reset }: ErrorPageProps) {
   useEffect(() => {
-    // Log error to an error reporting service
-    console.error('Application Error:', error)
+    // Report error to Sentry/error tracking
+    Sentry.captureException(error, {
+      digest: error.digest,
+      page: 'error-boundary',
+    })
   }, [error])
 
   return (

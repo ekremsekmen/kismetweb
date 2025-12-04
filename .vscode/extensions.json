@@ -1,0 +1,33 @@
+{
+  "recommendations": [
+    // Essential
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+
+    // TypeScript
+    "yoavbls.pretty-ts-errors",
+
+    // React/Next.js
+    "dsznajder.es7-react-js-snippets",
+
+    // Testing
+    "vitest.explorer",
+    "ms-playwright.playwright",
+
+    // Git
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+
+    // Code Quality
+    "streetsidesoftware.code-spell-checker",
+    "usernamehw.errorlens",
+
+    // Productivity
+    "christian-kohler.path-intellisense",
+    "formulahendry.auto-rename-tag",
+
+    // Accessibility
+    "deque-systems.vscode-axe-linter"
+  ]
+}

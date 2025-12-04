@@ -1,35 +1,33 @@
 import type { Metadata, Viewport } from 'next'
-import { Space_Grotesk, Syne, Oswald } from 'next/font/google'
+import { Space_Grotesk, Syne } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import SmoothScroll from '@/components/providers/SmoothScroll'
 import CustomCursor from '@/components/ui/CustomCursor'
 import Preloader from '@/components/ui/Preloader'
+import { ServiceWorkerRegistration } from '@/components/providers/ServiceWorker'
 import { JsonLd, generateOrganizationSchema, generateLocalBusinessSchema } from '@/lib/seo'
 
+// Ana font - body ve genel metin için
+// next/font otomatik olarak self-host eder (Google Fonts'tan indirip local serve eder)
 const spaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
   subsets: ['latin', 'latin-ext'],
   display: 'swap',
   preload: true,
-  fallback: ['system-ui', 'sans-serif'],
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+  adjustFontFallback: true, // CLS'i azaltmak için fallback font metrikleri ayarla
 })
 
+// Display font - başlıklar için
 const syne = Syne({
   variable: '--font-syne',
   subsets: ['latin', 'latin-ext'],
   display: 'swap',
   preload: true,
-  fallback: ['system-ui', 'sans-serif'],
-})
-
-const oswald = Oswald({
-  variable: '--font-oswald',
-  subsets: ['latin', 'latin-ext'],
-  display: 'swap',
-  preload: true,
-  fallback: ['system-ui', 'sans-serif'],
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+  adjustFontFallback: true,
 })
 
 export const metadata: Metadata = {
@@ -103,9 +101,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Öz Kısmet" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
 
-        {/* Preconnect to external domains */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* DNS Prefetch for external resources */}
         <link rel="dns-prefetch" href="https://lh3.googleusercontent.com" />
 
         {/* JSON-LD Structured Data */}
@@ -113,8 +109,9 @@ export default function RootLayout({
         <JsonLd data={generateLocalBusinessSchema()} />
       </head>
       <body
-        className={`${spaceGrotesk.variable} ${syne.variable} ${oswald.variable} bg-background-dark text-steel font-display antialiased`}
+        className={`${spaceGrotesk.variable} ${syne.variable} bg-background-dark text-steel font-display antialiased`}
       >
+        <ServiceWorkerRegistration />
         <SmoothScroll>
           <Preloader />
           <CustomCursor />

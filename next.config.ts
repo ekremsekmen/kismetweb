@@ -99,6 +99,7 @@ const nextConfig: NextConfig = {
 
   // Experimental features for better performance
   experimental: {
+    // Tree-shake these packages for smaller bundles
     optimizePackageImports: [
       'framer-motion',
       'lenis',
@@ -108,7 +109,19 @@ const nextConfig: NextConfig = {
       '@radix-ui/react-navigation-menu',
       '@radix-ui/react-select',
       '@radix-ui/react-tooltip',
+      '@radix-ui/react-avatar',
+      '@radix-ui/react-label',
+      '@radix-ui/react-scroll-area',
+      '@radix-ui/react-separator',
+      '@radix-ui/react-slot',
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
+      'zod',
+      'react-hook-form',
     ],
+    // Enable PPR for faster initial page loads (experimental)
+    // ppr: true,
   },
 }
 

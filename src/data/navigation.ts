@@ -5,7 +5,7 @@ export interface NavLink {
   label: string
 }
 
-export interface ProductCategory {
+export interface ProductNavCategory {
   href: string
   label: string
   description: string
@@ -23,7 +23,7 @@ export interface SocialLink {
 }
 
 // Product categories for navigation dropdown
-export const productCategories: ProductCategory[] = [
+export const productCategories: ProductNavCategory[] = [
   {
     href: '/products/villa-kapilari',
     label: 'Villa Kapıları',

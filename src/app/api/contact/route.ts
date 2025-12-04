@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { contactFormSchema, type ContactFormData } from '@/lib/validations'
 import { withRateLimit, rateLimitedResponse, getRateLimitHeaders } from '@/lib/rate-limit'
+import { validateCsrfToken } from '@/lib/csrf'
 
 /**
  * Contact Form API
@@ -8,6 +9,21 @@ import { withRateLimit, rateLimitedResponse, getRateLimitHeaders } from '@/lib/r
  */
 export async function POST(request: NextRequest) {
   try {
+    // CSRF validation (skip in development for easier testing)
+    if (process.env.NODE_ENV === 'production') {
+      const isValidCsrf = await validateCsrfToken(request)
+      if (!isValidCsrf) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'Invalid CSRF token',
+            message: 'Güvenlik doğrulaması başarısız. Lütfen sayfayı yenileyip tekrar deneyin.',
+          },
+          { status: 403 }
+        )
+      }
+    }
+
     // Rate limiting
     const rateLimitResult = withRateLimit(request, 'form')
     if (rateLimitResult.isLimited) {
@@ -96,7 +112,7 @@ export async function OPTIONS() {
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-csrf-token',
     },
   })
 }

@@ -1,7 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { allProducts, categoryNames, getProductById, getRelatedProducts } from '@/data/products'
+import {
+  allProducts,
+  categoryNames,
+  getProductById,
+  getRelatedProducts,
+  formatPrice,
+} from '@/data/products'
 import { generateProductSchema, JsonLd, generateBreadcrumbSchema, SITE_CONFIG } from '@/lib/seo'
 
 interface PageProps {
@@ -66,7 +72,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
     name: product.name,
     description: product.fullDescription,
     image: product.image,
-    price: product.price,
+    price: formatPrice(product.price),
     sku: `KISMET-${product.id}`,
   })
 
@@ -145,7 +151,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
               {/* Price */}
               <div className="mb-8 flex items-center gap-4">
-                <span className="text-primary font-syne text-4xl font-bold">{product.price}</span>
+                <span className="text-primary font-syne text-4xl font-bold">
+                  {formatPrice(product.price)}
+                </span>
                 <span className="text-steel/50 font-display text-sm">Başlangıç fiyatı</span>
               </div>
 
@@ -210,29 +218,26 @@ export default async function ProductDetailPage({ params }: PageProps) {
           </div>
 
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-            {Object.entries(product.specs).map(([key, value]) => {
-              const labels: Record<string, string> = {
-                thickness: 'Kalınlık',
-                width: 'Genişlik',
-                height: 'Yükseklik',
-                security: 'Güvenlik',
-                weight: 'Ağırlık',
-                warranty: 'Garanti',
-              }
-              return (
-                <div
-                  key={key}
-                  className="glass-panel group hover:border-primary/50 rounded-xl p-4 text-center transition-all"
-                >
-                  <p className="text-primary font-syne mb-1 text-2xl font-bold transition-transform group-hover:scale-110">
-                    {value}
-                  </p>
-                  <p className="text-steel/60 font-display text-xs tracking-wider uppercase">
-                    {labels[key]}
-                  </p>
-                </div>
-              )
-            })}
+            {[
+              { key: 'thickness', label: 'Kalınlık', value: `${product.specs.thickness}mm` },
+              { key: 'width', label: 'Genişlik', value: `${product.specs.width}cm` },
+              { key: 'height', label: 'Yükseklik', value: `${product.specs.height}cm` },
+              { key: 'security', label: 'Güvenlik', value: product.specs.security },
+              { key: 'weight', label: 'Ağırlık', value: `${product.specs.weight}kg` },
+              { key: 'warranty', label: 'Garanti', value: `${product.specs.warrantyYears} Yıl` },
+            ].map(({ key, label, value }) => (
+              <div
+                key={key}
+                className="glass-panel group hover:border-primary/50 rounded-xl p-4 text-center transition-all"
+              >
+                <p className="text-primary font-syne mb-1 text-2xl font-bold transition-transform group-hover:scale-110">
+                  {value}
+                </p>
+                <p className="text-steel/60 font-display text-xs tracking-wider uppercase">
+                  {label}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -262,7 +267,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                       <div className="bg-primary absolute top-1/2 right-2 h-4 w-2 -translate-y-1/2 transform rounded-full" />
                     </div>
                     <div className="bg-primary text-background-dark font-display absolute top-4 right-4 rounded-full px-3 py-1 text-sm font-bold">
-                      {related.price}
+                      {formatPrice(related.price)}
                     </div>
                   </div>
                   <div className="p-6">

@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
@@ -84,11 +82,17 @@ export default function Footer() {
 
           {/* Link columns */}
           {footerLinks.map(column => (
-            <div key={column.title}>
-              <h3 className="text-foreground font-syne mb-4 text-sm font-semibold">
+            <nav
+              key={column.title}
+              aria-labelledby={`footer-nav-${column.title.toLowerCase().replace(/\s/g, '-')}`}
+            >
+              <h3
+                id={`footer-nav-${column.title.toLowerCase().replace(/\s/g, '-')}`}
+                className="text-foreground font-syne mb-4 text-sm font-semibold"
+              >
                 {column.title}
               </h3>
-              <ul className="space-y-2">
+              <ul className="space-y-2" role="list">
                 {column.links.map(link => (
                   <li key={link.label}>
                     <Link
@@ -100,7 +104,7 @@ export default function Footer() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
           ))}
         </div>
       </div>
