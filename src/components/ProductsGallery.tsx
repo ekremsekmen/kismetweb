@@ -133,7 +133,9 @@ export default function ProductsGallery() {
                 className="group glass-panel border-border/50 hover:border-primary/50 relative cursor-pointer overflow-hidden transition-all duration-300"
                 data-category={product.category}
                 style={{
-                  animation: isAnimating ? 'none' : `fadeInUp 0.5s ease-out ${index * 0.05}s both`,
+                  animation: isAnimating
+                    ? 'none'
+                    : `fade-in-up 0.5s ease-out ${index * 0.05}s both`,
                 }}
               >
                 {/* Product Image */}
@@ -260,19 +262,7 @@ export default function ProductsGallery() {
         </div>
       </section>
 
-      {/* Custom CSS for animations */}
-      <style jsx global>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
+      {/* Animation uses global fade-in-up keyframes from globals.css */}
     </div>
   )
 }

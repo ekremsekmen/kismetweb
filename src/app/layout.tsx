@@ -106,7 +106,7 @@ export default function RootLayout({
         <JsonLd data={generateLocalBusinessSchema()} />
       </head>
       <body
-        className={`${spaceGrotesk.variable} ${syne.variable} bg-background-dark text-steel font-display antialiased`}
+        className={`${spaceGrotesk.variable} ${syne.variable} bg-background text-foreground font-display antialiased`}
       >
         <ServiceWorkerRegistration />
         <SmoothScroll>

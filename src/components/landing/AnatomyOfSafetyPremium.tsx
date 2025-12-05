@@ -261,7 +261,6 @@ export default function AnatomyOfSafetyPremium() {
   const ref = useRef<HTMLElement>(null)
   const tabListRef = useRef<HTMLDivElement>(null)
   const [isInView, setIsInView] = useState(false)
-  const [scanLine, setScanLine] = useState(0)
 
   useEffect(() => {
     const element = ref.current
@@ -280,15 +279,6 @@ export default function AnatomyOfSafetyPremium() {
     observer.observe(element)
     return () => observer.disconnect()
   }, [])
-
-  // Scanning animation
-  useEffect(() => {
-    if (!isInView) return
-    const interval = setInterval(() => {
-      setScanLine(prev => (prev + 1) % 100)
-    }, 50)
-    return () => clearInterval(interval)
-  }, [isInView])
 
   const handleSelect = useCallback((id: string) => {
     setActiveComponent(id)
@@ -348,11 +338,10 @@ export default function AnatomyOfSafetyPremium() {
         }}
       />
 
-      {/* Scan line effect */}
-      <div
-        className="via-primary/30 pointer-events-none absolute right-0 left-0 h-px bg-linear-to-r from-transparent to-transparent transition-all duration-75"
-        style={{ top: `${scanLine}%` }}
-      />
+      {/* Scan line effect - Pure CSS animation */}
+      {isInView && (
+        <div className="via-primary/30 animate-scan-line pointer-events-none absolute right-0 left-0 h-px bg-linear-to-r from-transparent to-transparent" />
+      )}
 
       <div className="container-max relative">
         {/* Header - Military style */}

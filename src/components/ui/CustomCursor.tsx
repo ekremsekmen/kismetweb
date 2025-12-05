@@ -239,7 +239,7 @@ export default function CustomCursor() {
       {/* Main cursor dot */}
       <div
         ref={cursorRef}
-        className="pointer-events-none fixed top-0 left-0 z-9999 h-3 w-3 rounded-full mix-blend-difference"
+        className="pointer-events-none fixed top-0 left-0 z-[999] h-3 w-3 rounded-full mix-blend-difference"
         style={{
           opacity: 0,
           willChange: 'transform',
@@ -252,7 +252,7 @@ export default function CustomCursor() {
       {/* Outer ring with text support */}
       <div
         ref={cursorOuterRef}
-        className="pointer-events-none fixed top-0 left-0 z-9998 flex h-8 w-8 items-center justify-center rounded-full border"
+        className="pointer-events-none fixed top-0 left-0 z-[998] flex h-8 w-8 items-center justify-center rounded-full border"
         style={{
           opacity: 0,
           willChange: 'transform',
