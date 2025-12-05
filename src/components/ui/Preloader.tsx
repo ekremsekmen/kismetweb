@@ -48,7 +48,7 @@ export default function Preloader() {
   return (
     <div
       ref={containerRef}
-      className="bg-background fixed inset-0 z-[1000] flex flex-col items-center justify-center transition-opacity duration-300"
+      className="bg-background fixed inset-0 z-1000 flex flex-col items-center justify-center transition-opacity duration-300"
     >
       {/* Subtle gradient background */}
       <div className="from-background via-secondary to-background absolute inset-0 bg-linear-to-br" />
