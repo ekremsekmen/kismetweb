@@ -22,9 +22,20 @@ vi.mock('next/navigation', () => ({
 
 // Mock Next.js Image component
 vi.mock('next/image', () => ({
-  default: ({ src, alt, ...props }: { src: string; alt: string; [key: string]: unknown }) => {
+  default: ({
+    src,
+    alt,
+    width,
+    height,
+  }: {
+    src: string
+    alt: string
+    width?: number
+    height?: number
+    [key: string]: unknown
+  }) => {
     // eslint-disable-next-line @next/next/no-img-element
-    return <img src={src} alt={alt} {...props} />
+    return <img src={src} alt={alt} width={width} height={height} />
   },
 }))
 
@@ -34,13 +45,12 @@ vi.mock('lenis/react', () => ({
 }))
 
 // Mock IntersectionObserver
-const mockIntersectionObserver = vi.fn()
-mockIntersectionObserver.mockReturnValue({
-  observe: () => null,
-  unobserve: () => null,
-  disconnect: () => null,
-})
-window.IntersectionObserver = mockIntersectionObserver
+class MockIntersectionObserver {
+  observe = vi.fn()
+  unobserve = vi.fn()
+  disconnect = vi.fn()
+}
+window.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver
 
 // Mock ResizeObserver
 window.ResizeObserver = vi.fn().mockImplementation(() => ({

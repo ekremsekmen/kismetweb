@@ -48,11 +48,13 @@
 
   /* ==========================================
      ACCENT COLORS - Copper/Bronze Brand Distinction
+     Lüks metalik bakır - daha canlı ve parlak tonlar
      ========================================== */
-  --accent-copper: oklch(0.65 0.12 55);
-  --accent-copper-light: oklch(0.78 0.08 55);
-  --accent-copper-dark: oklch(0.5 0.14 55);
-  --accent-copper-glow: oklch(0.65 0.12 55 / 40%);
+  --accent-copper: oklch(0.68 0.145 50);
+  --accent-copper-light: oklch(0.82 0.11 48);
+  --accent-copper-dark: oklch(0.52 0.16 52);
+  --accent-copper-glow: oklch(0.68 0.145 50 / 45%);
+  --accent-copper-shadow: 0 8px 32px oklch(0.68 0.145 50 / 35%);
 
   /* Animations */
   --animate-marquee: marquee 40s linear infinite;
@@ -204,6 +206,11 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  
+  /* Copper accent colors for Tailwind utilities */
+  --color-accent-copper: var(--accent-copper);
+  --color-accent-copper-light: var(--accent-copper-light);
+  --color-accent-copper-dark: var(--accent-copper-dark);
 }
 
 /* Default is dark theme for Kismet */
@@ -494,6 +501,15 @@ textarea:focus-visible {
   box-shadow: 0 0 20px var(--accent-copper-glow);
 }
 
+/* Copper Shadow for buttons/cards */
+.shadow-copper {
+  box-shadow: var(--accent-copper-shadow);
+}
+
+.hover\:shadow-copper:hover {
+  box-shadow: var(--accent-copper-shadow);
+}
+
 /* Copper Gradient */
 .text-gradient-copper {
   background: linear-gradient(
@@ -657,6 +673,25 @@ textarea:focus-visible {
   }
 }
 
+/* Tailwind-compatible keyframes for ping and bounce */
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
 @keyframes glow-pulse {
   0%,
   100% {
@@ -705,6 +740,14 @@ textarea:focus-visible {
 
 .animate-bounce-subtle {
   animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
 }
 
 .animate-glow-pulse {

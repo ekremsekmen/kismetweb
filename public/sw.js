@@ -1,10 +1,12 @@
 // Service Worker for Öz Kısmet Çelik Kapı PWA
-// Version: 1.0.0
+// Version: 1.1.0
 
-const CACHE_NAME = 'kismet-v1'
-const STATIC_CACHE = 'kismet-static-v1'
-const DYNAMIC_CACHE = 'kismet-dynamic-v1'
-const IMAGE_CACHE = 'kismet-images-v1'
+// Bump the cache version whenever static assets (like door-anatomy.png) change
+const CACHE_VERSION = 'v2'
+const CACHE_PREFIX = 'kismet-'
+const STATIC_CACHE = `${CACHE_PREFIX}static-${CACHE_VERSION}`
+const DYNAMIC_CACHE = `${CACHE_PREFIX}dynamic-${CACHE_VERSION}`
+const IMAGE_CACHE = `${CACHE_PREFIX}images-${CACHE_VERSION}`
 
 // Assets to cache immediately on install
 const STATIC_ASSETS = ['/', '/manifest.json', '/offline']
@@ -74,16 +76,18 @@ self.addEventListener('install', event => {
 
 // Activate event - clean up old caches
 self.addEventListener('activate', event => {
+  const allowedCaches = new Set([STATIC_CACHE, DYNAMIC_CACHE, IMAGE_CACHE])
+
   event.waitUntil(
     caches
       .keys()
-      .then(cacheNames => {
-        return Promise.all(
+      .then(cacheNames =>
+        Promise.all(
           cacheNames
-            .filter(name => name.startsWith('kismet-') && name !== CACHE_NAME)
+            .filter(name => name.startsWith(CACHE_PREFIX) && !allowedCaches.has(name))
             .map(name => caches.delete(name))
         )
-      })
+      )
       .then(() => self.clients.claim())
   )
 })
