@@ -29,22 +29,22 @@ export default function DealersPage() {
   return (
     <PageLayout>
       {/* Hero Section */}
-      <section className="relative flex min-h-[50vh] items-center justify-center pt-24 pb-16">
+      <section className="relative flex min-h-[40vh] items-center justify-center pt-20 pb-10 sm:min-h-[50vh] sm:pt-24 sm:pb-16">
         <div className="from-background via-background/90 to-background absolute inset-0 bg-gradient-to-b" />
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6 text-center sm:px-10 lg:px-20">
-          <Avatar className="bg-primary/10 border-primary/30 mx-auto mb-6 h-20 w-20 border">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-10 xl:px-20">
+          <Avatar className="bg-primary/10 border-primary/30 mx-auto mb-4 h-16 w-16 border sm:mb-6 sm:h-20 sm:w-20">
             <AvatarFallback className="bg-transparent">
-              <MapPin className="text-primary h-10 w-10" />
+              <MapPin className="text-primary h-8 w-8 sm:h-10 sm:w-10" />
             </AvatarFallback>
           </Avatar>
-          <Badge variant="outline" className="text-primary border-primary/30 mb-4 tracking-[0.3em]">
+          <Badge variant="outline" className="text-primary border-primary/30 mb-3 text-[10px] tracking-[0.2em] sm:mb-4 sm:text-xs sm:tracking-[0.3em]">
             NATIONWIDE
           </Badge>
-          <h1 className="text-foreground font-syne mb-6 text-5xl font-extrabold tracking-tighter uppercase sm:text-7xl md:text-8xl">
+          <h1 className="text-foreground font-syne mb-4 text-3xl font-extrabold tracking-tighter uppercase sm:mb-6 sm:text-5xl md:text-7xl lg:text-8xl">
             BAYİLERİMİZ
           </h1>
-          <p className="text-muted-foreground font-display mx-auto max-w-3xl text-lg leading-relaxed sm:text-xl">
+          <p className="text-muted-foreground font-display mx-auto max-w-3xl text-sm leading-relaxed sm:text-lg md:text-xl">
             Türkiye&apos;nin dört bir yanında, size en yakın bayimizden Öz Kısmet kalitesine
             ulaşabilirsiniz
           </p>
@@ -79,14 +79,14 @@ export default function DealersPage() {
             description="Size en yakın bayimizle iletişime geçin"
           />
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
             {dealers.map(dealer => (
               <Card
                 key={dealer.id}
                 className="glass-panel border-border/50 group hover:border-primary/30 overflow-hidden transition-all duration-300"
               >
                 {/* Dealer Image */}
-                <div className="relative h-48 overflow-hidden">
+                <div className="relative h-40 overflow-hidden sm:h-48">
                   {dealer.image ? (
                     <Image
                       src={dealer.image}
@@ -134,7 +134,7 @@ export default function DealersPage() {
                 </div>
 
                 {/* Dealer Info */}
-                <CardContent className="space-y-4 p-6">
+                <CardContent className="space-y-3 p-4 sm:space-y-4 sm:p-6">
                   {/* Owner */}
                   <div className="bg-muted/30 flex items-center gap-3 rounded-lg p-3">
                     <Avatar className="bg-primary/10 border-primary/30 h-10 w-10 flex-shrink-0 border">
@@ -226,28 +226,28 @@ export default function DealersPage() {
       {/* Become a Dealer CTA */}
       <Section size="lg" border="top">
         <Container size="md" className="text-center">
-          <Avatar className="bg-primary/10 border-primary/30 mx-auto mb-6 h-16 w-16 border">
+          <Avatar className="bg-primary/10 border-primary/30 mx-auto mb-4 h-12 w-12 border sm:mb-6 sm:h-16 sm:w-16">
             <AvatarFallback className="bg-transparent">
-              <Briefcase className="text-primary h-8 w-8" />
+              <Briefcase className="text-primary h-6 w-6 sm:h-8 sm:w-8" />
             </AvatarFallback>
           </Avatar>
 
-          <h2 className="text-foreground font-syne mb-6 text-4xl font-bold tracking-tight sm:text-5xl">
+          <h2 className="text-foreground font-syne mb-4 text-2xl font-bold tracking-tight sm:mb-6 sm:text-4xl lg:text-5xl">
             BAYİ OLMAK <span className="text-primary">İSTER MİSİNİZ?</span>
           </h2>
-          <p className="text-muted-foreground font-display mx-auto mb-10 max-w-2xl text-lg">
+          <p className="text-muted-foreground font-display mx-auto mb-8 max-w-2xl text-sm sm:mb-10 sm:text-lg">
             Öz Kısmet Çelik Kapı bayilik ağına katılarak güçlü bir marka ile çalışmanın
             avantajlarından yararlanın. Kazançlı bir iş fırsatı için hemen başvurun!
           </p>
 
-          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+          <div className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
             <Button
               asChild
               size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2 px-8 py-6 text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)]"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2 px-6 py-5 text-base transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)] sm:px-8 sm:py-6 sm:text-lg"
             >
               <a href="/contact">
-                <FileText className="h-5 w-5" />
+                <FileText className="h-4 w-4 sm:h-5 sm:w-5" />
                 Bayilik Başvurusu
               </a>
             </Button>
@@ -255,10 +255,10 @@ export default function DealersPage() {
               asChild
               variant="outline"
               size="lg"
-              className="border-border/50 text-foreground hover:border-primary hover:text-primary gap-2 px-8 py-6 text-lg transition-all duration-300"
+              className="border-border/50 text-foreground hover:border-primary hover:text-primary gap-2 px-6 py-5 text-base transition-all duration-300 sm:px-8 sm:py-6 sm:text-lg"
             >
               <a href="tel:+902125550123">
-                <Phone className="h-5 w-5" />
+                <Phone className="h-4 w-4 sm:h-5 sm:w-5" />
                 Bilgi Al
               </a>
             </Button>

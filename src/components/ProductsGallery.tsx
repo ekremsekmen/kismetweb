@@ -68,43 +68,43 @@ export default function ProductsGallery() {
       />
 
       {/* Hero Section */}
-      <section className="relative flex min-h-[40vh] items-center justify-center pt-24 pb-16">
+      <section className="relative flex min-h-[35vh] items-center justify-center pt-20 pb-10 sm:min-h-[40vh] sm:pt-24 sm:pb-16">
         <div className="from-background via-background/90 to-background absolute inset-0 bg-linear-to-b" />
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6 text-center sm:px-10 lg:px-20">
-          <Badge variant="outline" className="text-primary border-primary/30 mb-4 tracking-[0.3em]">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-10 xl:px-20">
+          <Badge variant="outline" className="text-primary border-primary/30 mb-3 text-[10px] tracking-[0.2em] sm:mb-4 sm:text-xs sm:tracking-[0.3em]">
             OUR COLLECTION
           </Badge>
-          <h1 className="text-foreground font-syne mb-6 text-5xl font-extrabold tracking-tighter uppercase sm:text-7xl md:text-8xl">
+          <h1 className="text-foreground font-syne mb-4 text-3xl font-extrabold tracking-tighter uppercase sm:mb-6 sm:text-5xl md:text-7xl lg:text-8xl">
             MODELLERİMİZ
           </h1>
-          <p className="text-muted-foreground font-display mx-auto max-w-3xl text-lg leading-relaxed sm:text-xl">
+          <p className="text-muted-foreground font-display mx-auto max-w-3xl text-sm leading-relaxed sm:text-lg md:text-xl">
             Her ihtiyaca uygun, yüksek kaliteli çelik kapı modellerimizi keşfedin
           </p>
         </div>
       </section>
 
       {/* Main Content */}
-      <section className="relative z-10 py-16">
-        <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-20">
+      <section className="relative z-10 py-10 sm:py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 xl:px-20">
           {/* Filter Buttons */}
-          <div className="mb-12">
-            <div className="mb-8 flex flex-wrap justify-center gap-3">
+          <div className="mb-8 sm:mb-12">
+            <div className="mb-6 flex flex-wrap justify-center gap-2 sm:mb-8 sm:gap-3">
               {categories.map(category => (
                 <Button
                   key={category.id}
                   variant={activeCategory === category.id ? 'default' : 'outline'}
                   onClick={() => handleCategoryChange(category.id as CategoryType)}
-                  className={`font-display gap-2 px-6 py-3 text-sm font-semibold transition-all duration-300 ${
+                  className={`font-display gap-1.5 px-3 py-2 text-xs font-semibold transition-all duration-300 sm:gap-2 sm:px-6 sm:py-3 sm:text-sm ${
                     activeCategory === category.id
                       ? 'bg-primary text-primary-foreground shadow-[0_0_20px_rgba(168,181,196,0.3)]'
                       : 'glass-panel border-border/50 text-foreground hover:border-primary/50 hover:text-primary'
                   }`}
                 >
-                  <span className="text-lg">{category.icon}</span>
+                  <span className="text-sm sm:text-lg">{category.icon}</span>
                   <span>{category.name}</span>
                   {activeCategory === category.id && (
-                    <Badge variant="secondary" className="bg-background/20 px-2 py-0.5 text-xs">
+                    <Badge variant="secondary" className="bg-background/20 hidden px-2 py-0.5 text-xs sm:inline-flex">
                       {category.id === 'all' ? allProducts.length : filteredProducts.length}
                     </Badge>
                   )}
@@ -114,7 +114,7 @@ export default function ProductsGallery() {
 
             {/* Results Count */}
             <div className="text-center">
-              <p className="text-muted-foreground font-display">
+              <p className="text-muted-foreground font-display text-sm">
                 <span className="text-primary font-bold">{filteredProducts.length}</span> ürün
                 gösteriliyor
               </p>
@@ -123,7 +123,7 @@ export default function ProductsGallery() {
 
           {/* Products Grid */}
           <div
-            className={`grid grid-cols-1 gap-6 transition-opacity duration-300 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ${
+            className={`grid grid-cols-1 gap-4 transition-opacity duration-300 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4 ${
               isAnimating ? 'opacity-0' : 'opacity-100'
             }`}
           >
@@ -139,7 +139,7 @@ export default function ProductsGallery() {
                 }}
               >
                 {/* Product Image */}
-                <div className="relative h-80 overflow-hidden">
+                <div className="relative h-60 overflow-hidden sm:h-80">
                   <Image
                     src={product.image}
                     alt={product.name}
@@ -231,19 +231,19 @@ export default function ProductsGallery() {
       </section>
 
       {/* CTA Section */}
-      <section className="border-border relative z-10 border-t py-20">
-        <div className="mx-auto max-w-4xl px-6 text-center sm:px-10 lg:px-20">
-          <h2 className="text-foreground font-syne mb-6 text-4xl font-bold tracking-tight sm:text-5xl">
+      <section className="border-border relative z-10 border-t py-12 sm:py-20">
+        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-10 xl:px-20">
+          <h2 className="text-foreground font-syne mb-4 text-2xl font-bold tracking-tight sm:mb-6 sm:text-4xl lg:text-5xl">
             ARADIĞINIZI <span className="text-primary">BULAMADINIZ MI?</span>
           </h2>
-          <p className="text-muted-foreground font-display mx-auto mb-10 max-w-2xl text-lg">
+          <p className="text-muted-foreground font-display mx-auto mb-8 max-w-2xl text-sm sm:mb-10 sm:text-lg">
             Size özel tasarım yapabiliriz. Uzman ekibimiz ihtiyaçlarınıza göre çözüm üretir.
           </p>
-          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+          <div className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
             <Button
               asChild
               size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-6 text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)]"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-5 text-base transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)] sm:px-8 sm:py-6 sm:text-lg"
             >
               <Link href="/contact">Teklif Alın</Link>
             </Button>
@@ -251,10 +251,10 @@ export default function ProductsGallery() {
               asChild
               variant="outline"
               size="lg"
-              className="border-border/50 text-foreground hover:border-primary hover:text-primary px-8 py-6 text-lg transition-all duration-300"
+              className="border-border/50 text-foreground hover:border-primary hover:text-primary px-6 py-5 text-base transition-all duration-300 sm:px-8 sm:py-6 sm:text-lg"
             >
               <a href="tel:+902125550123" className="gap-2">
-                <Phone className="h-5 w-5" />
+                <Phone className="h-4 w-4 sm:h-5 sm:w-5" />
                 <span>Hemen Ara</span>
               </a>
             </Button>

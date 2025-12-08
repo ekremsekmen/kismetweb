@@ -12,12 +12,43 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 import { cn } from '@/lib/utils'
 import { LOGO_BLUR } from '@/lib/image-placeholders'
 import { ChevronDown, Menu, ArrowRight } from 'lucide-react'
 import { productCategories, navLinks } from '@/data/navigation'
+
+// Apple-style smooth animation curve
+const appleEase = 'cubic-bezier(0.16, 1, 0.3, 1)'
+
+// NavLink with underline animation
+const NavLink = memo(function NavLink({
+  href,
+  children,
+  className,
+}: {
+  href: string
+  children: React.ReactNode
+  className?: string
+}) {
+  return (
+    <Link
+      href={href}
+      className={cn(
+        'group relative px-4 py-2 text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:text-foreground',
+        className
+      )}
+      style={{ transition: `all 0.4s ${appleEase}` }}
+    >
+      {children}
+      {/* Underline animation */}
+      <span
+        className="absolute bottom-0 left-1/2 h-[1px] w-0 -translate-x-1/2 bg-gradient-to-r from-transparent via-primary to-transparent transition-all group-hover:w-3/4"
+        style={{ transition: `all 0.4s ${appleEase}` }}
+      />
+    </Link>
+  )
+})
 
 // ListItem for NavigationMenu
 const ListItem = memo(function ListItem({
@@ -67,47 +98,59 @@ export default function Header() {
     <header
       role="banner"
       aria-label="Site üst menüsü"
-      className={cn(
-        'fixed top-0 right-0 left-0 z-50 transition-all duration-300',
-        isScrolled
-          ? 'bg-background/90 py-3 shadow-lg shadow-black/10 backdrop-blur-xl'
-          : 'bg-transparent py-5'
-      )}
+      className="fixed top-0 right-0 left-0 z-50 px-4 pt-4 sm:px-6 sm:pt-5"
     >
-      {/* Bottom border */}
-      <div
+      {/* Floating Navbar Container */}
+      <nav
         className={cn(
-          'bg-border absolute right-0 bottom-0 left-0 h-px transition-opacity duration-300',
-          isScrolled ? 'opacity-100' : 'opacity-0'
+          'mx-auto max-w-6xl rounded-full border transition-all',
+          // Glassmorphism effect
+          'bg-background/5 backdrop-blur-[15px]',
+          // Neon glow border effect
+          'border-amber-500/20 shadow-[0_8px_32px_rgba(0,0,0,0.12),0_0_15px_rgba(245,158,11,0.15),inset_0_0_20px_rgba(245,158,11,0.05)]',
+          // Scroll state - more intense glow
+          isScrolled
+            ? 'bg-background/10 border-amber-500/30 shadow-[0_8px_32px_rgba(0,0,0,0.2),0_0_20px_rgba(245,158,11,0.25),inset_0_0_30px_rgba(245,158,11,0.08)]'
+            : ''
         )}
-      />
-
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+        style={{ transition: `all 0.4s ${appleEase}` }}
+      >
+        <div className="flex items-center justify-between px-4 py-2 sm:px-6 sm:py-3">
           {/* Logo */}
-          <Link href="/" className="group relative">
+          <Link
+            href="/"
+            className="group relative shrink-0"
+            style={{ transition: `all 0.4s ${appleEase}` }}
+          >
             <Image
               src="/logo_kismet.png"
               alt="Öz Kısmet Çelik Kapı"
-              width={140}
-              height={56}
-              className="h-10 w-auto object-contain transition-all duration-300 group-hover:brightness-110 sm:h-12"
+              width={120}
+              height={48}
+              className="h-8 w-auto object-contain transition-all group-hover:brightness-110 sm:h-10"
+              style={{ transition: `all 0.4s ${appleEase}` }}
               placeholder="blur"
               blurDataURL={LOGO_BLUR}
               priority
             />
           </Link>
 
-          {/* Desktop Nav with shadcn NavigationMenu */}
+          {/* Desktop Nav - Center */}
           <NavigationMenu className="hidden lg:flex" aria-label="Ana navigasyon">
-            <NavigationMenuList>
+            <NavigationMenuList className="gap-1">
               {/* Products Dropdown */}
               <NavigationMenuItem>
                 <NavigationMenuTrigger
-                  className="text-foreground hover:bg-accent hover:text-accent-foreground data-[state=open]:bg-accent/50 bg-transparent"
+                  className="group relative bg-transparent px-4 py-2 text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:bg-transparent hover:text-foreground data-[state=open]:bg-transparent data-[state=open]:text-foreground"
                   aria-label="Ürünler menüsünü aç"
+                  style={{ transition: `all 0.4s ${appleEase}` }}
                 >
                   Ürünler
+                  {/* Underline animation */}
+                  <span
+                    className="absolute bottom-0 left-1/2 h-[1px] w-0 -translate-x-1/2 bg-gradient-to-r from-transparent via-primary to-transparent transition-all group-hover:w-3/4 group-data-[state=open]:w-3/4"
+                    style={{ transition: `all 0.4s ${appleEase}` }}
+                  />
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul
@@ -144,23 +187,25 @@ export default function Header() {
               {/* Other Links */}
               {navLinks.map(link => (
                 <NavigationMenuItem key={link.href}>
-                  <NavigationMenuLink
-                    asChild
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      'text-foreground hover:bg-accent hover:text-accent-foreground bg-transparent'
-                    )}
-                  >
-                    <Link href={link.href}>{link.label}</Link>
-                  </NavigationMenuLink>
+                  <NavLink href={link.href}>{link.label}</NavLink>
                 </NavigationMenuItem>
               ))}
             </NavigationMenuList>
           </NavigationMenu>
 
-          {/* Right */}
+          {/* Right - CTA Button */}
           <div className="flex items-center gap-3">
-            <Button asChild className="hidden sm:flex">
+            {/* Magnetic CTA Button */}
+            <Button
+              asChild
+              className={cn(
+                'hidden rounded-full px-6 py-2 text-sm font-medium tracking-wide sm:flex',
+                'bg-primary text-primary-foreground',
+                'hover:scale-105 hover:shadow-[0_0_20px_rgba(168,181,196,0.4)]',
+                'active:scale-100'
+              )}
+              style={{ transition: `all 0.4s ${appleEase}` }}
+            >
               <Link href="/contact" aria-label="Teklif almak için iletişim sayfasına git">
                 Teklif Al
               </Link>
@@ -170,12 +215,13 @@ export default function Header() {
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   size="icon"
-                  className="lg:hidden"
+                  className="lg:hidden rounded-full bg-white/5 backdrop-blur-sm hover:bg-white/10"
                   aria-label="Mobil menüyü aç"
                   aria-expanded={isMobileMenuOpen}
                   aria-controls="mobile-menu"
+                  style={{ transition: `all 0.4s ${appleEase}` }}
                 >
                   <Menu className="h-5 w-5" aria-hidden="true" />
                   <span className="sr-only">Menü</span>
@@ -183,7 +229,7 @@ export default function Header() {
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="bg-background border-border w-full sm:w-[400px]"
+                className="bg-background/95 border-border w-full backdrop-blur-xl sm:w-[400px]"
                 id="mobile-menu"
               >
                 <SheetHeader>
@@ -204,6 +250,7 @@ export default function Header() {
                     href="/products"
                     className="font-syne text-foreground hover:text-primary border-border flex items-center justify-between border-b py-3 text-xl font-bold transition-colors"
                     onClick={closeMobileMenu}
+                    style={{ transition: `all 0.4s ${appleEase}` }}
                   >
                     Ürünler
                     <ChevronDown className="h-5 w-5" aria-hidden="true" />
@@ -214,12 +261,18 @@ export default function Header() {
                       href={link.href}
                       className="font-syne text-foreground hover:text-primary border-border border-b py-3 text-xl font-bold transition-colors"
                       onClick={closeMobileMenu}
+                      style={{ transition: `all 0.4s ${appleEase}` }}
                     >
                       {link.label}
                     </Link>
                   ))}
 
-                  <Button asChild size="lg" className="mt-6 w-full">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="mt-6 w-full rounded-full"
+                    style={{ transition: `all 0.4s ${appleEase}` }}
+                  >
                     <Link href="/contact" onClick={closeMobileMenu}>
                       Teklif Al
                     </Link>
@@ -229,7 +282,7 @@ export default function Header() {
             </Sheet>
           </div>
         </div>
-      </div>
+      </nav>
     </header>
   )
 }

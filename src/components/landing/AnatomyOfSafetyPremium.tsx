@@ -346,42 +346,42 @@ export default function AnatomyOfSafetyPremium() {
       <div className="container-max relative">
         {/* Header - Military style */}
         <div
-          className={`mb-8 text-center transition-all duration-700 ${isInView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+          className={`mb-6 text-center transition-all duration-700 sm:mb-8 ${isInView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
         >
-          <div className="mb-3 inline-flex items-center gap-3">
-            <div className="to-primary h-px w-12 bg-linear-to-r from-transparent" />
-            <span className="text-primary font-mono text-xs tracking-[0.4em] uppercase">
+          <div className="mb-2 inline-flex items-center gap-2 sm:mb-3 sm:gap-3">
+            <div className="to-primary h-px w-8 bg-linear-to-r from-transparent sm:w-12" />
+            <span className="text-primary font-mono text-[10px] tracking-[0.3em] uppercase sm:text-xs sm:tracking-[0.4em]">
               TECHNICAL BREAKDOWN
             </span>
-            <div className="to-primary h-px w-12 bg-linear-to-l from-transparent" />
+            <div className="to-primary h-px w-8 bg-linear-to-l from-transparent sm:w-12" />
           </div>
-          <h2 className="text-foreground font-syne mb-2 text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
+          <h2 className="text-foreground font-syne mb-2 text-xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
             GÜVENLİĞİN <span className="text-gradient">ANATOMİSİ</span>
           </h2>
-          <p className="text-muted-foreground font-display mx-auto max-w-2xl text-xs sm:text-sm">
+          <p className="text-muted-foreground font-display mx-auto max-w-2xl text-[11px] sm:text-sm">
             Her bileşen, maksimum koruma için hassas mühendislikle tasarlandı
           </p>
         </div>
 
         {/* Main content grid */}
-        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12 lg:gap-8">
+        <div className="grid grid-cols-1 items-start gap-4 sm:gap-6 lg:grid-cols-12 lg:gap-8">
           {/* Left panel - Component list with ARIA tablist */}
           <div
             ref={tabListRef}
             role="tablist"
             aria-label="Kapı bileşenleri"
             aria-orientation="vertical"
-            className={`order-2 space-y-2 transition-all delay-200 duration-700 lg:order-1 lg:col-span-4 ${
+            className={`order-2 grid grid-cols-2 gap-2 transition-all delay-200 duration-700 sm:grid-cols-3 lg:order-1 lg:col-span-4 lg:grid-cols-1 lg:space-y-2 ${
               isInView ? 'translate-x-0 opacity-100' : '-translate-x-8 opacity-0'
             }`}
           >
-            {/* Panel header */}
-            <div className="border-border/30 mb-3 flex items-center gap-2 border-b pb-2">
+            {/* Panel header - hidden on mobile */}
+            <div className="col-span-2 mb-2 hidden items-center gap-2 border-b border-border/30 pb-2 sm:col-span-3 sm:flex lg:col-span-1 lg:mb-3">
               <div className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
-              <span className="text-muted-foreground font-mono text-xs tracking-wider uppercase">
+              <span className="text-muted-foreground font-mono text-[10px] tracking-wider uppercase sm:text-xs">
                 Component Selection
               </span>
-              <span className="text-muted-foreground ml-auto font-mono text-xs">← → navigate</span>
+              <span className="text-muted-foreground ml-auto hidden font-mono text-xs lg:inline">← → navigate</span>
             </div>
 
             {components.map((component, index) => (
@@ -536,11 +536,11 @@ export default function AnatomyOfSafetyPremium() {
 
         {/* Bottom stats bar */}
         <div
-          className={`border-border/20 mt-8 border-t pt-6 transition-all delay-500 duration-700 ${
+          className={`border-border/20 mt-6 border-t pt-4 transition-all delay-500 duration-700 sm:mt-8 sm:pt-6 ${
             isInView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
           }`}
         >
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
             {[
               { label: 'Çelik Kalınlığı', value: '2.2mm', icon: '◆' },
               { label: 'Kilit Noktası', value: '12', icon: '◆' },
@@ -548,11 +548,11 @@ export default function AnatomyOfSafetyPremium() {
               { label: 'Isı Yalıtımı', value: 'A+', icon: '◆' },
             ].map((stat, i) => (
               <div key={i} className="text-center">
-                <span className="text-primary text-xs">{stat.icon}</span>
-                <p className="text-foreground font-syne mt-1 text-xl font-bold sm:text-2xl">
+                <span className="text-primary text-[10px] sm:text-xs">{stat.icon}</span>
+                <p className="text-foreground font-syne mt-0.5 text-lg font-bold sm:mt-1 sm:text-xl md:text-2xl">
                   {stat.value}
                 </p>
-                <p className="text-muted-foreground font-display text-[10px] tracking-wider uppercase">
+                <p className="text-muted-foreground font-display text-[9px] tracking-wider uppercase sm:text-[10px]">
                   {stat.label}
                 </p>
               </div>

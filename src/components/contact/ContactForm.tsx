@@ -159,8 +159,8 @@ export default function ContactForm() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6" noValidate>
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="name">Ad Soyad *</Label>
               <Input
@@ -196,7 +196,7 @@ export default function ContactForm() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="email">E-posta *</Label>
               <Input

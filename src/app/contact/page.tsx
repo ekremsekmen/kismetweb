@@ -68,10 +68,10 @@ export default function ContactPage() {
       {/* Main Content */}
       <Section size="lg">
         <Container>
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12">
             {/* Contact Info Sidebar */}
-            <div className="lg:col-span-1">
-              <Card className="glass-panel border-border sticky top-32">
+            <div className="order-2 lg:order-1 lg:col-span-1">
+              <Card className="glass-panel border-border lg:sticky lg:top-32">
                 <CardHeader>
                   <CardTitle className="font-syne text-2xl">
                     İletişim <span className="text-primary">Bilgileri</span>
@@ -119,7 +119,7 @@ export default function ContactPage() {
             </div>
 
             {/* Contact Form - Lazy loaded */}
-            <div className="lg:col-span-2">
+            <div className="order-1 lg:order-2 lg:col-span-2">
               <Suspense
                 fallback={
                   <Card className="glass-panel border-border animate-pulse">

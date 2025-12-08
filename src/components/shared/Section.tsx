@@ -19,10 +19,10 @@ export default function Section({
   border = 'none',
 }: SectionProps) {
   const sizeClasses = {
-    sm: 'py-12 lg:py-16',
-    md: 'py-16 lg:py-24',
-    lg: 'py-20 lg:py-32',
-    xl: 'py-24 lg:py-40',
+    sm: 'py-8 sm:py-12 lg:py-16',
+    md: 'py-10 sm:py-16 lg:py-24',
+    lg: 'py-12 sm:py-20 lg:py-32',
+    xl: 'py-16 sm:py-24 lg:py-40',
   }
 
   const borderClasses = {

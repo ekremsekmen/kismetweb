@@ -92,9 +92,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
       />
 
       {/* Breadcrumb */}
-      <section className="relative z-10 pt-24 pb-4">
-        <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-20">
-          <nav className="text-steel/60 font-display flex items-center gap-2 text-sm">
+      <section className="relative z-10 pt-20 pb-2 sm:pt-24 sm:pb-4">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 xl:px-20">
+          <nav className="text-steel/60 font-display flex flex-wrap items-center gap-1 text-xs sm:gap-2 sm:text-sm">
             <Link href="/" className="hover:text-primary transition-colors">
               Ana Sayfa
             </Link>
@@ -109,9 +109,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
       </section>
 
       {/* Product Hero */}
-      <section className="relative z-10 py-12">
-        <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-20">
-          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+      <section className="relative z-10 py-8 sm:py-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 xl:px-20">
+          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
             {/* Product Image */}
             <div className="relative">
               <div className="glass-panel relative overflow-hidden rounded-2xl p-8">
@@ -139,30 +139,30 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
             {/* Product Info */}
             <div>
-              <p className="text-primary font-display mb-4 text-sm font-medium tracking-[0.3em] uppercase">
+              <p className="text-primary font-display mb-2 text-[10px] font-medium tracking-[0.2em] uppercase sm:mb-4 sm:text-sm sm:tracking-[0.3em]">
                 {categoryNames[product.category]} SERİSİ
               </p>
-              <h1 className="text-steel font-syne mb-6 text-5xl font-extrabold tracking-tighter uppercase sm:text-6xl md:text-7xl">
+              <h1 className="text-steel font-syne mb-4 text-3xl font-extrabold tracking-tighter uppercase sm:mb-6 sm:text-5xl md:text-6xl lg:text-7xl">
                 {product.name}
               </h1>
-              <p className="text-steel/70 font-display mb-8 text-lg leading-relaxed">
+              <p className="text-steel/70 font-display mb-6 text-sm leading-relaxed sm:mb-8 sm:text-lg">
                 {product.fullDescription}
               </p>
 
               {/* Price */}
-              <div className="mb-8 flex items-center gap-4">
-                <span className="text-primary font-syne text-4xl font-bold">
+              <div className="mb-6 flex items-center gap-3 sm:mb-8 sm:gap-4">
+                <span className="text-primary font-syne text-2xl font-bold sm:text-4xl">
                   {formatPrice(product.price)}
                 </span>
-                <span className="text-steel/50 font-display text-sm">Başlangıç fiyatı</span>
+                <span className="text-steel/50 font-display text-xs sm:text-sm">Başlangıç fiyatı</span>
               </div>
 
               {/* Features */}
-              <div className="mb-8 grid grid-cols-2 gap-3">
+              <div className="mb-6 grid grid-cols-2 gap-2 sm:mb-8 sm:gap-3">
                 {product.features.map((feature, index) => (
                   <div key={index} className="text-steel/80 font-display flex items-center gap-2">
                     <svg
-                      className="text-primary h-5 w-5 shrink-0"
+                      className="text-primary h-4 w-4 shrink-0 sm:h-5 sm:w-5"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -172,22 +172,22 @@ export default async function ProductDetailPage({ params }: PageProps) {
                         clipRule="evenodd"
                       />
                     </svg>
-                    <span className="text-sm">{feature}</span>
+                    <span className="text-xs sm:text-sm">{feature}</span>
                   </div>
                 ))}
               </div>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col gap-4 sm:flex-row">
+              <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
                 <Link
                   href="/contact"
-                  className="bg-primary text-background-dark font-display flex items-center justify-center gap-2 rounded-lg px-8 py-4 text-lg font-bold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)]"
+                  className="bg-primary text-background-dark font-display flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-base font-bold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)] sm:px-8 sm:py-4 sm:text-lg"
                 >
                   Teklif Al
                 </Link>
                 <a
                   href="tel:+902125550123"
-                  className="text-steel hover:border-primary hover:text-primary font-display flex items-center justify-center gap-2 rounded-lg border border-white/20 px-8 py-4 text-lg font-bold transition-all duration-300"
+                  className="text-steel hover:border-primary hover:text-primary font-display flex items-center justify-center gap-2 rounded-lg border border-white/20 px-6 py-3 text-base font-bold transition-all duration-300 sm:px-8 sm:py-4 sm:text-lg"
                 >
                   <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
@@ -206,18 +206,18 @@ export default async function ProductDetailPage({ params }: PageProps) {
       </section>
 
       {/* Technical Specifications */}
-      <section className="relative z-10 border-t border-white/10 py-16">
-        <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-20">
-          <div className="mb-12 text-center">
-            <p className="text-primary font-display mb-4 text-sm font-medium tracking-[0.3em] uppercase">
+      <section className="relative z-10 border-t border-white/10 py-10 sm:py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 xl:px-20">
+          <div className="mb-8 text-center sm:mb-12">
+            <p className="text-primary font-display mb-2 text-[10px] font-medium tracking-[0.2em] uppercase sm:mb-4 sm:text-sm sm:tracking-[0.3em]">
               SPECIFICATIONS
             </p>
-            <h2 className="text-steel font-syne text-4xl font-bold tracking-tight sm:text-5xl">
+            <h2 className="text-steel font-syne text-2xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
               TEKNİK ÖZELLİKLER
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-6">
             {[
               { key: 'thickness', label: 'Kalınlık', value: `${product.specs.thickness}mm` },
               { key: 'width', label: 'Genişlik', value: `${product.specs.width}cm` },
@@ -228,12 +228,12 @@ export default async function ProductDetailPage({ params }: PageProps) {
             ].map(({ key, label, value }) => (
               <div
                 key={key}
-                className="glass-panel group hover:border-primary/50 rounded-xl p-4 text-center transition-all"
+                className="glass-panel group hover:border-primary/50 rounded-lg p-3 text-center transition-all sm:rounded-xl sm:p-4"
               >
-                <p className="text-primary font-syne mb-1 text-2xl font-bold transition-transform group-hover:scale-110">
+                <p className="text-primary font-syne mb-0.5 text-lg font-bold transition-transform group-hover:scale-110 sm:mb-1 sm:text-2xl">
                   {value}
                 </p>
-                <p className="text-steel/60 font-display text-xs tracking-wider uppercase">
+                <p className="text-steel/60 font-display text-[9px] tracking-wider uppercase sm:text-xs">
                   {label}
                 </p>
               </div>
@@ -244,18 +244,18 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
       {/* Related Products */}
       {relatedProducts.length > 0 && (
-        <section className="relative z-10 border-t border-white/10 py-20">
-          <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-20">
-            <div className="mb-12 text-center">
-              <p className="text-primary font-display mb-4 text-sm font-medium tracking-[0.3em] uppercase">
+        <section className="relative z-10 border-t border-white/10 py-12 sm:py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 xl:px-20">
+            <div className="mb-8 text-center sm:mb-12">
+              <p className="text-primary font-display mb-2 text-[10px] font-medium tracking-[0.2em] uppercase sm:mb-4 sm:text-sm sm:tracking-[0.3em]">
                 SIMILAR PRODUCTS
               </p>
-              <h2 className="text-steel font-syne text-4xl font-bold tracking-tight sm:text-5xl">
+              <h2 className="text-steel font-syne text-2xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
                 BENZER ÜRÜNLER
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:gap-8">
               {relatedProducts.map(related => (
                 <Link
                   key={related.id}
@@ -284,25 +284,25 @@ export default async function ProductDetailPage({ params }: PageProps) {
       )}
 
       {/* CTA Section */}
-      <section className="relative z-10 border-t border-white/10 py-20">
-        <div className="mx-auto max-w-4xl px-6 text-center sm:px-10 lg:px-20">
-          <h2 className="text-steel font-syne mb-6 text-4xl font-bold tracking-tight sm:text-5xl">
+      <section className="relative z-10 border-t border-white/10 py-12 sm:py-20">
+        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-10 xl:px-20">
+          <h2 className="text-steel font-syne mb-4 text-2xl font-bold tracking-tight sm:mb-6 sm:text-4xl lg:text-5xl">
             BU KAPI İÇİN <span className="text-primary">TEKLİF ALIN</span>
           </h2>
-          <p className="text-steel/70 font-display mx-auto mb-10 max-w-2xl text-lg">
+          <p className="text-steel/70 font-display mx-auto mb-8 max-w-2xl text-sm sm:mb-10 sm:text-lg">
             {product.name} modeli hakkında detaylı bilgi ve özel fiyat teklifi için uzman ekibimizle
             görüşün.
           </p>
-          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+          <div className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
             <Link
               href="/contact"
-              className="bg-primary text-background-dark font-display flex items-center justify-center gap-2 rounded-lg px-8 py-4 text-lg font-bold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)]"
+              className="bg-primary text-background-dark font-display flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-base font-bold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)] sm:px-8 sm:py-4 sm:text-lg"
             >
               Ücretsiz Keşif
             </Link>
             <a
               href="tel:+902125550123"
-              className="text-steel hover:border-primary hover:text-primary font-display flex items-center justify-center gap-2 rounded-lg border border-white/20 px-8 py-4 text-lg font-bold transition-all duration-300"
+              className="text-steel hover:border-primary hover:text-primary font-display flex items-center justify-center gap-2 rounded-lg border border-white/20 px-6 py-3 text-base font-bold transition-all duration-300 sm:px-8 sm:py-4 sm:text-lg"
             >
               (0212) 555 01 23
             </a>

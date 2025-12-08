@@ -67,19 +67,19 @@ export default function AboutPage() {
 
       {/* Story Section */}
       <Section size="lg">
-        <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-20">
-          <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 xl:px-20">
+          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-16">
             <div>
               <Badge
                 variant="outline"
-                className="text-primary border-primary/30 mb-4 tracking-[0.3em]"
+                className="text-primary border-primary/30 mb-3 text-[10px] tracking-[0.2em] sm:mb-4 sm:text-xs sm:tracking-[0.3em]"
               >
                 OUR STORY
               </Badge>
-              <h2 className="text-foreground font-syne mb-8 text-4xl font-bold tracking-tight sm:text-5xl">
+              <h2 className="text-foreground font-syne mb-6 text-2xl font-bold tracking-tight sm:mb-8 sm:text-4xl lg:text-5xl">
                 HİKAYEMİZ
               </h2>
-              <div className="text-muted-foreground font-display space-y-6 leading-relaxed">
+              <div className="text-muted-foreground font-display space-y-4 text-sm leading-relaxed sm:space-y-6 sm:text-base">
                 <p>
                   1995 yılında İstanbul&apos;da küçük bir atölyede başlayan yolculuğumuz, bugün
                   binlerce mutlu müşteriye hizmet veren güçlü bir firmaya dönüştü. Kurucumuz Ahmet
@@ -158,15 +158,15 @@ export default function AboutPage() {
 
       {/* Timeline Section */}
       <Section size="lg" border="top">
-        <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-20">
-          <div className="mb-16 text-center">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 xl:px-20">
+          <div className="mb-10 text-center sm:mb-16">
             <Badge
               variant="outline"
-              className="text-primary border-primary/30 mb-4 tracking-[0.3em]"
+              className="text-primary border-primary/30 mb-3 text-[10px] tracking-[0.2em] sm:mb-4 sm:text-xs sm:tracking-[0.3em]"
             >
               JOURNEY
             </Badge>
-            <h2 className="text-foreground font-syne text-4xl font-bold tracking-tight sm:text-5xl">
+            <h2 className="text-foreground font-syne text-2xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
               YOLCULUĞUMUZ
             </h2>
           </div>
@@ -211,20 +211,20 @@ export default function AboutPage() {
 
       {/* Values Section */}
       <Section size="lg" border="top">
-        <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-20">
-          <div className="mb-16 text-center">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 xl:px-20">
+          <div className="mb-10 text-center sm:mb-16">
             <Badge
               variant="outline"
-              className="text-primary border-primary/30 mb-4 tracking-[0.3em]"
+              className="text-primary border-primary/30 mb-3 text-[10px] tracking-[0.2em] sm:mb-4 sm:text-xs sm:tracking-[0.3em]"
             >
               OUR VALUES
             </Badge>
-            <h2 className="text-foreground font-syne text-4xl font-bold tracking-tight sm:text-5xl">
+            <h2 className="text-foreground font-syne text-2xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
               DEĞERLERİMİZ
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
             {companyValues.map((value, index) => (
               <Card
                 key={index}
@@ -249,20 +249,20 @@ export default function AboutPage() {
 
       {/* Team Section */}
       <Section size="lg" border="top">
-        <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-20">
-          <div className="mb-16 text-center">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 xl:px-20">
+          <div className="mb-10 text-center sm:mb-16">
             <Badge
               variant="outline"
-              className="text-primary border-primary/30 mb-4 tracking-[0.3em]"
+              className="text-primary border-primary/30 mb-3 text-[10px] tracking-[0.2em] sm:mb-4 sm:text-xs sm:tracking-[0.3em]"
             >
               OUR TEAM
             </Badge>
-            <h2 className="text-foreground font-syne text-4xl font-bold tracking-tight sm:text-5xl">
+            <h2 className="text-foreground font-syne text-2xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
               EKİBİMİZ
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
             {teamMembers.map((member, index) => (
               <Card
                 key={index}
@@ -304,17 +304,17 @@ export default function AboutPage() {
       {/* CTA Section */}
       <Section size="md" border="top">
         <Container size="md" className="text-center">
-          <h2 className="text-foreground font-syne mb-6 text-4xl font-bold tracking-tight sm:text-5xl">
+          <h2 className="text-foreground font-syne mb-4 text-2xl font-bold tracking-tight sm:mb-6 sm:text-4xl lg:text-5xl">
             BİZİMLE <span className="text-primary">ÇALIŞIN</span>
           </h2>
-          <p className="text-muted-foreground font-display mx-auto mb-10 max-w-2xl text-lg">
+          <p className="text-muted-foreground font-display mx-auto mb-8 max-w-2xl text-sm sm:mb-10 sm:text-lg">
             25 yıllık deneyimimiz ve kaliteli hizmet anlayışımız ile projelerinizde yanınızdayız.
           </p>
-          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+          <div className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
             <Button
               asChild
               size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-6 text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)]"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-5 text-base transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,181,196,0.3)] sm:px-8 sm:py-6 sm:text-lg"
             >
               <Link href="/contact">İletişime Geç</Link>
             </Button>
@@ -322,7 +322,7 @@ export default function AboutPage() {
               asChild
               variant="outline"
               size="lg"
-              className="border-border/50 text-foreground hover:border-primary hover:text-primary px-8 py-6 text-lg transition-all duration-300"
+              className="border-border/50 text-foreground hover:border-primary hover:text-primary px-6 py-5 text-base transition-all duration-300 sm:px-8 sm:py-6 sm:text-lg"
             >
               <Link href="/products">Ürünleri İncele</Link>
             </Button>

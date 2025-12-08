@@ -19,7 +19,7 @@ export default function Container({ children, className = '', size = 'lg' }: Con
   }
 
   return (
-    <div className={`${sizeClasses[size]} mx-auto px-6 sm:px-10 lg:px-20 ${className}`}>
+    <div className={`${sizeClasses[size]} mx-auto px-4 sm:px-6 lg:px-10 xl:px-20 ${className}`}>
       {children}
     </div>
   )
